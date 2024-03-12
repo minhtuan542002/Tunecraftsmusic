@@ -24,7 +24,7 @@ class UsersFixture extends TestFixture
                 'password' => 'Lorem ipsum dolor sit amet',
                 'phone' => 'Lorem ipsum d',
                 'nonce' => 'Lorem ipsum dolor sit amet',
-                'nonce_expiry' => '2024-03-12 05:19:53',
+                'nonce_expiry' => '2024-03-12 06:07:34',
                 'first_name' => 'Lorem ipsum dolor sit amet',
                 'last_name' => 'Lorem ipsum dolor sit amet',
                 'role_id' => 1,

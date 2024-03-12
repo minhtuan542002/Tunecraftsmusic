@@ -148,9 +148,13 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'queryParam' => 'redirect',
         ]);
 
+        // $authentication_fields = [
+        //     IdentifierInterface::CREDENTIAL_USERNAME => 'email',
+        //     IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+        // ];
         $authentication_fields = [
-            IdentifierInterface::CREDENTIAL_USERNAME => 'email',
-            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+            'username' => 'email',
+            'password' => 'password'
         ];
 
         // Load identifiers, ensure we check email and password fields

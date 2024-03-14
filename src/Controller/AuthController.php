@@ -45,6 +45,7 @@ class AuthController extends AppController {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+
             if ($this->Users->save($user)) {
                 $this->Flash->success('You have been registered. Please log in. ');
 

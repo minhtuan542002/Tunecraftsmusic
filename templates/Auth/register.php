@@ -13,11 +13,13 @@ $this->assign('title', 'Register new user');
         <?= $this->Form->create($user) ?>
 
         <fieldset>
-            <legend>Register new user</legend>
+            <legend>Register New User</legend>
 
             <?= $this->Flash->render() ?>
 
             <?= $this->Form->control('email'); ?>
+
+            <?= $this->Form->control('phone'); ?>
 
             <div class="row">
                 <?= $this->Form->control('first_name', ['templateVars' => ['container_class' => 'column']]); ?>
@@ -39,8 +41,6 @@ $this->assign('title', 'Register new user');
                 ]);
                 ?>
             </div>
-
-            <?= $this->Form->control('avatar', ['type' => 'file']); ?>
 
         </fieldset>
 

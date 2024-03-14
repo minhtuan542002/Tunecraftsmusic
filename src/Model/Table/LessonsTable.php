@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * Lessons Model
  *
  * @property \App\Model\Table\BookingsTable&\Cake\ORM\Association\BelongsTo $Bookings
- * @property \App\Model\Table\TeacherlessonsTable&\Cake\ORM\Association\BelongsTo $Teacherlessons
  *
  * @method \App\Model\Entity\Lesson newEmptyEntity()
  * @method \App\Model\Entity\Lesson newEntity(array $data, array $options = [])
@@ -47,8 +46,8 @@ class LessonsTable extends Table
         $this->belongsTo('Bookings', [
             'foreignKey' => 'booking_id',
         ]);
-        $this->belongsTo('Teacherlessons', [
-            'foreignKey' => 'teacherlesson_id',
+        $this->belongsTo('Teachers', [
+            'foreignKey' => 'teacher_id',
         ]);
     }
 
@@ -65,8 +64,8 @@ class LessonsTable extends Table
             ->allowEmptyString('booking_id');
 
         $validator
-            ->integer('teacherlesson_id')
-            ->allowEmptyString('teacherlesson_id');
+            ->integer('teacher_id')
+            ->allowEmptyString('teacher_id');
 
         $validator
             ->dateTime('lesson_start_time')
@@ -89,7 +88,7 @@ class LessonsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['booking_id'], 'Bookings'), ['errorField' => 'booking_id']);
-        $rules->add($rules->existsIn(['teacherlesson_id'], 'Teacherlessons'), ['errorField' => 'teacherlesson_id']);
+        $rules->add($rules->existsIn(['teacher_id'], 'Teachers'), ['errorField' => 'teacher_id']);
 
         return $rules;
     }

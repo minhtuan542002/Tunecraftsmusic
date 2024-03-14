@@ -18,7 +18,7 @@ class LessonsController extends AppController
     public function index()
     {
         $query = $this->Lessons->find()
-            ->contain(['Bookings', 'Teacherlessons']);
+            ->contain(['Bookings', 'Teachers']);
         $lessons = $this->paginate($query);
 
         $this->set(compact('lessons'));
@@ -33,7 +33,7 @@ class LessonsController extends AppController
      */
     public function view($id = null)
     {
-        $lesson = $this->Lessons->get($id, contain: ['Bookings', 'Teacherlessons']);
+        $lesson = $this->Lessons->get($id, contain: ['Bookings', 'Teachers']);
         $this->set(compact('lesson'));
     }
 
@@ -55,8 +55,8 @@ class LessonsController extends AppController
             $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
         }
         $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teacherlessons = $this->Lessons->Teacherlessons->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teacherlessons'));
+        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
+        $this->set(compact('lesson', 'bookings', 'teachers'));
     }
 
     /**
@@ -79,8 +79,8 @@ class LessonsController extends AppController
             $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
         }
         $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teacherlessons = $this->Lessons->Teacherlessons->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teacherlessons'));
+        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
+        $this->set(compact('lesson', 'bookings', 'teachers'));
     }
 
     /**

@@ -45,6 +45,8 @@ class AuthController extends AppController {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            // set default role on register to student (role_id = 1)
+            $user->role_id= 1;
 
             if ($this->Users->save($user)) {
                 $this->Flash->success('You have been registered. Please log in. ');

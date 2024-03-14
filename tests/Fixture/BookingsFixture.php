@@ -22,7 +22,7 @@ class BookingsFixture extends TestFixture
                 'booking_id' => 1,
                 'student_id' => 1,
                 'package_id' => 1,
-                'booking_datetime' => '2024-03-12 05:19:52',
+                'booking_datetime' => '2024-03-14 06:39:18',
                 'is_paid' => 1,
             ],
         ];

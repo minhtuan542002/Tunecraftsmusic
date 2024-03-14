@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $lesson_id
  * @property int|null $booking_id
- * @property int|null $teacherlesson_id
+ * @property int|null $teacher_id
  * @property \Cake\I18n\DateTime|null $lesson_start_time
  * @property string|null $note
  *
@@ -30,7 +30,7 @@ class Lesson extends Entity
      */
     protected array $_accessible = [
         'booking_id' => true,
-        'teacherlesson_id' => true,
+        'teacher_id' => true,
         'lesson_start_time' => true,
         'note' => true,
         'booking' => true,

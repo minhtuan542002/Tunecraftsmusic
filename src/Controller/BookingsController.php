@@ -32,10 +32,8 @@ class BookingsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Customers'],
-        ];
-        $bookings = $this->paginate($this->Bookings);
+        $query = $this->Bookings->find();
+        $bookings = $this->paginate($query);
 
         $this->set(compact('bookings'));
     }
@@ -51,15 +49,15 @@ class BookingsController extends AppController
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->id, [
-                'contain' => ['Customers'],
+                'contain' => ['Students'],
             ]);
             if($user->role_id=="C"){
-                //debug($user->customers[0]);
+                //debug($user->Students[0]);
                 $bookings = $this->Bookings->find('all', [
                     'conditions'=> [
-                        'customer_id'=>$user->customers[0]->id,
+                        'customer_id'=>$user->Students[0]->id,
                     ],
-                    'contain' => ['BookingLines'],
+                    'contain' => ['Lessons'],
                 ]);
             }
             else{
@@ -82,15 +80,15 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        $this->BookingLines = $this->getTableLocator()->get('BookingLines');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Customers', 'BookingLines', 'Invoices'],
+            'contain' => ['Students', 'Lessons', 'Invoices'],
         ]);
-        $booking_lines = $this->BookingLines->find('all', [
+        $booking_lines = $this->Lessons->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->id,
             ],
-            'contain' => ['Services'],
+            'contain' => ['Packages'],
         ]);
 
         $this->set(compact('booking', 'booking_lines'));
@@ -105,15 +103,15 @@ class BookingsController extends AppController
      */
     public function viewOne($id = null)
     {
-        $this->BookingLines = $this->getTableLocator()->get('BookingLines');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Customers', 'BookingLines', 'Invoices'],
+            'contain' => ['Students', 'Lessons', 'Invoices'],
         ]);
-        $booking_lines = $this->BookingLines->find('all', [
+        $booking_lines = $this->Lessons->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->id,
             ],
-            'contain' => ['Services'],
+            'contain' => ['Packages'],
         ]);
 
         $this->set(compact('booking', 'booking_lines'));
@@ -126,25 +124,16 @@ class BookingsController extends AppController
      */
     public function add()
     {
-        $this->Services = $this->getTableLocator()->get('Services');
-        $this->BookingLines = $this->getTableLocator()->get('BookingLines');
+        $this->Packages = $this->getTableLocator()->get('Packages');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $this->Users = $this->getTableLocator()->get('Users');
-        $services = $this->paginate($this->Services);
+        $packages = $this->paginate($this->Packages);
         $booking = $this->Bookings->newEmptyEntity();
         //debug($this->Authentication->getResult());
         //if($logged_in===true){ debug($this->Auth->user('id'));}
         //debug($this->request->getSession()->read('booking.session_id'));
         $user=null;
         if(!isset($stage))$stage = 0;
-
-        /** 
-        if($id!=null){
-            $booking = $this->Bookings->get($id, [
-                'contain' => ['BookingLines'],
-            ]);
-            $stage = 2;
-        }
-        */
 
         //After logging in redirect
         if($this->request->getSession()->read('booking.in_progress')=='true'){
@@ -154,14 +143,14 @@ class BookingsController extends AppController
                     'session_id' => $this->request->getSession()->read('booking.session_id'),
                     'customer_id IS NULL',
                 ],
-                'contain' => ['BookingLines'],
+                'contain' => ['Lessons'],
             ])->first();
             if($this->viewBuilder()->getVar('loggedIn')){
                 $user = $this->Authentication->getIdentity();
                 $user = $this->Users->get($user->id, [
-                    'contain' => ['Customers'],
+                    'contain' => ['Students'],
                 ]);
-                //$booking->customer_id=$user->customers[0]->id;
+                //$booking->customer_id=$user->Students[0]->id;
             }
             //debug($booking);
         }
@@ -170,9 +159,9 @@ class BookingsController extends AppController
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->id, [
-                'contain' => ['Customers'],
+                'contain' => ['Students'],
             ]);
-            //$booking->customer_id=$user->customers[0]->id;
+            //$booking->customer_id=$user->Students[0]->id;
         }
         //debug($booking);
         //debug($_SERVER['REQUEST_METHOD'] == 'POST');
@@ -188,9 +177,9 @@ class BookingsController extends AppController
             if($this->viewBuilder()->getVar('loggedIn')){      
                 $user = $this->Authentication->getIdentity();
                 $user = $this->Users->get($user->id, [
-                    'contain' => ['Customers'],
+                    'contain' => ['Students'],
                 ]);
-                $booking->customer_id = $user->customers[0]->id;
+                $booking->customer_id = $user->Students[0]->id;
                 //debug($booking);
 
                 $stage=0;
@@ -201,13 +190,13 @@ class BookingsController extends AppController
                 $session = $this->request->getSession();
                 $booking->session_id = $this->request->getSession()->id(); 
             }
-            $booking->service_completed=false;
+            $booking->Package_completed=false;
             $booking->additional_notes="None";
                            
             $totalTime = 0;
             foreach($booking->booking_lines as $key=>$value) {
                 if($value->no_of_unit >0){
-                    $totalTime = $totalTime + $this->Services->get($key +1)->duration_minute;
+                    $totalTime = $totalTime + $this->Packages->get($key +1)->duration_minute;
                 }
             }
             $booking->end_datetime= $booking->start_datetime->modify('+'.$totalTime.' minutes');
@@ -219,16 +208,16 @@ class BookingsController extends AppController
 
             foreach($booking->booking_lines as $key=>$value) {
                 if($value->no_of_unit >0){
-                    $new_booking_line = $this->BookingLines->newEmptyEntity();
-                    $new_booking_line->service_id = $key +1;
+                    $new_booking_line = $this->Lessons->newEmptyEntity();
+                    $new_booking_line->Package_id = $key +1;
                     $new_booking_line->booking_id = $booking->id;
                     $new_booking_line->no_of_unit = $value->no_of_unit;
-                    $this->BookingLines->save($new_booking_line);
+                    $this->Lessons->save($new_booking_line);
                     //debug($new_booking_line);
                 }
             }
             $booking = $this->Bookings->get($booking->id, [
-                'contain' => ['BookingLines'],
+                'contain' => ['Lessons'],
             ]);
 
             if($booking->customer_id==null){
@@ -243,12 +232,12 @@ class BookingsController extends AppController
                 $this->request->getSession()->delete('booking.session_id');
                 return $this->redirect(['action' => 'all']);
             }
-            //$this->set(compact('booking', 'user', 'services', 'stage'));
+            //$this->set(compact('booking', 'user', 'Packages', 'stage'));
             //return $this->redirect(['action' => 'add']);
             //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
         }
-        //$customers = $this->Bookings->Customers->find('list', ['limit' => 200])->all();
-        $this->set(compact('booking', 'user', 'services', 'stage'));
+        //$Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
+        $this->set(compact('booking', 'user', 'Packages', 'stage'));
     }
 
     /**
@@ -272,8 +261,8 @@ class BookingsController extends AppController
             }
             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
         }
-        $customers = $this->Bookings->Customers->find('list', ['limit' => 200])->all();
-        $this->set(compact('booking', 'customers'));
+        $Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
+        $this->set(compact('booking', 'Students'));
     }
 
     /**
@@ -285,14 +274,14 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->BookingLines = $this->getTableLocator()->get('BookingLines');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
-            'contain' => ['BookingLines'],
+            'contain' => ['Lessons'],
         ]);
         foreach($booking->booking_lines as $key=>$value) {
             //debug()
-            $this->BookingLines->delete($value);
+            $this->Lessons->delete($value);
         }
         if ($this->Bookings->delete($booking)) {
             $this->Flash->success(__('The booking has been deleted.'));

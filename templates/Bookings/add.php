@@ -19,7 +19,7 @@ $this->layout = 'main_page';
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
                         <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                        <p>Choose your services</p>
+                        <p>Choose your Packages</p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
@@ -41,7 +41,7 @@ $this->layout = 'main_page';
                 
                 <?php
                     //echo $this->Form->control('customer_id', ['options' => $customers]);
-                    //echo $this->Form->control('booking_line.service_id', ['options' => $services]);
+                    //echo $this->Form->control('booking_line.service_id', ['options' => $packages]);
                     //echo $this->Form->control('service_completed');
                 ?>
             
@@ -50,14 +50,14 @@ $this->layout = 'main_page';
                     <div class="col-md-12">
                     <h3> Step 1</h3>
                      <!----------------------------------------------------------->
-                    <div class="services index content">
-                    <h3><?= __('Services') ?></h3>
+                    <div class="Packages index content">
+                    <h3><?= __('Packages') ?></h3>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('id', '#') ?></th>
-                                    <th><?= $this->Paginator->sort('service_name', 'Services') ?></th>
+                                    <th><?= $this->Paginator->sort('service_name', 'Packages') ?></th>
                                     <th><?= $this->Paginator->sort('service_description') ?></th>
                                     <th><?= $this->Paginator->sort('cost_per_unit', 'Price') ?></th>
                                     <th><?= $this->Paginator->sort('duration_minute', 'Duration') ?></th>
@@ -66,7 +66,7 @@ $this->layout = 'main_page';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($services as $service): ?>
+                                <?php foreach ($packages as $service): ?>
                                 <tr>
                                     <td><?= $this->Number->format($service->id) ?></td>
                                     <td><?= h($service->service_name) ?></td>
@@ -110,7 +110,7 @@ $this->layout = 'main_page';
                 </div>
                 <?php
                 //echo $this->Form->control('booking_lines.service_ids', ['type' => 'select', 'multiple' => true,
-                //    'options' => $services,]);
+                //    'options' => $packages,]);
                 ?>
 
                     <!--
@@ -224,7 +224,7 @@ $this->layout = 'main_page';
                             <h3> Complete your booking</h3>
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
-                                    <h4>Your choosen services</h4>
+                                    <h4>Your choosen Packages</h4>
                                     <div class="service-summary">
                                         
                                     </div>                    

@@ -9,10 +9,11 @@ use Cake\ORM\Entity;
  * Booking Entity
  *
  * @property int $booking_id
- * @property int|null $student_id
- * @property int|null $package_id
- * @property \Cake\I18n\DateTime|null $booking_datetime
+ * @property int $student_id
+ * @property int $package_id
+ * @property \Cake\I18n\DateTime $booking_datetime
  * @property bool|null $is_paid
+ * @property string|null $note
  *
  * @property \App\Model\Entity\Student $student
  * @property \App\Model\Entity\Package $package
@@ -33,6 +34,7 @@ class Booking extends Entity
         'package_id' => true,
         'booking_datetime' => true,
         'is_paid' => true,
+        'note' => true,
         'student' => true,
         'package' => true,
     ];

@@ -2,19 +2,23 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Booking $booking
- * @var \Cake\Collection\CollectionInterface|string[] $customers
+ * @var \Cake\Collection\CollectionInterface|string[] $students
  */
-$this->layout = 'main_page';
-//$this->Form->setTemplates(['templates'=>'form_template']);
+$this->Form->setTemplates(['FormTemplates'=>'Default']);
 
 ?>
-
 <?= $this->Html->script('process-steps.js') ?>
-<section class="page-section clearfix">
-<div class="container">
-    <div class="row">
-        <div class="col-xl-9 mx-auto bg-faded p-5 rounded">  
-            <legend><?= __('Add Booking') ?></legend>
+<section id="book-a-lesson" class="book-a-lesson section-bg">
+    <div class="container" data-aos="fade-up">
+
+    <div class="section-header">
+        <h2>Book A Lesson</h2>
+        <p>Book <span>Your Lesson</span> With Us</p>
+    </div>
+
+    <div class="row g-0">
+
+        <legend><?= __('Add Booking') ?></legend>
             <div class="stepwizard col-md-offset-3">
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
@@ -40,7 +44,7 @@ $this->layout = 'main_page';
             <fieldset>
                 
                 <?php
-                    //echo $this->Form->control('customer_id', ['options' => $customers]);
+                    //echo $this->Form->control('customer_id', ['options' => $students]);
                     //echo $this->Form->control('booking_line.service_id', ['options' => $packages]);
                     //echo $this->Form->control('service_completed');
                 ?>
@@ -57,37 +61,40 @@ $this->layout = 'main_page';
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('id', '#') ?></th>
-                                    <th><?= $this->Paginator->sort('service_name', 'Packages') ?></th>
-                                    <th><?= $this->Paginator->sort('service_description') ?></th>
-                                    <th><?= $this->Paginator->sort('cost_per_unit', 'Price') ?></th>
-                                    <th><?= $this->Paginator->sort('duration_minute', 'Duration') ?></th>
+                                    <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
+                                    <th><?= $this->Paginator->sort('description') ?></th>
+                                    <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
+                                    <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
+                                    <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
                                     <!--<th><?= $this->Paginator->sort('discount') ?></th>
                                     <th class="actions"><?= __('Actions') ?></th>-->
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($packages as $service): ?>
+                                <?php foreach ($packages as $package): ?>
                                 <tr>
-                                    <td><?= $this->Number->format($service->id) ?></td>
-                                    <td><?= h($service->service_name) ?></td>
-                                    <td><?= h($service->service_description) ?></td>
-                                    <td><?= $this->Number->currency($service->cost_per_unit, 'AUD'); ?></td>
-                                    <td><?= $service->duration_minute === null ? 'No durations' : $this->Number->format($service->duration_minute) . " min" ?></td>
-                                    <!--<td><?= $this->Number->format($service->discount) ?></td>-->
+                                    <td><?= $this->Number->format($package->id) ?></td>
+                                    <td><?= h($package->package_name) ?></td>
+                                    <td><?= h($package->description) ?></td>
+                                    <td><?= $this->Number->currency($package->cost, 'AUD'); ?></td>
+                                    <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
+                                    <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
+                                    <!--<td><?= $this->Number->format($package->discount) ?></td>-->
                                     <td class="actions">
                                         <?php
-                                            echo $this->Form->checkbox('booking_lines.' . $service->id . '.no_of_unit', [
-                                                'value' => 1, 
-                                                'required' => false, 
+                                            echo $this->Form->checkbox('package_id', [
+                                                'value' => $package->id, 
+                                                'required' => true, 
                                                 'class'=>'btn-check', 
-                                                'id'=>"btn-check-outlined" . $service->id,
-                                                'time-duration'=>$service->duration_minute,
-                                                'price'=>$service->cost_per_unit,
-                                                'service'=>$service->service_name,
-                                                'serviceId'=>$service->id,
+                                                'id'=>"btn-check-outlined" . $package->id,
+                                                'time-duration'=>$package->lesson_duration_minutes,
+                                                'cost'=>$package->cost,
+                                                'package'=>$package->package_name,
+                                                'description'=>$package->description,
+                                                'packageId'=>$package->$package_id,
                                             ]);
                                         ?>
-                                        <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $service->id ?> id=<?php echo "btn-check-label" . $service->id ?>>Add</label>
+                                        <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->id ?> id=<?php echo "btn-check-label" . $package->id ?>>Add</label>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -135,18 +142,18 @@ $this->layout = 'main_page';
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">
                         <h3> Step 2</h3>
-                        <h3>Schedule a time and date</h3>
-                        <p>Your session is estimated to last for <b id="total-time-duration">0</b></p>
+                        <h3>Schedule your first lesson</h3>
+                        <p>Tell us about your prefered start date (We may contact you to change due to schedule conflicts)</p> 
                         <br>
                         <?php
-                            echo $this->Form->control('start_datetime', [
+                            echo $this->Form->control('booking.lesson.1.lesson_start_time', [
                                 'label' => [
-                                    'text' => 'Check in Date and Time*'
+                                    'text' => 'Your requirements'
                                 ],
                                 'required' => "required", 
                                 'class'=>'form-control',
-                                'min' => date('Y-m-d', strtotime("+3 days")) . 'T07:00',
-                                'step'=>'60',
+                                'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
+                                'step'=>'15',
                             ]);
                         ?>
                         <br>
@@ -179,27 +186,19 @@ $this->layout = 'main_page';
                                 <table class="table table-borderless">
                                     <tr>
                                         <th><?= __('First Name:    ') ?></th>
-                                        <td><?= h($user->customers[0]->first_name) ?></td>
+                                        <td><?= h($user->first_name) ?></td>
                                     </tr>
                                     <tr>
                                         <th><?= __('Last Name:    ') ?></th>
-                                        <td><?= h($user->customers[0]->last_name) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Address:    ') ?></th>
-                                        <td><?= is_null($user->customers[0]->address) ? "No address logged": h($user->customers[0]->address) ?></td>
+                                        <td><?= h($user->last_name) ?></td>
                                     </tr>
                                     <tr>
                                         <th><?= __('Phone:    ') ?></th>
-                                        <td><?= h($user->customers[0]->phone) ?></td>
+                                        <td><?= h($user->phone) ?></td>
                                     </tr>
                                     <tr>
                                         <th><?= __('Date Of Birth:    ') ?></th>
-                                        <td><?= h($user->customers[0]->date_of_birth) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= __('Email:    ') ?></th>
-                                        <td><?= h($user->email) ?></td>
+                                        <td><?= h($user->date_of_birth) ?></td>
                                     </tr>
                                 </table>
                             <?php else : ?>
@@ -254,15 +253,15 @@ $this->layout = 'main_page';
                                     <table class="table table-borderless">
                                         <tr>
                                             <th><?= __('First Name:    ') ?></th>
-                                            <td><?= h($user->customers[0]->first_name) ?></td>
+                                            <td><?= h($user->first_name) ?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Last Name:    ') ?></th>
-                                            <td><?= h($user->customers[0]->last_name) ?></td>
+                                            <td><?= h($user->last_name) ?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Phone:    ') ?></th>
-                                            <td><?= h($user->customers[0]->phone) ?></td>
+                                            <td><?= h($user->phone) ?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Email:    ') ?></th>
@@ -280,11 +279,11 @@ $this->layout = 'main_page';
                 </div>
             </fieldset>
             <?= $this->Form->end() ?>
-        </div>
+
+        <!-- End Reservation Form -->
+
     </div>
-  
-</div>
-</section>
+</section><!-- End Book A Table Section -->
 
 <style>
 body {
@@ -382,6 +381,15 @@ h4.error-message{
             else{
                 $('#btn-check-label'+$(this).attr("serviceId")).text( "Add");
             }
+            var checkbox= $("input.btn-check");
+            for(var i=0; i<checkbox.length; i++){
+                if (checkbox.eq(i).is(':checked') && checkbox.eq(i).attr('id') != $(this).attr('id')) {
+                    $('#btn-check-label'+checkbox.eq(i).attr("serviceId")).text( "Add");
+                    
+                }
+                
+            }
+            $(this).attr( 'checked', true )
         });
 
         var checkbox= $("input.btn-check");
@@ -394,3 +402,4 @@ h4.error-message{
         }
     });
 </script>
+<?= $this->Html->script('process-steps.js') ?>

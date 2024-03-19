@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Cake\Controller\Component\AuthComponent;
 use Cake\Routing\Router;
+use Cake\View\Helper\PaginatorHelper;
 
 /**
  * Bookings Controller
@@ -51,13 +52,13 @@ class BookingsController extends AppController
             $user = $this->Users->get($user->id, [
                 'contain' => ['Students'],
             ]);
-            if($user->role_id=="C"){
+            if($user->role_id=="1"){
                 //debug($user->Students[0]);
                 $bookings = $this->Bookings->find('all', [
                     'conditions'=> [
-                        'customer_id'=>$user->Students[0]->id,
+                        'student_id'=>$user->students[0]->id,
                     ],
-                    'contain' => ['Lessons'],
+                    'contain' => ['Packages'],
                 ]);
             }
             else{
@@ -80,11 +81,11 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Packages = $this->getTableLocator()->get('Packages');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Students', 'Lessons', 'Invoices'],
+            'contain' => ['Students', 'Packages', 'Invoices'],
         ]);
-        $booking_lines = $this->Lessons->find('all', [
+        $booking_lines = $this->Packages->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->id,
             ],
@@ -103,11 +104,11 @@ class BookingsController extends AppController
      */
     public function viewOne($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Packages = $this->getTableLocator()->get('Packages');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Students', 'Lessons', 'Invoices'],
+            'contain' => ['Students', 'Packages', 'Invoices'],
         ]);
-        $booking_lines = $this->Lessons->find('all', [
+        $booking_lines = $this->Packages->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->id,
             ],
@@ -125,9 +126,10 @@ class BookingsController extends AppController
     public function add()
     {
         $this->Packages = $this->getTableLocator()->get('Packages');
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Packages = $this->getTableLocator()->get('Packages');
         $this->Users = $this->getTableLocator()->get('Users');
-        $packages = $this->paginate($this->Packages);
+        $query = $this->Packages->find();
+        $packages = $this->paginate($query);
         $booking = $this->Bookings->newEmptyEntity();
         //debug($this->Authentication->getResult());
         //if($logged_in===true){ debug($this->Auth->user('id'));}
@@ -141,16 +143,21 @@ class BookingsController extends AppController
             $booking = $this->Bookings->find('all', [
                 'conditions'=> [
                     'session_id' => $this->request->getSession()->read('booking.session_id'),
-                    'customer_id IS NULL',
+                    'student_id IS NULL',
                 ],
-                'contain' => ['Lessons'],
+                'contain' => ['Packages'],
             ])->first();
             if($this->viewBuilder()->getVar('loggedIn')){
+                
                 $user = $this->Authentication->getIdentity();
-                $user = $this->Users->get($user->id, [
-                    'contain' => ['Students'],
-                ]);
-                //$booking->customer_id=$user->Students[0]->id;
+                //debug($user);
+                if($user->user_id != NULL){
+                    $user = $this->Users->get($user->user_id, [
+                        'contain' => ['Students'],
+                    ]);
+                }
+                
+                //$booking->student_id=$user->Students[0]->id;
             }
             //debug($booking);
         }
@@ -158,10 +165,13 @@ class BookingsController extends AppController
         //Get user instance $this->viewBuilder()->getVar('loggedIn')
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
-            $user = $this->Users->get($user->id, [
-                'contain' => ['Students'],
-            ]);
-            //$booking->customer_id=$user->Students[0]->id;
+            debug($user);
+            if($user->user_id != NULL){
+                $user = $this->Users->get($user->user_id, [
+                    'contain' => ['Students'],
+                ]);
+            }
+            //$booking->student_id=$user->Students[0]->id;
         }
         //debug($booking);
         //debug($_SERVER['REQUEST_METHOD'] == 'POST');
@@ -179,7 +189,7 @@ class BookingsController extends AppController
                 $user = $this->Users->get($user->id, [
                     'contain' => ['Students'],
                 ]);
-                $booking->customer_id = $user->Students[0]->id;
+                $booking->student_id = $user->Students[0]->id;
                 //debug($booking);
 
                 $stage=0;
@@ -208,19 +218,19 @@ class BookingsController extends AppController
 
             foreach($booking->booking_lines as $key=>$value) {
                 if($value->no_of_unit >0){
-                    $new_booking_line = $this->Lessons->newEmptyEntity();
+                    $new_booking_line = $this->Packages->newEmptyEntity();
                     $new_booking_line->Package_id = $key +1;
                     $new_booking_line->booking_id = $booking->id;
                     $new_booking_line->no_of_unit = $value->no_of_unit;
-                    $this->Lessons->save($new_booking_line);
+                    $this->Packages->save($new_booking_line);
                     //debug($new_booking_line);
                 }
             }
             $booking = $this->Bookings->get($booking->id, [
-                'contain' => ['Lessons'],
+                'contain' => ['Packages'],
             ]);
 
-            if($booking->customer_id==null){
+            if($booking->student_id==null){
                 $stage=2;
                 $session->write('booking.session_id', $booking->session_id);
                 $session->write('booking.in_progress', 'true');
@@ -237,7 +247,8 @@ class BookingsController extends AppController
             //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
         }
         //$Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('booking', 'user', 'Packages', 'stage'));
+        //PaginatorHelper::setPaginated($bookings, []);
+        $this->set(compact('booking', 'user', 'packages', 'stage'));
     }
 
     /**
@@ -274,14 +285,14 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Packages = $this->getTableLocator()->get('Packages');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Lessons'],
+            'contain' => ['Packages'],
         ]);
         foreach($booking->booking_lines as $key=>$value) {
             //debug()
-            $this->Lessons->delete($value);
+            $this->Packages->delete($value);
         }
         if ($this->Bookings->delete($booking)) {
             $this->Flash->success(__('The booking has been deleted.'));

@@ -27,6 +27,7 @@ class BookingsTableTest extends TestCase
         'app.Bookings',
         'app.Students',
         'app.Packages',
+        'app.Lessons',
     ];
 
     /**

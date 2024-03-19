@@ -80,8 +80,9 @@ class BookingsTable extends Table
             ->allowEmptyString('is_paid');
 
         $validator
-            ->scalar('note')
-            ->allowEmptyString('note');
+            ->boolean('completed')
+            ->requirePresence('completed', 'create')
+            ->notEmptyString('completed');
 
         return $validator;
     }

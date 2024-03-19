@@ -42,12 +42,6 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
         
             <?= $this->Form->create($booking) ?>
             <fieldset>
-                
-                <?php
-                    //echo $this->Form->control('customer_id', ['options' => $students]);
-                    //echo $this->Form->control('booking_line.service_id', ['options' => $packages]);
-                    //echo $this->Form->control('service_completed');
-                ?>
             
                 <div class="row setup-content" id="step-1">
                 <div class="col-xs-6 col-md-offset-3">
@@ -72,29 +66,29 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             </thead>
                             <tbody>
                                 <?php foreach ($packages as $package): ?>
-                                <tr>
-                                    <td><?= $this->Number->format($package->id) ?></td>
+                                <tr id=<?= "package-line-" . $package->package_id ?> class="">
+                                    <td><?= $this->Number->format($package->package_id) ?></td>
                                     <td><?= h($package->package_name) ?></td>
                                     <td><?= h($package->description) ?></td>
-                                    <td><?= $this->Number->currency($package->cost, 'AUD'); ?></td>
+                                    <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
                                     <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
                                     <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
-                                    <!--<td><?= $this->Number->format($package->discount) ?></td>-->
                                     <td class="actions">
                                         <?php
-                                            echo $this->Form->checkbox('package_id', [
-                                                'value' => $package->id, 
-                                                'required' => true, 
+                                            echo $this->Form->checkbox('package_id.' . $package->package_id, [
+                                                'value' => $package->package_id, 
+                                                //'required' => true, 
                                                 'class'=>'btn-check', 
-                                                'id'=>"btn-check-outlined" . $package->id,
+                                                'id'=>"btn-check-outlined" . $package->package_id,
                                                 'time-duration'=>$package->lesson_duration_minutes,
                                                 'cost'=>$package->cost,
                                                 'package'=>$package->package_name,
                                                 'description'=>$package->description,
-                                                'packageId'=>$package->$package_id,
+                                                'packageId'=>$package->package_id,
                                             ]);
                                         ?>
-                                        <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->id ?> id=<?php echo "btn-check-label" . $package->id ?>>Add</label>
+                                        <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
+                                            id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -115,25 +109,6 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
                     </div>
                 </div>
-                <?php
-                //echo $this->Form->control('booking_lines.service_ids', ['type' => 'select', 'multiple' => true,
-                //    'options' => $packages,]);
-                ?>
-
-                    <!--
-                    <div class="form-group">
-                        <label class="control-label">First Name</label>
-                        <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Last Name</label>
-                        <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Address</label>
-                        <textarea required="required" class="form-control" placeholder="Enter your address"></textarea>
-                    </div>
-                    -->
                     <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
                     </div>
                 </div>
@@ -143,31 +118,30 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                         <h3> Step 2</h3>
                         <h3>Schedule your first lesson</h3>
-                        <p>Tell us about your prefered start date (We may contact you to change due to schedule conflicts)</p> 
+                        <p>Tell us about your prefered start date</p> 
+                        <p>(We may contact you to change due to schedule conflicts)</p>
                         <br>
                         <?php
-                            echo $this->Form->control('booking.lesson.1.lesson_start_time', [
+                            echo $this->Form->control('booking.lesson.0.lesson_start_time', [
                                 'label' => [
-                                    'text' => 'Your requirements'
+                                    'text' => 'Your preferred date'
                                 ],
+                                'type' => 'datetime-local',
                                 'required' => "required", 
                                 'class'=>'form-control',
                                 'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
-                                'step'=>'15',
+                            ]);
+                            echo $this->Form->control('note', [
+                                'label' => [
+                                    'text' => 'Anything you want to tell us?'
+                                ],
+                                'type' => 'text', 
+                                'class'=>'form-control',
                             ]);
                         ?>
                         <br>
                         <br>
-                        <!--
-                        <div class="form-group">
-                            <label class="control-label">Company Name</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Company Address</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address">
-                        </div>
-                        -->
+
                         <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
                         <?php if(!$loggedIn && $stage==0): ?>
                             <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
@@ -355,6 +329,10 @@ h4.error-message{
     border-style: solid;
     border-color: black;
 }
+
+tbody tr.highlight td { 
+    background-color: #e79b9b; 
+}
 </style>
 
 <?php if($stage==2): ?>
@@ -375,31 +353,26 @@ h4.error-message{
 <script>
     $(document).ready(function () {
         $('input.btn-check').click(function(){
-            if($(this).is(':checked')){
-                $('#btn-check-label'+$(this).attr("serviceId")).text( "Added");
-            }
-            else{
-                $('#btn-check-label'+$(this).attr("serviceId")).text( "Add");
-            }
             var checkbox= $("input.btn-check");
             for(var i=0; i<checkbox.length; i++){
                 if (checkbox.eq(i).is(':checked') && checkbox.eq(i).attr('id') != $(this).attr('id')) {
-                    $('#btn-check-label'+checkbox.eq(i).attr("serviceId")).text( "Add");
-                    
+                    $('#btn-check-label'+checkbox.eq(i).attr("packageId")).text( "Choose");
+                    $("#package-line-"+checkbox.eq(i).attr("packageId")).removeClass("highlight")
+                    checkbox.eq(i).attr( 'checked', false );
+                    //console.log(i);
                 }
-                
+                if (checkbox.eq(i).is(':checked'))console.log(i);
             }
-            $(this).attr( 'checked', true )
+            if($(this).is(':checked')){
+                $('#btn-check-label'+$(this).attr("packageId")).text( "Chosen");
+                $("#package-line-"+$(this).attr("packageId")).addClass("highlight")
+                //console.log("D");
+            }
+            else{
+                $('#btn-check-label'+$(this).attr("packageId")).text( "Choose");
+                $("#package-line-"+$(this).attr("packageId")).removeClass("highlight")
+            }
         });
-
-        var checkbox= $("input.btn-check");
-        for(var i=0; i<checkbox.length; i++){
-            if (checkbox.eq(i).is(':checked')) {
-                $('#btn-check-label'+checkbox.eq(i).attr("serviceId")).text( "Added");
-                //console.log(i);
-            }
-            
-        }
     });
 </script>
 <?= $this->Html->script('process-steps.js') ?>

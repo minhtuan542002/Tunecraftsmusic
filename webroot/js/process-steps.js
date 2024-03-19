@@ -2,12 +2,13 @@ $(document).ready(function () {
     var navListItems = $('div.setup-panel div a'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn'),
-              allPrevBtn = $('.prevBtn');
+            allPrevBtn = $('.prevBtn');
   
     allWells.hide();
   
     navListItems.click(function (e) {
         e.preventDefault();
+        //console.log("navListItems");
         var $target = $($(this).attr('href')),
                 $item = $(this);
   
@@ -63,6 +64,7 @@ $(document).ready(function () {
     });
     
     allPrevBtn.click(function(){
+        //console.log("prevButton");
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
@@ -71,6 +73,7 @@ $(document).ready(function () {
     });
   
     allNextBtn.click(function(){
+        //console.log("nextbutton");
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
@@ -93,7 +96,7 @@ $(document).ready(function () {
             $("h4.error-message").remove();
             $('div.service-summary').empty();
             for(var i=0; i<checkboxes.length; i++){
-                if (checkboxes.eq(i).is(':checked') && checkboxes.eq(i).attr("value")=='1') {
+                if (checkboxes.eq(i).is(':checked')) {
                     count++;
                     totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
                     totalCost+=parseInt(checkboxes.eq(i).attr("price"));
@@ -137,7 +140,7 @@ $(document).ready(function () {
             var totalCost=0;
             $('div.service-summary').empty();
             for(var i=0; i<checkboxes.length; i++){
-                if (checkboxes.eq(i).is(':checked') && checkboxes.eq(i).attr("value")=='1') {
+                if (checkboxes.eq(i).is(':checked')) {
                     count++;
                     totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
                     totalCost+=parseInt(checkboxes.eq(i).attr("price"));

@@ -126,14 +126,12 @@ class BookingsController extends AppController
     public function add()
     {
         $this->Packages = $this->getTableLocator()->get('Packages');
-        $this->Packages = $this->getTableLocator()->get('Packages');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $this->Users = $this->getTableLocator()->get('Users');
         $query = $this->Packages->find();
         $packages = $this->paginate($query);
+        debug($packages);
         $booking = $this->Bookings->newEmptyEntity();
-        //debug($this->Authentication->getResult());
-        //if($logged_in===true){ debug($this->Auth->user('id'));}
-        //debug($this->request->getSession()->read('booking.session_id'));
         $user=null;
         if(!isset($stage))$stage = 0;
 
@@ -150,46 +148,36 @@ class BookingsController extends AppController
             if($this->viewBuilder()->getVar('loggedIn')){
                 
                 $user = $this->Authentication->getIdentity();
-                //debug($user);
                 if($user->user_id != NULL){
                     $user = $this->Users->get($user->user_id, [
                         'contain' => ['Students'],
                     ]);
                 }
-                
-                //$booking->student_id=$user->Students[0]->id;
             }
-            //debug($booking);
         }
 
-        //Get user instance $this->viewBuilder()->getVar('loggedIn')
+        //Get user instance 
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
-            debug($user);
+            //debug($user);
             if($user->user_id != NULL){
                 $user = $this->Users->get($user->user_id, [
                     'contain' => ['Students'],
                 ]);
             }
-            //$booking->student_id=$user->Students[0]->id;
         }
-        //debug($booking);
-        //debug($_SERVER['REQUEST_METHOD'] == 'POST');
         
-        
+        //After logging in and post booking
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($stage==0) $stage=2;
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
 
-            //debug($user);
-            //debug($booking);
-            //debug($this->request->getSession()->read('booking.in_progress'));
             if($this->viewBuilder()->getVar('loggedIn')){      
                 $user = $this->Authentication->getIdentity();
-                $user = $this->Users->get($user->id, [
+                $user = $this->Users->get($user->user_id, [
                     'contain' => ['Students'],
                 ]);
-                $booking->student_id = $user->Students[0]->id;
+                $booking->student_id = $user->Students[0]->student_id;
                 //debug($booking);
 
                 $stage=0;
@@ -200,17 +188,8 @@ class BookingsController extends AppController
                 $session = $this->request->getSession();
                 $booking->session_id = $this->request->getSession()->id(); 
             }
-            $booking->Package_completed=false;
-            $booking->additional_notes="None";
-                           
-            $totalTime = 0;
-            foreach($booking->booking_lines as $key=>$value) {
-                if($value->no_of_unit >0){
-                    $totalTime = $totalTime + $this->Packages->get($key +1)->duration_minute;
-                }
-            }
-            $booking->end_datetime= $booking->start_datetime->modify('+'.$totalTime.' minutes');
-            
+            $booking->is_paid=false;
+            $booking->completed=true;            
 
             if ($this->Bookings->save($booking, ['associated' => []])) {
                 $this->Flash->success(__('The booking has been saved.'));                
@@ -222,8 +201,7 @@ class BookingsController extends AppController
                     $new_booking_line->Package_id = $key +1;
                     $new_booking_line->booking_id = $booking->id;
                     $new_booking_line->no_of_unit = $value->no_of_unit;
-                    $this->Packages->save($new_booking_line);
-                    //debug($new_booking_line);
+                    $this->Lessons->save($new_booking_line);
                 }
             }
             $booking = $this->Bookings->get($booking->id, [

@@ -61,10 +61,45 @@ class UsersTable extends Table
             ->allowEmptyString('email')
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
-        $validator
-            ->scalar('password')
-            ->maxLength('password', 255)
-            ->allowEmptyString('password');
+            $validator
+            ->notEmptyString('password', 'A password is required')
+            ->add('password', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'Password must be at least 8 characters long',
+                ],
+                'uppercase' => [
+                    'rule' => function ($value, $context) {
+                        return (bool)preg_match('/[A-Z]/', $value);
+                    },
+                    'message' => 'Password must contain at least one uppercase letter',
+                ],
+                'lowercase' => [
+                    'rule' => function ($value, $context) {
+                        return (bool)preg_match('/[a-z]/', $value);
+                    },
+                    'message' => 'Password must contain at least one lowercase letter',
+                ],
+                'digit' => [
+                    'rule' => function ($value, $context) {
+                        return (bool)preg_match('/\d/', $value);
+                    },
+                    'message' => 'Password must contain at least one digit',
+                ],
+                'special' => [
+                    'rule' => function ($value, $context) {
+                        return (bool)preg_match('/[^A-Za-z0-9]/', $value);
+                    },
+                    'message' => 'Password must contain at least one special character',
+                ],
+                ])
+            ->notEmptyString('password_confirm', 'Please confirm your password')
+                ->add('password_confirm', [
+                    'compareWith' => [
+                        'rule' => ['compareWith', 'password'],
+                        'message' => 'Passwords do not match',
+                    ],
+                ]);
 
         $validator
             ->scalar('phone')

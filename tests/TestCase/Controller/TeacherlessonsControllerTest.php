@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\ContentBlocksController;
+use App\Controller\TeacherlessonsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\ContentBlocksController Test Case
+ * App\Controller\TeacherlessonsController Test Case
  *
- * @uses \App\Controller\ContentBlocksController
+ * @uses \App\Controller\TeacherlessonsController
  */
-class ContentBlocksControllerTest extends TestCase
+class TeacherlessonsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,14 +22,16 @@ class ContentBlocksControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.ContentBlocks',
+        'app.Teacherlessons',
+        'app.Teachers',
+        'app.Lessons',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\ContentBlocksController::index()
+     * @uses \App\Controller\TeacherlessonsController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +42,7 @@ class ContentBlocksControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\ContentBlocksController::view()
+     * @uses \App\Controller\TeacherlessonsController::view()
      */
     public function testView(): void
     {
@@ -51,7 +53,7 @@ class ContentBlocksControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\ContentBlocksController::add()
+     * @uses \App\Controller\TeacherlessonsController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +64,7 @@ class ContentBlocksControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\ContentBlocksController::edit()
+     * @uses \App\Controller\TeacherlessonsController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +75,7 @@ class ContentBlocksControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\ContentBlocksController::delete()
+     * @uses \App\Controller\TeacherlessonsController::delete()
      */
     public function testDelete(): void
     {

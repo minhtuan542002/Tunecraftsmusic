@@ -10,6 +10,18 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+
+    /**
+     * Initialize method
+     * 
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
+    }
+
     /**
      * Index method
      *

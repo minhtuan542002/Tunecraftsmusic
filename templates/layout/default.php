@@ -72,7 +72,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header">
     <div class="container d-flex align-items-center justify-content-between">
 
       <a href="<?= $this->Url->build('/') ?>" class="logo d-flex align-items-center me-auto me-lg-0">

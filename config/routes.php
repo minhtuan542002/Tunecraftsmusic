@@ -56,6 +56,7 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/pricing', ['controller' => 'Pages', 'action' => 'display', 'pricing']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -76,6 +77,14 @@ return function (RouteBuilder $routes): void {
          * routes you want in your application.
          */
         $builder->fallbacks();
+    });
+
+    // Define routes inside the dashboard scope
+    $routes->scope('/dashboard', function (RouteBuilder $builder): void {
+        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+        $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
+        $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
     });
 
     /*

@@ -12,6 +12,10 @@ $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
 ?>
 
 <style>
+    .contentBlocks.form.content {
+        margin-top: 100px;
+    }
+
     .ck-editor__editable_inline {
         min-height: 25rem; /* CKEditor field minimal height */
     }

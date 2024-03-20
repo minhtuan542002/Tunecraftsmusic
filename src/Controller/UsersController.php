@@ -10,13 +10,44 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+
+    /**
+     * Initialize method
+     * Authenticates permissions access
+     * 
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
+
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
+        }
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
+    }
+        
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
-    {
+    {        
         $query = $this->Users->find()
             ->contain(['Roles']);
         $users = $this->paginate($query);

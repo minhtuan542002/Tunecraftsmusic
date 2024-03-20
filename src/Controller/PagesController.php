@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Core\Configure;
@@ -31,6 +32,26 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    /**
+     * Initialization method for the PagesController.
+     *
+     * Allows unAuthenticated users to access pages
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        // Load Authentication component
+        $this->loadComponent('Authentication.Authentication');
+
+        // Allow unauthenticated access to specific actions
+        $this->Authentication->allowUnauthenticated(['display']);
+
+        // Load other components or configurations as needed
+    }
+
     /**
      * Displays a view
      *
@@ -59,6 +80,11 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
+
+        if ($page === 'aboutus') {
+            return $this->render('aboutus');
+        }
+
         $this->set(compact('page', 'subpage'));
 
         try {

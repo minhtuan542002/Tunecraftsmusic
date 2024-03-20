@@ -74,24 +74,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="<?= $this->Url->build('/') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Yummy<span>.</span></h1>
+        <h1>TuneCraft Studio<span>.</span></h1>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/aboutus') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/aboutus') ?>">About Us</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+        <!-- <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/booking') ?>">Booking</a></li> -->
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
+
+
+          <!-- <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#booking">Booking</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#gallery">Gallery</a></li> -->
+          
+          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -105,14 +115,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               </li>
               <li><a href="#">Drop Down 2</a></li>
               <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+              <li><a href="#">Drop Down 4</a></li> -->
+            <!-- </ul>
+          </li> -->
+</ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build('/booking') ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -166,10 +175,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Follow Us</h4>
           <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
 
@@ -178,7 +187,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>TuneCraft Studio</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

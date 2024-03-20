@@ -65,7 +65,12 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($packages as $package): ?>
+                                <?php
+                                    //This is to fool cakePHP into accepting package_id as a form field
+                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true]);
+                                    
+                                    foreach ($packages as $package): 
+                                ?>
                                 <tr id=<?= "package-line-" . $package->package_id ?> class="">
                                     <td><?= $this->Number->format($package->package_id) ?></td>
                                     <td><?= h($package->package_name) ?></td>
@@ -75,9 +80,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
                                     <td class="actions">
                                         <?php
-                                            echo $this->Form->checkbox('package_id.' . $package->package_id, [
+                                            //Actual value of package_id -> the input name will be changed later in the script
+                                            echo $this->Form->checkbox('package_choice.' . $package->package_id, [
                                                 'value' => $package->package_id, 
-                                                //'required' => true, 
+                                                'before' => '<br>', 
+                                                'after' => '<br>', 
                                                 'class'=>'btn-check', 
                                                 'id'=>"btn-check-outlined" . $package->package_id,
                                                 'time-duration'=>$package->lesson_duration_minutes,
@@ -86,6 +93,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                                 'description'=>$package->description,
                                                 'packageId'=>$package->package_id,
                                             ]);
+                                            
                                         ?>
                                         <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
                                             id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
@@ -122,7 +130,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <p>(We may contact you to change due to schedule conflicts)</p>
                         <br>
                         <?php
-                            echo $this->Form->control('booking.lesson.0.lesson_start_time', [
+                            echo $this->Form->control('lessons.0.lesson_start_time', [
                                 'label' => [
                                     'text' => 'Your preferred date'
                                 ],
@@ -198,7 +206,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
                                     <h4>Your choosen Packages</h4>
-                                    <div class="service-summary">
+                                    <div class="package-summary">
                                         
                                     </div>                    
                                     <h5>Your total cost: <b id='total-price'></b></h5>
@@ -338,11 +346,10 @@ tbody tr.highlight td {
 <?php if($stage==2): ?>
     <script>
         $(document).ready(function () {
-            <?php foreach ($booking->booking_lines as $line): ?>
-                $('#btn-check-outlined<?= $line->service_id ?>').attr( 'checked', true );
-                //console.log( $('#btn-check-outlined<?= $line->service_id ?>').data( 'id' ));
-            <?php endforeach; ?>
-            $('#start-datetime').attr('value', '<?= $booking->start_datetime->format("Y-m-d\TH:i:s")?>');
+            $('#btn-check-outlined<?= $booking->package_id ?>').attr( 'checked', true );
+            $('#btn-check-outlined<?= $booking->package_id ?>').text( "Choosen");
+            $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_id");
+            $('#start-datetime').attr('value', '<?= $booking->lessons[0]->lesson_start_time->format("Y-m-d\TH:i:s")?>');
             //$('.stepwizard-row.setup-panel').attr('stage', '3');
             $('.nextBtn').eq(0).trigger('click');
             $('.nextBtn').eq(1).trigger('click');
@@ -352,11 +359,13 @@ tbody tr.highlight td {
 <?php endif; ?>
 <script>
     $(document).ready(function () {
+        $('select option:eq(1)').attr('selected', 'selected');
         $('input.btn-check').click(function(){
             var checkbox= $("input.btn-check");
             for(var i=0; i<checkbox.length; i++){
                 if (checkbox.eq(i).is(':checked') && checkbox.eq(i).attr('id') != $(this).attr('id')) {
                     $('#btn-check-label'+checkbox.eq(i).attr("packageId")).text( "Choose");
+                    $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_choice["+ checkbox.eq(i).attr("packageId") +"]");
                     $("#package-line-"+checkbox.eq(i).attr("packageId")).removeClass("highlight")
                     checkbox.eq(i).attr( 'checked', false );
                     //console.log(i);
@@ -365,11 +374,13 @@ tbody tr.highlight td {
             }
             if($(this).is(':checked')){
                 $('#btn-check-label'+$(this).attr("packageId")).text( "Chosen");
+                $(this).attr("name","package_id");
                 $("#package-line-"+$(this).attr("packageId")).addClass("highlight")
                 //console.log("D");
             }
             else{
                 $('#btn-check-label'+$(this).attr("packageId")).text( "Choose");
+                $(this).attr("name","package_choice["+ $(this).attr("packageId") +"]");
                 $("#package-line-"+$(this).attr("packageId")).removeClass("highlight")
             }
         });

@@ -39,5 +39,6 @@ class Booking extends Entity
         'student' => true,
         'package' => true,
         'lessons' => true,
+        'start_date_time' => true,
     ];
 }

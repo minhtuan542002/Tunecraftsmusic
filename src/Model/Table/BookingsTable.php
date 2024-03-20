@@ -52,6 +52,9 @@ class BookingsTable extends Table
             'foreignKey' => 'package_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('Lessons', [
+            'foreignKey' => 'lesson_id',
+        ]);
     }
 
     /**

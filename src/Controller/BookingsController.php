@@ -171,6 +171,8 @@ class BookingsController extends AppController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($stage==0) $stage=2;
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
+            debug($booking);
+            debug($booking->student);
 
             if($this->viewBuilder()->getVar('loggedIn')){      
                 $user = $this->Authentication->getIdentity();
@@ -178,7 +180,7 @@ class BookingsController extends AppController
                     'contain' => ['Students'],
                 ]);
                 $booking->student_id = $user->Students[0]->student_id;
-                //debug($booking);
+                debug($booking);
 
                 $stage=0;
                 $this->request->getSession()->delete('booking.in_progress');
@@ -189,13 +191,25 @@ class BookingsController extends AppController
                 $booking->session_id = $this->request->getSession()->id(); 
             }
             $booking->is_paid=false;
-            $booking->completed=true;            
+            $booking->completed=true;
+
+            //Get package Id
+            $package_id = 0;
+            debug($booking);
+            foreach($booking->package_id as $key=>$value) {
+                if($value > 0){
+                    $package_id = $key;
+                    debug($key);
+                }
+            }
+            $booking->package_id = $package_id;
+            debug($booking);
 
             if ($this->Bookings->save($booking, ['associated' => []])) {
                 $this->Flash->success(__('The booking has been saved.'));                
             }
 
-            foreach($booking->booking_lines as $key=>$value) {
+            foreach($booking->lessons as $key=>$value) {
                 if($value->no_of_unit >0){
                     $new_booking_line = $this->Packages->newEmptyEntity();
                     $new_booking_line->Package_id = $key +1;

@@ -56,6 +56,12 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/aboutus', ['controller' => 'Pages', 'action' => 'display', 'aboutus']);
+        $builder->connect('/pricing', ['controller' => 'Pages', 'action' => 'display', 'pricing']);
+        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+        $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+        $builder->connect('/booking', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+        $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -76,6 +82,15 @@ return function (RouteBuilder $routes): void {
          * routes you want in your application.
          */
         $builder->fallbacks();
+    });
+
+    // Define routes inside the dashboard scope
+    $routes->scope('/dashboard', function (RouteBuilder $builder): void {
+        $builder->connect('/customisation', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
+        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+        $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
+        $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
     });
 
     /*

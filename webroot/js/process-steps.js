@@ -29,14 +29,14 @@ $(document).ready(function () {
                 var count=0;
                 var totalTime=0;
                 var totalCost=0;
-                $('div.service-summary').empty();
+                $('div.package-summary').empty();
                 for(var i=0; i<checkboxes.length; i++){
                     if (checkboxes.eq(i).is(':checked') && checkboxes.eq(i).attr("value")=='1') {
                         count++;
                         totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
                         totalCost+=parseInt(checkboxes.eq(i).attr("price"));
                         
-                        $('div.service-summary').prepend( "<p>"+checkboxes.eq(i).attr("service")+"</p>" );
+                        $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
                         //console.log('h');
                     }
                 }
@@ -47,7 +47,7 @@ $(document).ready(function () {
                         
                     }
                     
-                    $( "<h4 class='error-message'>Please select at least one service to book</h4>" ).insertAfter($('h3:contains("Services")'));
+                    $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("packages")'));
                 }
                 else {
                     var m = totalTime % 60;
@@ -94,14 +94,14 @@ $(document).ready(function () {
             var totalTime=0;
             var totalCost=0;
             $("h4.error-message").remove();
-            $('div.service-summary').empty();
+            $('div.package-summary').empty();
             for(var i=0; i<checkboxes.length; i++){
                 if (checkboxes.eq(i).is(':checked')) {
                     count++;
                     totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
                     totalCost+=parseInt(checkboxes.eq(i).attr("price"));
                     
-                    $('div.service-summary').prepend( "<p>"+checkboxes.eq(i).attr("service")+"</p>" );
+                    $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
                     //console.log('h');
                 }
             }
@@ -112,17 +112,10 @@ $(document).ready(function () {
                     
                 }
                 
-                $( "<h4 class='error-message'>Please select at least one service to book</h4>" ).insertAfter($('h3:contains("Services")'));
+                $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("Packages")'));
             }
             else {
-                var m = totalTime % 60;
-                var h = (totalTime-m)/60;
-                var formatTime= (h>0? h.toString() + " hours " : "") + (m < 10 ? "0" : "") + m.toString() + " minutes";
-                $('#total-time-duration').text( formatTime);
-                $('#total-time').text( formatTime);
                 $('#total-price').text( 'AUD'+totalCost.toString());
-                //console.log(h)
-                //console.log(totalTime)
             }
 
             //console.log("H");
@@ -135,17 +128,16 @@ $(document).ready(function () {
             })+'</p>');
 
             var checkboxes= $("input.btn-check");
-            var count=0;
-            var totalTime=0;
+            //var count=0;
+            //var totalTime=0;
             var totalCost=0;
-            $('div.service-summary').empty();
+            $('div.package-summary').empty();
             for(var i=0; i<checkboxes.length; i++){
                 if (checkboxes.eq(i).is(':checked')) {
                     count++;
-                    totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
-                    totalCost+=parseInt(checkboxes.eq(i).attr("price"));
+                    totalCost+=parseInt(checkboxes.eq(i).attr("cost"));
                     
-                    $('div.service-summary').prepend( "<p>"+checkboxes.eq(i).attr("service")+"</p>" );
+                    $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
                     //console.log('h');
                 }
             }
@@ -156,17 +148,10 @@ $(document).ready(function () {
                     
                 }
                 
-                $( "<h4 class='error-message'>Please select at least one service to book</h4>" ).insertAfter($('h3:contains("Services")'));
+                $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("packages")'));
             }
             else {
-                var m = totalTime % 60;
-                var h = (totalTime-m)/60;
-                var formatTime= (h>0? h.toString() + " hours " : "") + (m < 10 ? "0" : "") + m.toString() + " minutes";
-                $('#total-time-duration').text( formatTime);
-                $('#total-time').text( formatTime);
                 $('#total-price').text( 'AUD'+totalCost.toString());
-                //console.log(h)
-                //console.log(totalTime)
             }
         }
   

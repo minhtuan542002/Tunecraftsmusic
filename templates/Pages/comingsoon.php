@@ -23,10 +23,7 @@
         <div class="row justify-content-between gy-5"> 
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-top align-items-lg-start text-center text-lg-start">
                 <h1 data-aos="fade-up" >Coming Soon!</h1>
-                
-           
-            
         </div>
     
     </div>
-</section><!-- End Home Section -->
+</section><!-- End Home Section -->d

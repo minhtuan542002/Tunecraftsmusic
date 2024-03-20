@@ -1513,7 +1513,7 @@ section {
   width: 100%;
   background-size: cover;
   position: relative;
-  min-height: 60vh;
+  min-height: 75vh;
 }
 
 .hero h2 {

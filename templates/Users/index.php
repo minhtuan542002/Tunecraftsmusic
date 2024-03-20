@@ -12,34 +12,30 @@
         <table class="table dataTable" id="dataTable">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('phone') ?></th>
-                    <th><?= $this->Paginator->sort('nonce') ?></th>
-                    <th><?= $this->Paginator->sort('nonce_expiry') ?></th>
-                    <th><?= $this->Paginator->sort('first_name') ?></th>
-                    <th><?= $this->Paginator->sort('last_name') ?></th>
-                    <th><?= $this->Paginator->sort('role_id') ?></th>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role ID</th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= $this->Number->format($user->user_id) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?= h($user->phone) ?></td>
-                    <td><?= h($user->nonce) ?></td>
-                    <td><?= h($user->nonce_expiry) ?></td>
-                    <td><?= h($user->first_name) ?></td>
-                    <td><?= h($user->last_name) ?></td>
-                    <td><?= $user->hasValue('role') ? $this->Html->link($user->role->role_id, ['controller' => 'Roles', 'action' => 'view', $user->role->role_id]) : '' ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->user_id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->user_id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->user_id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->user_id)]) ?>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?= $this->Number->format($user->user_id) ?></td>
+                        <td><?= h($user->first_name) ?></td>
+                        <td><?= h($user->last_name) ?></td>
+                        <td><?= h($user->email) ?></td>
+                        <td><?= h($user->phone) ?></td>
+                        <td><?= h($user->role->role_name) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i>', ['action' => 'view', $user->user_id], ['escape' => false, 'title' => __('View')]) ?>
+                            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $user->user_id], ['escape' => false, 'title' => __('Edit')]) ?>
+                            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $user->id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $user->first_name)]) ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

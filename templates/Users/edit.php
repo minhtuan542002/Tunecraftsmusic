@@ -23,14 +23,11 @@
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('phone');
-                    echo $this->Form->control('nonce');
-                    echo $this->Form->control('nonce_expiry', ['empty' => true]);
                     echo $this->Form->control('first_name');
                     echo $this->Form->control('last_name');
-                    echo $this->Form->control('role_id', ['options' => $roles, 'empty' => true]);
+                    echo $this->Form->control('email');
+                    echo $this->Form->control('phone');
+                    echo $this->Form->control('role_id', ['options' => $roles, 'empty' => false]);
                     echo $this->Form->control('note');
                 ?>
             </fieldset>

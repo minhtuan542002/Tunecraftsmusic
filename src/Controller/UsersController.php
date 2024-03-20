@@ -10,6 +10,18 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+
+    /**
+     * Initialize method
+     * 
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
+    }
+
     /**
      * Index method
      *
@@ -17,7 +29,6 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->setLayout('dashboard');
         $query = $this->Users->find()
             ->contain(['Roles']);
         $users = $this->paginate($query);

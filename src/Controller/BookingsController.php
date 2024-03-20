@@ -47,19 +47,38 @@ class BookingsController extends AppController
     public function all()
     {
         $this->Users = $this->getTableLocator()->get('Users');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
-            $user = $this->Users->get($user->id, [
+            $user = $this->Users->get($user->user_id, [
                 'contain' => ['Students'],
             ]);
             if($user->role_id=="1"){
                 //debug($user->Students[0]);
-                $bookings = $this->Bookings->find('all', [
+                $query = $this->Bookings->find('all', [
                     'conditions'=> [
-                        'student_id'=>$user->students[0]->id,
+                        'student_id'=>$user->students[0]->student_id,
                     ],
-                    'contain' => ['Packages'],
+                    'contain' => ['Packages', 'Lessons'],
                 ]);
+                $bookings = $this->paginate($query);
+                
+                //debug($bookings);
+                foreach($bookings as $booking){
+                    $booking->remain_count = 0;
+                    $booking->upcoming = $booking->lessons[sizeof($booking->lessons)-1];
+                    foreach($booking->lessons as $lesson){
+                        if($lesson->lesson_start_time >= $date = date('Y-m-d H:i:s')){
+                            $booking->remain_count++;
+                            if($booking->upcoming->lesson_start_time < $lesson->lesson_start_time){
+                                $booking->upcoming =  $lesson;
+                                //debug($lesson);
+                            }
+                        }
+                    }
+                }
+                debug($bookings);
+                
             }
             else{
                 return $this->redirect(['action' => 'index']);
@@ -87,7 +106,7 @@ class BookingsController extends AppController
         ]);
         $booking_lines = $this->Packages->find('all', [
             'conditions'=> [
-                'booking_id' => $booking->id,
+                'booking_id' => $booking->booking_id,
             ],
             'contain' => ['Packages'],
         ]);
@@ -110,7 +129,7 @@ class BookingsController extends AppController
         ]);
         $booking_lines = $this->Packages->find('all', [
             'conditions'=> [
-                'booking_id' => $booking->id,
+                'booking_id' => $booking->booking_id,
             ],
             'contain' => ['Packages'],
         ]);
@@ -130,7 +149,7 @@ class BookingsController extends AppController
         $this->Users = $this->getTableLocator()->get('Users');
         $query = $this->Packages->find();
         $packages = $this->paginate($query);
-        debug($packages);
+        //debug($packages);
         $booking = $this->Bookings->newEmptyEntity();
         $user=null;
         if(!isset($stage))$stage = 0;
@@ -149,6 +168,7 @@ class BookingsController extends AppController
                 
                 $user = $this->Authentication->getIdentity();
                 if($user->user_id != NULL){
+                    
                     $user = $this->Users->get($user->user_id, [
                         'contain' => ['Students'],
                     ]);
@@ -171,16 +191,17 @@ class BookingsController extends AppController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($stage==0) $stage=2;
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
-            debug($booking);
-            debug($booking->student);
+            //debug($booking);
+            //debug($booking->student);
 
             if($this->viewBuilder()->getVar('loggedIn')){      
                 $user = $this->Authentication->getIdentity();
                 $user = $this->Users->get($user->user_id, [
                     'contain' => ['Students'],
                 ]);
-                $booking->student_id = $user->Students[0]->student_id;
-                debug($booking);
+                $booking->student_id = $user->students[0]->student_id;
+                //if($booking->student_id == NULL)$booking->student_id = 1;
+                //debug($booking);
 
                 $stage=0;
                 $this->request->getSession()->delete('booking.in_progress');
@@ -192,35 +213,26 @@ class BookingsController extends AppController
             }
             $booking->is_paid=false;
             $booking->completed=true;
-
-            //Get package Id
-            $package_id = 0;
-            debug($booking);
-            foreach($booking->package_id as $key=>$value) {
-                if($value > 0){
-                    $package_id = $key;
-                    debug($key);
-                }
-            }
-            $booking->package_id = $package_id;
-            debug($booking);
-
+            $booking->booking_datetime=$booking->lessons[0]->lesson_start_time;
+            
             if ($this->Bookings->save($booking, ['associated' => []])) {
                 $this->Flash->success(__('The booking has been saved.'));                
             }
 
-            foreach($booking->lessons as $key=>$value) {
-                if($value->no_of_unit >0){
-                    $new_booking_line = $this->Packages->newEmptyEntity();
-                    $new_booking_line->Package_id = $key +1;
-                    $new_booking_line->booking_id = $booking->id;
-                    $new_booking_line->no_of_unit = $value->no_of_unit;
-                    $this->Lessons->save($new_booking_line);
-                }
-            }
-            $booking = $this->Bookings->get($booking->id, [
-                'contain' => ['Packages'],
+            $booking = $this->Bookings->get($booking->booking_id, [
+                'contain' => ['Packages', 'Lessons'],
             ]);
+            for($i = 0; $i<$booking->package->number_of_lessons; $i++) {
+                $new_lesson = $this->Lessons->newEmptyEntity();
+                $new_lesson->teacher_id = 1;
+                $new_lesson->booking_id = $booking->booking_id;
+                $new_lesson->lesson_start_time = $booking->booking_datetime->modify("+". $i ." week");
+                //debug($new_lesson);
+                $this->Lessons->save($new_lesson);
+                
+            }
+            
+            //debug($booking);
 
             if($booking->student_id==null){
                 $stage=2;

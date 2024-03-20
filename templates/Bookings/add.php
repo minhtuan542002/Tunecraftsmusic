@@ -54,25 +54,24 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th><?= $this->Paginator->sort('id', '#') ?></th>
                                     <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
                                     <th><?= $this->Paginator->sort('description') ?></th>
                                     <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
                                     <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
                                     <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
-                                    <!--<th><?= $this->Paginator->sort('discount') ?></th>
-                                    <th class="actions"><?= __('Actions') ?></th>-->
+                                    <th class="actions"><?= __('Actions') ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                     //This is to fool cakePHP into accepting package_id as a form field
-                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true, 'id'=>'dummy']);
+                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
+                                     'id'=>'dummy',
+                                    ]);
                                     
                                     foreach ($packages as $package): 
                                 ?>
                                 <tr id=<?= "package-line-" . $package->package_id ?> class="">
-                                    <td><?= $this->Number->format($package->package_id) ?></td>
                                     <td><?= h($package->package_name) ?></td>
                                     <td><?= h($package->description) ?></td>
                                     <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
@@ -383,7 +382,7 @@ tbody tr.highlight td {
             $('#btn-check-label<?= $booking->package_id ?>').attr("name","package_id");
             $("#package-line-<?= $booking->package_id ?>").addClass("highlight")
             $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_id");
-            $('#lessons-0-lesson-start-time').attr('value', '<?= $booking->lessons[0]->lesson_start_time->format("Y-m-d\TH:i:s")?>');
+            $('#lessons-0-lesson-start-time').attr('value', '<?= $booking->booking_datetime->format("Y-m-d\TH:i:s")?>');
             $('#note').attr('value', '<?= $booking->note?>');
             //$('.stepwizard-row.setup-panel').attr('stage', '3');
             $('.nextBtn').eq(0).trigger('click');

@@ -53,7 +53,8 @@ class BookingsTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Lessons', [
-            'foreignKey' => 'lesson_id',
+            'foreignKey' => 'booking_id',
+            'joinType' => 'LEFT',
         ]);
     }
 

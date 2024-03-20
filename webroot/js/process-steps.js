@@ -21,23 +21,22 @@ $(document).ready(function () {
             
             if($(this).text()=="4"){
                 $('div.choosen-datetime').empty();
-                $('div.choosen-datetime').prepend('<p>'+ (new Date($('#start-datetime').val())).toLocaleString('en-AU', {
+                $('div.choosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
                     hour12: true,
                 })+'</p>');
 
                 var checkboxes= $("input.btn-check");
                 var count=0;
-                var totalTime=0;
                 var totalCost=0;
                 $('div.package-summary').empty();
                 for(var i=0; i<checkboxes.length; i++){
-                    if (checkboxes.eq(i).is(':checked') && checkboxes.eq(i).attr("value")=='1') {
+                    if (checkboxes.eq(i).is(':checked')) {
                         count++;
-                        totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
-                        totalCost+=parseInt(checkboxes.eq(i).attr("price"));
+                        totalCost+=parseInt(checkboxes.eq(i).attr("cost"));
                         
-                        $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
-                        //console.log('h');
+                        $("#chosen-package").text(checkboxes.eq(i).attr("package"));
+                        $("#chosen-lesson-number").text(checkboxes.eq(i).attr("numberLesson") + " lessons");
+                        $("#chosen-duration").text(checkboxes.eq(i).attr("time-duration") + " minutes");
                     }
                 }
                 if(count==0){
@@ -50,14 +49,8 @@ $(document).ready(function () {
                     $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("packages")'));
                 }
                 else {
-                    var m = totalTime % 60;
-                    var h = (totalTime-m)/60;
-                    var formatTime= (h>0? h.toString() + " hours " : "") + (m < 10 ? "0" : "") + m.toString() + " minutes";
-                    $('#total-time-duration').text( formatTime);
-                    $('#total-time').text( formatTime);
-                    $('#total-price').text( 'AUD'+totalCost.toString());
-                    //console.log(h)
-                    //console.log(totalTime)
+                    $('#total-cost').text( 'AUD '+totalCost.toString());
+                    $('#your-note').text($('#note').val()==""? "None":$('#note').val());
                 }
             }
         }
@@ -98,8 +91,7 @@ $(document).ready(function () {
             for(var i=0; i<checkboxes.length; i++){
                 if (checkboxes.eq(i).is(':checked')) {
                     count++;
-                    totalTime+=parseInt(checkboxes.eq(i).attr("time-duration"));
-                    totalCost+=parseInt(checkboxes.eq(i).attr("price"));
+                    totalCost+=parseInt(checkboxes.eq(i).attr("cost"));
                     
                     $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
                     //console.log('h');
@@ -115,7 +107,7 @@ $(document).ready(function () {
                 $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("Packages")'));
             }
             else {
-                $('#total-price').text( 'AUD'+totalCost.toString());
+                $('#total-cost').text( 'AUD'+totalCost.toString());
             }
 
             //console.log("H");
@@ -123,7 +115,7 @@ $(document).ready(function () {
 
         if($(this).hasClass("third")){
             $('div.choosen-datetime').empty();
-            $('div.choosen-datetime').prepend('<p>'+ (new Date($('#start-datetime').val())).toLocaleString('en-AU', {
+            $('div.choosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
                 hour12: true,
             })+'</p>');
 
@@ -136,9 +128,10 @@ $(document).ready(function () {
                 if (checkboxes.eq(i).is(':checked')) {
                     count++;
                     totalCost+=parseInt(checkboxes.eq(i).attr("cost"));
-                    
-                    $('div.package-summary').prepend( "<p>"+checkboxes.eq(i).attr("package")+"</p>" );
-                    //console.log('h');
+                    $("#chosen-package").text(checkboxes.eq(i).attr("package"));
+                    $("#chosen-lesson-number").text(checkboxes.eq(i).attr("numberLesson"));
+                    $("#chosen-duration").text(checkboxes.eq(i).attr("time-duration"));
+                    //console.log("H");
                 }
             }
             if(count==0){
@@ -151,7 +144,8 @@ $(document).ready(function () {
                 $( "<h4 class='error-message'>Please select at least one package to book</h4>" ).insertAfter($('h3:contains("packages")'));
             }
             else {
-                $('#total-price').text( 'AUD'+totalCost.toString());
+                $('#total-cost').text( 'AUD'+totalCost.toString());
+                $('#your-note').text($('#note').val()==""? "None":$('#note').val());
             }
         }
   

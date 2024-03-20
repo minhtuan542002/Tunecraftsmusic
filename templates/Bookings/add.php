@@ -50,7 +50,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                      <!----------------------------------------------------------->
                     <div class="Packages index content">
                     <h3><?= __('Packages') ?></h3>
-                    <div class="table-responsive">
+                    <div class="table-responsive-sm">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -67,7 +67,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <tbody>
                                 <?php
                                     //This is to fool cakePHP into accepting package_id as a form field
-                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true]);
+                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true, 'id'=>'dummy']);
                                     
                                     foreach ($packages as $package): 
                                 ?>
@@ -83,12 +83,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                             //Actual value of package_id -> the input name will be changed later in the script
                                             echo $this->Form->checkbox('package_choice.' . $package->package_id, [
                                                 'value' => $package->package_id, 
-                                                'before' => '<br>', 
-                                                'after' => '<br>', 
                                                 'class'=>'btn-check', 
                                                 'id'=>"btn-check-outlined" . $package->package_id,
                                                 'time-duration'=>$package->lesson_duration_minutes,
-                                                'cost'=>$package->cost,
+                                                'numberLesson'=>$package->number_of_lessons,
+                                                'cost'=>$package->cost_dollars,
                                                 'package'=>$package->package_name,
                                                 'description'=>$package->description,
                                                 'packageId'=>$package->package_id,
@@ -165,7 +164,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <h3> Step 3</h3>
                             <?php if($loggedIn): ?>
                                 <h3> Confirm your account information</h3>
-                                <table class="table table-borderless">
+                                <table class="table table-borderless package-sumary">
                                     <tr>
                                         <th><?= __('First Name:    ') ?></th>
                                         <td><?= h($user->first_name) ?></td>
@@ -178,10 +177,10 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                         <th><?= __('Phone:    ') ?></th>
                                         <td><?= h($user->phone) ?></td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <th><?= __('Date Of Birth:    ') ?></th>
                                         <td><?= h($user->date_of_birth) ?></td>
-                                    </tr>
+                                    </tr> -->
                                 </table>
                             <?php else : ?>
                                 <h3> Please log in or sign up to continue</h3>
@@ -206,10 +205,26 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
                                     <h4>Your choosen Packages</h4>
-                                    <div class="package-summary">
-                                        
-                                    </div>                    
-                                    <h5>Your total cost: <b id='total-price'></b></h5>
+                                    <div class="table">
+                                        <table class="table table-borderless package-summary">
+                                            <tr>
+                                                <th><?= __('Package:    ') ?></th>
+                                                <td id="chosen-package"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Number of lessons:    ') ?></th>
+                                                <td id="chosen-lesson-number"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Duration each lesson:    ') ?></th>
+                                                <td id="chosen-duration"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Your total payment:    ') ?></th>
+                                                <td  id="total-cost"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                                 <a href="#step-1" type="button" class="btn btn-primary btn-circle" onclick="$('div.setup-panel div a').eq(0).trigger('click');" >Edit</a>
                             </div>
@@ -222,7 +237,8 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     <div class="choosen-datetime">
                                         
                                     </div>                    
-                                    <h5>Expected session time: <b id='total-time'></b></h5>
+                                    <h4>Your note to us: </h4>
+                                    <p id='your-note'></p>
                                 </div>
                                 <a href="#step-2" type="button" class="btn btn-primary btn-circle" onclick="$('div.setup-panel div a').eq(1).trigger('click');">Edit</a>
                             </div>
@@ -231,27 +247,39 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <br>
                             <?php if($loggedIn): ?>
                                 <div class="info-quad">
-                                <h4> Contact information</h4>
-                                    <table class="table table-borderless">
-                                        <tr>
-                                            <th><?= __('First Name:    ') ?></th>
-                                            <td><?= h($user->first_name) ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><?= __('Last Name:    ') ?></th>
-                                            <td><?= h($user->last_name) ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><?= __('Phone:    ') ?></th>
-                                            <td><?= h($user->phone) ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><?= __('Email:    ') ?></th>
-                                            <td><?= h($user->email) ?></td>
-                                        </tr>
-                                    </table>
+                                    <h4> Contact information</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <th><?= __('First Name:    ') ?></th>
+                                                <td><?= h($user->first_name) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Last Name:    ') ?></th>
+                                                <td><?= h($user->last_name) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Phone:    ') ?></th>
+                                                <td><?= h($user->phone) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th><?= __('Email:    ') ?></th>
+                                                <td><?= h($user->email) ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             <?php endif; ?>
+
+                            <br>
+                            <br>
+                            <div class="info-quad d-flex justify-content-between">
+                                <div>
+                                    <h4>How to pay:</h4>
+                                    <p>You are expected to pay at the first class in studio if there are any payment required</p>
+                                    <p>We will contact you to provide further details</p>
+                                </div>
+                            </div>
                             <button class="btn btn-primary prevBtn btn-lg pull-left" type="button" style='margin-top: 10px'>Previous</button>
                                             
                             <?= $this->Form->button(__('Submit'), ['class'=>"btn btn-success btn-lg pull-right", 'style'=>'margin-top: 10px']) ?>
@@ -341,6 +369,10 @@ h4.error-message{
 tbody tr.highlight td { 
     background-color: #e79b9b; 
 }
+
+.table-borderless tr td, .table-borderless tr th{
+    background-color: #eee;
+}
 </style>
 
 <?php if($stage==2): ?>
@@ -348,8 +380,11 @@ tbody tr.highlight td {
         $(document).ready(function () {
             $('#btn-check-outlined<?= $booking->package_id ?>').attr( 'checked', true );
             $('#btn-check-outlined<?= $booking->package_id ?>').text( "Choosen");
+            $('#btn-check-label<?= $booking->package_id ?>').attr("name","package_id");
+            $("#package-line-<?= $booking->package_id ?>").addClass("highlight")
             $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_id");
-            $('#start-datetime').attr('value', '<?= $booking->lessons[0]->lesson_start_time->format("Y-m-d\TH:i:s")?>');
+            $('#lessons-0-lesson-start-time').attr('value', '<?= $booking->lessons[0]->lesson_start_time->format("Y-m-d\TH:i:s")?>');
+            $('#note').attr('value', '<?= $booking->note?>');
             //$('.stepwizard-row.setup-panel').attr('stage', '3');
             $('.nextBtn').eq(0).trigger('click');
             $('.nextBtn').eq(1).trigger('click');
@@ -359,6 +394,7 @@ tbody tr.highlight td {
 <?php endif; ?>
 <script>
     $(document).ready(function () {
+        $('#dummy').hide();
         $('select option:eq(1)').attr('selected', 'selected');
         $('input.btn-check').click(function(){
             var checkbox= $("input.btn-check");

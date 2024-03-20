@@ -18,7 +18,9 @@ header {
 }
 img {
     margin-bottom: 30px;
-}
+    }
+    
+
 h1 {
     font-weight: bold;
 }
@@ -72,4 +74,8 @@ hr {
 }
 #url-rewriting-warning {
     display: none;
+}
+
+.navbar ul li a.active {
+    font-weight: bold;
 }

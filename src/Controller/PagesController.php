@@ -81,10 +81,6 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        if ($page === 'aboutus') {
-            return $this->render('aboutus');
-        }
-
         $this->set(compact('page', 'subpage'));
 
         try {

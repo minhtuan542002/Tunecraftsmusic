@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Core\Configure;
@@ -78,6 +79,10 @@ class PagesController extends AppController
         }
         if (!empty($path[1])) {
             $subpage = $path[1];
+        }
+
+        if ($page === 'aboutus') {
+            return $this->render('aboutus');
         }
 
         $this->set(compact('page', 'subpage'));

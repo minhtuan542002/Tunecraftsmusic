@@ -250,7 +250,6 @@ section {
   transition: all 0.5s;
   z-index: 997;
   height: auto;
-  border-bottom: 1px solid #eee;
   padding: 15px 0;
 }
 
@@ -1515,7 +1514,6 @@ section {
   background-size: cover;
   position: relative;
   min-height: 60vh;
-  padding: 160px 0 60px 0;
 }
 
 .hero h2 {

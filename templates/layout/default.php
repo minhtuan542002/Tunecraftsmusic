@@ -119,7 +119,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build('/lessons') ?>">Book Now</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build('/booking') ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

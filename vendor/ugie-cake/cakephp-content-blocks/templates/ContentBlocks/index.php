@@ -13,11 +13,6 @@ $slugify = function($text) {
 }
 
 ?>
-<style>
-    .contentBlocks.index.content {
-        margin-top: 100px;
-    }
-</style>
 <div class="contentBlocks index content">
 
     <?php

@@ -292,6 +292,7 @@ class BookingsController extends AppController
 
             if($booking->student_id==null){
                 $stage=2;
+                $session = $this->request->getSession();
                 $session->write('booking.session_id', $booking->session_id);
                 $session->write('booking.in_progress', 'true');
                 //debug($user);

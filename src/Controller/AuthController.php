@@ -196,6 +196,9 @@ class AuthController extends AppController {
         if ($result && $result->isValid()) {
             // set a fallback location in case user logged in without triggering 'unauthenticatedRedirect'
             $fallbackLocation = ['controller' => 'Users', 'action' => 'index'];
+            if($this->request->getSession()->read('booking.in_progress')=='true'){
+                $fallbackLocation = ['controller' => 'Bookings', 'action' => 'add'];
+            }
 
             // and redirect user to the location they're trying to access
             return $this->redirect($this->Authentication->getLoginRedirect() ?? $fallbackLocation);

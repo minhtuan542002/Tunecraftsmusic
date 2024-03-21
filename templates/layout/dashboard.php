@@ -69,10 +69,14 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Users
                         </a>                
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/bookings') ?>">
+                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Bookings', 'action' => 'index']) ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Bookings
-                        </a>                           
+                        </a>     
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Packages
+                        </a>                         
                     </div>
                 </div>
             </nav>

@@ -66,7 +66,7 @@ $this->layout = 'dashboard';
             "searching": true,
             "columnDefs": [
                 {
-                    "targets": [0],
+                    "targets": [8],
                     "orderable": false
                 }
             ],

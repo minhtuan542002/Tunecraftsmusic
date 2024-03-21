@@ -26,7 +26,7 @@
                 <p data-aos="fade-up" data-aos-delay="100" style="font-size: 20px; style=font-weight: bold; font-family: Helvetica"> Ready to amplify your violin skills? Join us now for an unforgettable journey of musical growth! </p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <!-- <div class="button-border"> -->
-                    <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'active' : '' ?>" href="<?= $this->Url->build('/booking') ?>" style="font-size: 20px;">Book a Lesson</a>
+                    <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/bookings/add') ? 'active' : '' ?>" href="<?= $this->Url->build('/bookings/add') ?>" style="font-size: 20px;">Book a Lesson</a>
 
 
                 <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->

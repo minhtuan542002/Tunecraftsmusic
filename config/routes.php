@@ -88,6 +88,9 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/bookings', ['controller' => 'Bookings', 'action' => 'index']);
         $builder->connect('/customisation', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
         $builder->connect('/packages', ['controller' => 'Packages', 'action' => 'index']);
+        $builder->connect('/packages/add', ['controller' => 'Packages', 'action' => 'add']);
+        $builder->connect('/packages/edit/*', ['controller' => 'Packages', 'action' => 'edit']);
+        $builder->connect('/packages/view/*', ['controller' => 'Packages', 'action' => 'view']);
         $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);

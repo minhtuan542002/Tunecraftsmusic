@@ -3,44 +3,56 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Booking $booking
  */
-$this->layout = 'main_page';
 ?>
-<section class="page-section clearfix">
-<div class="container">
-    <div class="row">
-        <div class="col-xl-9 mx-auto bg-faded p-5 rounded">
+<div class="row">
+    <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Back To My Bookings'), ['action' => 'all'], ['class' => 'btn btn-info']) ?>
-            <?= $this->Form->postLink(__('Delete Booking'), ['action' => 'delete', $booking->id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->id), 'class' => 'btn btn-danger']) ?>
+            <h4 class="heading"><?= __('') ?></h4>
+            <?= $this->Html->link(__('View All Bookings'), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
+            <?= $this->Html->link(__('Edit Booking'), ['action' => 'edit', $booking->booking_id], ['class' => 'btn btn-warning']) ?>
+            <?= $this->Form->postLink(__('Delete Booking'), ['action' => 'delete', $booking->booking_id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->booking_id), 'class' => 'btn btn-danger']) ?>
             <!-- <?= $this->Html->link(__('New Booking'), ['action' => 'add'], ['class' => 'btn btn-success']) ?> -->
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="bookings view content">
-            <h3>Booking ID: <?= h($booking->id) ?></h3>
+            <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
+            <?= $this->Flash->render() ?>
+            <div class = "table-responsive">
             <table class="table">
                 <tr>
                     <th><?= __('Customer') ?></th>
-                    <td><?= $booking->has('customer') ? $booking->customer->first_name . " " . $booking->customer->last_name : '' ?></td>
+                    <td>
+                        <?php if ($booking->has('customer')) : ?>
+                            <?= $this->Html->link(
+                                h($booking->customer->id . ' - ' . $booking->customer->first_name . ' ' . $booking->customer->last_name),
+                                ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]
+                            ) ?>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($booking->id) ?></td>
+                    <td><?= $this->Number->format($booking->booking_id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Start Datetime') ?></th>
-                    <td><?= h($booking->start_datetime) ?></td>
+                    <th><?= __('Weakly Datetime') ?></th>
+                    <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('End Datetime') ?></th>
-                    <td><?= h($booking->end_datetime) ?></td>
+                    <th><?= __('Each Lesson Duration') ?></th>
+                    <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Service Completed') ?></th>
-                    <td><?= $booking->service_completed ? __('Yes') : __('No'); ?></td>
+                    <th><?= h('Upcoming Lesson') ?></th>
+                    <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Payment Confirmed') ?></th>
+                    <td><?= $booking->is_paid? "Yes":"No" ?></td>
                 </tr>
             </table>
+            </div>
             <div class="related">
                 <h4><?= __('All Booking Lines') ?></h4>
                 <?php if (!empty($booking->booking_lines)) : ?>
@@ -62,6 +74,8 @@ $this->layout = 'main_page';
                             <td><?= h($bookingLines->service->service_name) ?></td>
                             <td><?= h($bookingLines->service_id) ?></td>
                             <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'BookingLines', 'action' => 'view', $bookingLines->id], ['class' => 'btn btn-info']) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'BookingLines', 'action' => 'edit', $bookingLines->id], ['class' => 'btn btn-warning']) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'BookingLines', 'action' => 'delete', $bookingLines->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookingLines->id), 'class' => 'btn btn-danger']) ?>
                             </td>
                         </tr>
@@ -93,7 +107,8 @@ $this->layout = 'main_page';
                             <td><?= h($invoices->surcharge) ?></td>
                             <td><?= h($invoices->discount) ?></td>
                             <td class="actions">
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Invoices', 'action' => 'delete', $invoices->id], ['confirm' => __('Are you sure you want to delete # {0}?', $invoices->id)]) ?>
+                                <?= $this->Html->link(__('View'), ['controller' => 'Invoices', 'action' => 'my', $invoices->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Invoices', 'action' => 'edit', $invoices->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -104,5 +119,3 @@ $this->layout = 'main_page';
         </div>
     </div>
 </div>
-</div>
-</section>

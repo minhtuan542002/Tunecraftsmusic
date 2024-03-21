@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Booking $booking
  * @var string[]|\Cake\Collection\CollectionInterface $customers
  */
-$this->layout = 'dashboard';
 ?>
 <div class="row">
     <aside class="column">

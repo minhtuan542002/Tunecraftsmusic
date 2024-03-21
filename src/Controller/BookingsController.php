@@ -137,18 +137,27 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        $this->Packages = $this->getTableLocator()->get('Packages');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Students', 'Packages', 'Invoices'],
+            'contain' => ['Students', 'Packages'],
         ]);
-        $booking_lines = $this->Packages->find('all', [
+        $lessons = $this->Lessons->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->booking_id,
             ],
-            'contain' => ['Packages'],
-        ]);
+        ])->all();
+        $booking->student->user = $this->Users->get($booking->student->user_id);
+        foreach($lessons as $lesson){
+            if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
+                $booking->remain_count++;
+                $booking->upcoming =  $lesson;
+                if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+                    $booking->upcoming =  $lesson;
+                }
+            }
+        }
 
-        $this->set(compact('booking', 'booking_lines'));
+        $this->set(compact('booking', 'lessons'));
     }
 
     /**
@@ -160,18 +169,27 @@ class BookingsController extends AppController
      */
     public function viewOne($id = null)
     {
-        $this->Packages = $this->getTableLocator()->get('Packages');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Students', 'Packages', 'Invoices'],
+            'contain' => ['Students', 'Packages'],
         ]);
-        $booking_lines = $this->Packages->find('all', [
+        $lessons = $this->Lessons->find('all', [
             'conditions'=> [
                 'booking_id' => $booking->booking_id,
             ],
-            'contain' => ['Packages'],
-        ]);
+        ])->all();
+        $booking->student->user = $this->Users->get($booking->student->user_id);
+        foreach($lessons as $lesson){
+            if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
+                $booking->remain_count++;
+                $booking->upcoming =  $lesson;
+                if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+                    $booking->upcoming =  $lesson;
+                }
+            }
+        }
 
-        $this->set(compact('booking', 'booking_lines'));
+        $this->set(compact('booking', 'lessons'));
     }
 
     /**

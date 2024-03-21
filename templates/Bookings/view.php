@@ -10,14 +10,14 @@ $this->layout = 'dashboard';
         <div class="side-nav">
             <h4 class="heading"><?= __('') ?></h4>
             <?= $this->Html->link(__('View All Bookings'), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
-            <?= $this->Html->link(__('Edit Booking'), ['action' => 'edit', $booking->id], ['class' => 'btn btn-warning']) ?>
-            <?= $this->Form->postLink(__('Delete Booking'), ['action' => 'delete', $booking->id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->id), 'class' => 'btn btn-danger']) ?>
+            <?= $this->Html->link(__('Edit Booking'), ['action' => 'edit', $booking->booking_id], ['class' => 'btn btn-warning']) ?>
+            <?= $this->Form->postLink(__('Delete Booking'), ['action' => 'delete', $booking->booking_id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->booking_id), 'class' => 'btn btn-danger']) ?>
             <!-- <?= $this->Html->link(__('New Booking'), ['action' => 'add'], ['class' => 'btn btn-success']) ?> -->
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="bookings view content">
-            <h3>Booking ID: <?= h($booking->id) ?></h3>
+            <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
             <?= $this->Flash->render() ?>
             <div class = "table-responsive">
             <table class="table">
@@ -34,19 +34,23 @@ $this->layout = 'dashboard';
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($booking->id) ?></td>
+                    <td><?= $this->Number->format($booking->booking_id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Start Datetime') ?></th>
-                    <td><?= h($booking->start_datetime) ?></td>
+                    <th><?= __('Weakly Datetime') ?></th>
+                    <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('End Datetime') ?></th>
-                    <td><?= h($booking->end_datetime) ?></td>
+                    <th><?= __('Each Lesson Duration') ?></th>
+                    <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Service Completed') ?></th>
-                    <td><?= $booking->service_completed ? __('Yes') : __('No'); ?></td>
+                    <th><?= h('Upcoming Lesson') ?></th>
+                    <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Payment Confirmed') ?></th>
+                    <td><?= $booking->is_paid? "Yes":"No" ?></td>
                 </tr>
             </table>
             </div>

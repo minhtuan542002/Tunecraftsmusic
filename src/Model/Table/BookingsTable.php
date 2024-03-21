@@ -46,7 +46,6 @@ class BookingsTable extends Table
 
         $this->belongsTo('Students', [
             'foreignKey' => 'student_id',
-            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Packages', [
             'foreignKey' => 'package_id',
@@ -68,7 +67,7 @@ class BookingsTable extends Table
     {
         $validator
             ->integer('student_id')
-            ->notEmptyString('student_id');
+            ->allowEmptyString('student_id');
 
         $validator
             ->integer('package_id')
@@ -76,7 +75,6 @@ class BookingsTable extends Table
 
         $validator
             ->dateTime('booking_datetime')
-            ->requirePresence('booking_datetime', 'create')
             ->notEmptyDateTime('booking_datetime');
 
         $validator
@@ -87,6 +85,14 @@ class BookingsTable extends Table
             ->boolean('completed')
             ->requirePresence('completed', 'create')
             ->notEmptyString('completed');
+
+        $validator
+            ->scalar('note')
+            ->allowEmptyString('note');
+
+        $validator
+            ->scalar('session_id')
+            ->allowEmptyString('session_id');
 
         return $validator;
     }

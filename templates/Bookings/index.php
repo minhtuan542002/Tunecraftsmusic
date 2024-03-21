@@ -3,59 +3,79 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Booking> $bookings
  */
+$this->layout = 'dashboard';
 ?>
+
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<section class="page-section clearfix">
+
 <div class="bookings index content">
-    <div class="d-flex">
-        <div style="margin-top: 10px;"><h3><?= __('Bookings') ?></h3></div>
-        <!-- <div style="margin-left: 20px;"><?= $this->Html->link(__('New Booking'), ['action' => 'add'], ['class' => 'btn btn-info', 'style' => 'margin-top: 10px;']) ?></div> -->
-    </div>
-    <div class="table-responsive">
+    <h3><?= __('My Bookings') ?></h3>
+    <?= $this->Flash->render() ?>
+    <div class="table-responsive user-table-container">
         <table class= "table dataTable" id= 'dataTable'>
             <thead>
                 <tr>
-                    <th><?=h('Booking Id') ?></th>
+                    <th><?= h('#ID') ?></th>
                     <th><?= h('Customer Name') ?></th>
-                    <th><?= h('Customer Id') ?></th>
-                    <th><?= h('Start Date & Time') ?></th>
-                    <th><?= h('End Date & Time') ?></th>
-                    <th><?= h('Service Completed') ?></th>
-                    <th><?=h('Additional Notes') ?></th>
+                    <th><?= h('Weekly Date & Time') ?></th>
+                    <th><?= h('Remaining Number of Lesson') ?></th>
+                    <th><?= h('Upcoming Lesson') ?></th>
+                    <th><?= h('Each Lesson Duration') ?></th>
+                    <th><?= h('Is Paid for') ?></th>
+                    <th><?= h('Notes') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($bookings as $booking): ?>
                 <tr>
-                    <td><?= $this->Number->format($booking->id) ?></td>
-                    <td>
-                        <?php
-                        if ($booking->has('customer')) {
-                            echo $this->Html->link($booking->customer->first_name . ' ' . $booking->customer->last_name, ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]);
-                        } else {
-                            echo 'N/A';
-                        }
-                        ?>
-                    </td>
-                    <td><?= $booking->has('customer') ? $this->Html->link($booking->customer->id, ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]) : '' ?></td>
-                    <td><?= h($booking->start_datetime) ?></td>
-                    <td><?= h($booking->end_datetime) ?></td>
-                    <td><?= ($booking->service_completed)? 'Yes':'No' ?></td>
-                    <td><?= h($booking->additional_notes) ?></td>
+                    <td><?= $booking->booking_id ?></td>
+                    <td><?= $booking->student->user->first_name . " " . $booking->student->user->last_name ?></td>
+                    <td><?= $booking->booking_datetime->format('l H:i') ?></td>
+                    <td><?= $booking->remain_count ?></td>
+                    <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
+                    <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
+                    <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], ['class' => 'btn btn-outline-success']) ?></td>
+                    <td><?= $booking->note==NULL? "None":$booking->note ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $booking->id], ['class' => 'btn btn-info']) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $booking->id], ['class' => 'btn btn-warning']) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $booking->id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->id), 'class' => 'btn btn-danger']) ?>
+                        <div class="d-grid gap-2 col-4 mx-auto">
+                            <?= $this->Html->link(__('View'), ['action' => 'view', $booking->booking_id], ['class' => 'btn btn-info']) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $booking->booking_id], ['class' => 'btn btn-primary']) ?>
+                            <?= $this->Form->postLink(__('Remove'), ['action' => 'delete', $booking->booking_id], [
+                                'confirm' => __('Are you sure you want to cancel your booking?'), 'class' => 'btn btn-warning']) ?>
+                            
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
+    
 </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "searching": true,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "orderable": false
+                }
+            ],
+            "language": {
+                "emptyTable": "No data available in table",
+                "search": '<i class="fas fa-search"></i>',
+                "searchPlaceholder": "Search...",
+            },
+            "dom": '<"top"lf>rt<"bottom"ip><"clear">'
+        });
+    });
+</script>

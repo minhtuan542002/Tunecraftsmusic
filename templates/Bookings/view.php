@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Booking $booking
  */
+$this->layout = 'dashboard';
 ?>
 <div class="row">
     <aside class="column">
@@ -18,6 +19,7 @@
         <div class="bookings view content">
             <h3>Booking ID: <?= h($booking->id) ?></h3>
             <?= $this->Flash->render() ?>
+            <div class = "table-responsive">
             <table class="table">
                 <tr>
                     <th><?= __('Customer') ?></th>
@@ -47,6 +49,7 @@
                     <td><?= $booking->service_completed ? __('Yes') : __('No'); ?></td>
                 </tr>
             </table>
+            </div>
             <div class="related">
                 <h4><?= __('All Booking Lines') ?></h4>
                 <?php if (!empty($booking->booking_lines)) : ?>

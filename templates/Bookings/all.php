@@ -34,9 +34,14 @@
                                 <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
                                 <td><?= $booking->is_paid? "Yes":"No" ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View Booking'), ['action' => 'view_one', $booking->id], ['class' => 'btn btn-info']) ?>
-                                    <?= $this->Form->postLink(__('Cancel Booking'), ['action' => 'delete', $booking->id], ['confirm' => __('Are you sure you want to cancel your booking?'), 'class' => 'btn btn-warning']) ?>
-                                    <?= $this->Form->postLink(__('Toggle Paid/Unpaid'), ['action' => 'togglePaid', $booking->id], ['confirm' => __('Are you sure you want to cancel your booking?'), 'class' => 'btn btn-success']) ?>
+                                    <?= $this->Html->link(__('View Booking'), ['action' => 'view_one', $booking->booking_id], ['class' => 'btn btn-info']) ?>
+                                    <?php if(!$booking->is_paid):?>
+                                    <?= $this->Form->postLink(__('Cancel Booking'), ['action' => 'delete', $booking->booking_id], [
+                                        'confirm' => __('Are you sure you want to cancel your booking?'), 'class' => 'btn btn-warning']) ?>
+                                    <?php else:?>
+                                    
+                                    <?php endif; ?>
+                                    <?= $this->Form->postLink(__('Toggle Paid/Unpaid'), ['action' => 'togglePaid', $booking->booking_id], ['class' => 'btn btn-success']) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

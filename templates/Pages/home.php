@@ -15,13 +15,9 @@
  */
 ?>
 
-<<<<<<< HEAD
-<!-- ======= Hero Section ======= -->
-=======
 
 
 <!-- ======= Home Section ======= -->
->>>>>>> 987bbe090f998ca45d9b1d15304c95dee77945f3
 <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class = "container">
         <div class="row justify-content-between gy-5"> 

@@ -6,7 +6,7 @@ namespace App\Controller;
 use Cake\Controller\Component\AuthComponent;
 use Cake\Routing\Router;
 use Cake\View\Helper\PaginatorHelper;
-
+use Cake\I18n\FrozenTime;
 /**
  * Bookings Controller
  *
@@ -23,6 +23,7 @@ class BookingsController extends AppController
             $loggedIn = true;
         }
         $this->set('loggedIn', $loggedIn);
+        $this->Users = $this->getTableLocator()->get('Users');
 
         $this->Authentication->allowUnauthenticated(['add']);
     }
@@ -33,27 +34,63 @@ class BookingsController extends AppController
      */
     public function index()
     {
-        $query = $this->Bookings->find();
-        $bookings = $this->paginate($query);
-
-        $this->set(compact('bookings'));
-    }
-
-    /**
-     * All method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function all()
-    {
         $this->Users = $this->getTableLocator()->get('Users');
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
                 'contain' => ['Students'],
             ]);
-            if($user->role_id=="1"){
+            if($user->role_id==3){
+                //debug($user->Students[0]);
+                $query = $this->Bookings->find('all', [
+                    'contain' => ['Students', 'Lessons', 'Packages'],
+                ]);
+                $bookings = $this->paginate($query);
+                //debug($bookings);
+                
+                foreach($bookings as $booking){
+                    $booking->remain_count = 0;
+                    $booking->upcoming = $booking->lessons[sizeof($booking->lessons)-1];
+                    $booking->student->user = $this->Users->get($booking->student->user_id);
+                    
+                    foreach($booking->lessons as $lesson){
+                        if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
+                            $booking->remain_count++;
+                            if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+                                $booking->upcoming =  $lesson;
+                                //debug($lesson);
+                            }
+                        }
+                    }
+                }
+                debug($bookings);
+            }
+            else{
+                return $this->redirect(['action' => 'my']);
+            }
+            
+        }
+        else{
+            return $this->redirect("/");
+        }
+        
+        $this->set(compact('bookings', 'user'));
+    }
+    
+    /**
+     * My method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function my()
+    {
+        $this->Users = $this->getTableLocator()->get('Users');
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Students'],
+            ]);
+            if($user->role_id==1){
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
                     'conditions'=> [
@@ -68,9 +105,9 @@ class BookingsController extends AppController
                     $booking->remain_count = 0;
                     $booking->upcoming = $booking->lessons[sizeof($booking->lessons)-1];
                     foreach($booking->lessons as $lesson){
-                        if($lesson->lesson_start_time >= $date = date('Y-m-d H:i:s')){
+                        if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
                             $booking->remain_count++;
-                            if($booking->upcoming->lesson_start_time < $lesson->lesson_start_time){
+                            if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
                                 $booking->upcoming =  $lesson;
                                 //debug($lesson);
                             }
@@ -222,11 +259,12 @@ class BookingsController extends AppController
             $booking = $this->Bookings->get($booking->booking_id, [
                 'contain' => ['Packages', 'Lessons'],
             ]);
+            $start_date=$booking->booking_datetime;
             for($i = 0; $i<$booking->package->number_of_lessons; $i++) {
                 $new_lesson = $this->Lessons->newEmptyEntity();
                 $new_lesson->teacher_id = 1;
                 $new_lesson->booking_id = $booking->booking_id;
-                $new_lesson->lesson_start_time = $booking->booking_datetime->modify("+". $i ." week");
+                $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
                 //debug($new_lesson);
                 $this->Lessons->save($new_lesson);
                 
@@ -244,7 +282,7 @@ class BookingsController extends AppController
                 $stage=0;
                 $this->request->getSession()->delete('booking.in_progress');
                 $this->request->getSession()->delete('booking.session_id');
-                return $this->redirect(['action' => 'all']);
+                return $this->redirect(['action' => 'my']);
             }
             //$this->set(compact('booking', 'user', 'Packages', 'stage'));
             //return $this->redirect(['action' => 'add']);
@@ -264,20 +302,44 @@ class BookingsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $booking = $this->Bookings->get($id, [
-            'contain' => [],
+            'contain' => ['Lessons'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
+            
             if ($this->Bookings->save($booking)) {
+                $count =0;
+                $start_date=$booking->booking_datetime;
+                $lessons = $this->Lessons->find('all', [
+                    'conditions'=> [
+                        'booking_id' => $booking->booking_id,
+                    ],
+                ]);
+                foreach($lessons as $new_lesson) {
+                    $date= FrozenTime::now()->modify("+6 day");
+                    if($new_lesson->lesson_start_time >= $date){
+                        $lesson = $this->Lessons->get($new_lesson->lesson_id);
+                        $lesson->lesson_start_time = $start_date->modify("+". $count*7 ." day");
+                        if(!$this->Lessons->save($lesson)){
+                            $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                        }
+                        $count++;
+                        
+                    }
+                    //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                }
+                
                 $this->Flash->success(__('The booking has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+
+            
         }
         $Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('booking', 'Students'));
+        $this->set(compact('booking', 'user'));
     }
 
     /**
@@ -289,19 +351,48 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Packages = $this->getTableLocator()->get('Packages');
+        $this->Lessons = $this->getTableLocator()->get('Lessons');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
-            'contain' => ['Packages'],
+            'contain' => ['Lessons'],
         ]);
-        foreach($booking->booking_lines as $key=>$value) {
+        foreach($booking->lessons as $key=>$value) {
             //debug()
-            $this->Packages->delete($value);
+            $this->Lessons->delete($value);
         }
         if ($this->Bookings->delete($booking)) {
             $this->Flash->success(__('The booking has been deleted.'));
         } else {
             $this->Flash->error(__('The booking could not be deleted. Please, try again.'));
+        }
+        $this->redirect( Router::url( $this->referer(), true ) );
+    }
+    /**
+     * Toggle payment
+     *
+     * @param string|null $id Booking id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function togglePaid($id = null)
+    {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
+        $this->request->allowMethod(['post', 'put']);
+        $booking = $this->Bookings->get($id);
+        $booking->is_paid = !$booking->is_paid;
+        if ($this->Bookings->save($booking)) {
+            $this->Flash->success(__('The booking payment has been update.'));
+        } else {
+            $this->Flash->error(__('The booking payment could not be updated. Please, try again.'));
         }
         $this->redirect( Router::url( $this->referer(), true ) );
     }

@@ -141,7 +141,8 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 'label' => [
                                     'text' => 'Anything you want to tell us?'
                                 ],
-                                'type' => 'text', 
+                                'type' => 'textarea', 
+                                'rows' => '4',
                                 'class'=>'form-control',
                             ]);
                         ?>

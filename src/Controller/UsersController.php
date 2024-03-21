@@ -10,7 +10,6 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
-
     /**
      * Initialize method
      * Authenticates permissions access

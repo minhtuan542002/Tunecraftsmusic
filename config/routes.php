@@ -60,7 +60,6 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/pricing', ['controller' => 'Pages', 'action' => 'display', 'pricing']);
         $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
-        $builder->connect('/booking', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
 
         /*
@@ -86,7 +85,9 @@ return function (RouteBuilder $routes): void {
 
     // Define routes inside the dashboard scope
     $routes->scope('/dashboard', function (RouteBuilder $builder): void {
+        $builder->connect('/bookings', ['controller' => 'Bookings', 'action' => 'index']);
         $builder->connect('/customisation', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
+        $builder->connect('/packages', ['controller' => 'Packages', 'action' => 'index']);
         $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);

@@ -69,6 +69,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    
+  </style>
 </head>
 
 <body>
@@ -118,10 +121,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               <li><a href="#">Drop Down 4</a></li> -->
             <!-- </ul>
           </li> -->
-</ul>
+        </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Book Now</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

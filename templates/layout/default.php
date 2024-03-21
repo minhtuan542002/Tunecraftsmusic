@@ -69,6 +69,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    
+  </style>
 </head>
 
 <body>
@@ -86,12 +89,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <nav id="navbar" class="navbar">
         <ul>
           
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/aboutus') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/aboutus') ?>">About Us</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
-        <!-- <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/booking') ?>">Booking</a></li> -->
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/aboutus') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/aboutus') ?>">About Us</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Booking</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
 
 
           <!-- <li><a href="#home">Home</a></li>
@@ -118,10 +121,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               <li><a href="#">Drop Down 4</a></li> -->
             <!-- </ul>
           </li> -->
-</ul>
+        </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build('/booking') ?>">Book Now</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

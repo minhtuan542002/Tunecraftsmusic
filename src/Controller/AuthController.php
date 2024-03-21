@@ -34,6 +34,7 @@ class AuthController extends AppController {
         // CakePHP loads the model with the same name as the controller by default.
         // Since we don't have an Auth model, we'll need to load "Users" model when starting the controller manually.
         $this->Users = $this->fetchTable('Users');
+        $this->Students = $this->fetchTable('Students');
     }
 
     /**
@@ -42,13 +43,17 @@ class AuthController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function register() {
-        $user = $this->Users->newEmptyEntity();
+        $user = $this->Users->newEmptyEntity( ['associated' => ['Students']]);
+        $student = $this->Students->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->patchEntity($user, $this->request->getData(), ['associated' => ['Students']]);
             // set default role on register to student (role_id = 1)
             $user->role_id= 1;
-
-            if ($this->Users->save($user)) {
+            //debug($user);
+            
+            if ($this->Users->save($user, ['associated' => ['Students']])) {
+                $student->user_id= $user->user_id;
+                $this->Students->save($student);
                 $this->Flash->success('You have been registered. Please log in. ');
 
                 return $this->redirect(['action' => 'login']);

@@ -59,6 +59,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
   <!-- Template Main CSS File -->
   <?= $this->Html->css('main.css') ?>
+  
+  <?= $this->Html->script('/vendor/jquery/jquery.min.1.3.2.js') ?>
 
   <!-- =======================================================
   * Template Name: Yummy
@@ -67,12 +69,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    
+  </style>
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header">
+  <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
       <a href="<?= $this->Url->build('/') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
@@ -86,8 +91,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/lessons') ?>">Lessons</a></li>
-        <!-- <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/booking') ?>">Booking</a></li> -->
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
 
@@ -116,10 +121,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               <li><a href="#">Drop Down 4</a></li> -->
             <!-- </ul>
           </li> -->
-</ul>
+        </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build('/lessons') ?>">Book Now</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -173,10 +178,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Follow Us</h4>
           <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="<?= $this->Url->build('/comingsoon') ?>" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
 
@@ -185,7 +190,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>TuneCraft Studio</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

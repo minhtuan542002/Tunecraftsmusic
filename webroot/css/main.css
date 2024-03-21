@@ -1,7 +1,7 @@
 /**
 * Template Name: Yummy
-* Updated: Mar 13 2024 with Bootstrap v5.3.3
 * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+* Updated: Mar 17 2024 with Bootstrap v5.3.3
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
@@ -60,6 +60,7 @@ h6 {
 # Sections & Section Header
 --------------------------------------------------------------*/
 section {
+  overflow: hidden;
   padding: 80px 0;
   scroll-margin-top: 90px;
   overflow: clip;
@@ -249,19 +250,18 @@ section {
   background: #fff;
   transition: all 0.5s;
   z-index: 997;
-  height: auto;
-  border-bottom: 1px solid #eee;
-  padding: 15px 0;
+  height: 90px;
+  border-bottom: 1px solid #fff;
 }
 
 @media (max-width: 575px) {
   .header {
     height: 70px;
-    padding: 10px 0;
   }
 }
 
 .header.sticked {
+  border-color: #fff;
   border-color: #eee;
 }
 
@@ -282,38 +282,11 @@ section {
   color: var(--color-primary);
 }
 
-.header nav {
-  display: flex;
-  align-items: center;
-}
-
-.header nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.header nav ul li {
-  margin-right: 20px;
-}
-
-.header nav ul li a {
-  font-size: 16px;
-  color: #000;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.header nav ul li a:hover {
-  color: var(--color-primary);
-}
-
 .header .btn-book-a-table,
 .header .btn-book-a-table:focus {
   font-size: 14px;
   color: #fff;
-  background: rgba(206, 18, 18, 0.8);
+  background: var(--color-primary);
   padding: 8px 20px;
   margin-left: 30px;
   border-radius: 50px;
@@ -322,9 +295,9 @@ section {
 
 .header .btn-book-a-table:hover,
 .header .btn-book-a-table:focus:hover {
+  color: #fff;
   background: rgba(206, 18, 18, 0.8);
 }
-
 
 /*--------------------------------------------------------------
 # Desktop Navigation
@@ -1593,12 +1566,9 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
   font-size: 14px;
   background-color: #1f1f24;
-  padding: 20px 0;
+  padding: 50px 0;
   color: rgba(255, 255, 255, 0.7);
 }
 

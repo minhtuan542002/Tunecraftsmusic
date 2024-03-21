@@ -21,12 +21,12 @@
 <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class = "container">
         <div class="row justify-content-between gy-5"> 
-            <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+            <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-top align-items-lg-start text-center text-lg-start">
                 <h2 data-aos="fade-up">TuneCraft Studio</h2>
                 <p data-aos="fade-up" data-aos-delay="100" style="font-size: 20px; style=font-weight: bold; font-family: Helvetica"> Ready to amplify your violin skills? Join us now for an unforgettable journey of musical growth! </p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <!-- <div class="button-border"> -->
-                    <a class="btn-book-a-table" href="#book-a-lesson" style="font-size: 20px;">Book a Lesson</a>
+                    <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'active' : '' ?>" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>" style="font-size: 20px;">Book a Lesson</a>
 
 
                 <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->

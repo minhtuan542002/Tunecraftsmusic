@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * Lessons Model
  *
  * @property \App\Model\Table\BookingsTable&\Cake\ORM\Association\BelongsTo $Bookings
+ * @property \App\Model\Table\TeachersTable&\Cake\ORM\Association\BelongsTo $Teachers
  *
  * @method \App\Model\Entity\Lesson newEmptyEntity()
  * @method \App\Model\Entity\Lesson newEntity(array $data, array $options = [])
@@ -45,9 +46,11 @@ class LessonsTable extends Table
 
         $this->belongsTo('Bookings', [
             'foreignKey' => 'booking_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Teachers', [
             'foreignKey' => 'teacher_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -61,15 +64,16 @@ class LessonsTable extends Table
     {
         $validator
             ->integer('booking_id')
-            ->allowEmptyString('booking_id');
+            ->notEmptyString('booking_id');
 
         $validator
             ->integer('teacher_id')
-            ->allowEmptyString('teacher_id');
+            ->notEmptyString('teacher_id');
 
         $validator
             ->dateTime('lesson_start_time')
-            ->allowEmptyDateTime('lesson_start_time');
+            ->requirePresence('lesson_start_time', 'create')
+            ->notEmptyDateTime('lesson_start_time');
 
         $validator
             ->scalar('note')

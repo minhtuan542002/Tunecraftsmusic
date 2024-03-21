@@ -49,6 +49,11 @@ class BookingsTable extends Table
         ]);
         $this->belongsTo('Packages', [
             'foreignKey' => 'package_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Lessons', [
+            'foreignKey' => 'booking_id',
+            'joinType' => 'LEFT',
         ]);
     }
 
@@ -66,15 +71,28 @@ class BookingsTable extends Table
 
         $validator
             ->integer('package_id')
-            ->allowEmptyString('package_id');
+            ->notEmptyString('package_id');
 
         $validator
             ->dateTime('booking_datetime')
-            ->allowEmptyDateTime('booking_datetime');
+            ->notEmptyDateTime('booking_datetime');
 
         $validator
             ->boolean('is_paid')
             ->allowEmptyString('is_paid');
+
+        $validator
+            ->boolean('completed')
+            ->requirePresence('completed', 'create')
+            ->notEmptyString('completed');
+
+        $validator
+            ->scalar('note')
+            ->allowEmptyString('note');
+
+        $validator
+            ->scalar('session_id')
+            ->allowEmptyString('session_id');
 
         return $validator;
     }

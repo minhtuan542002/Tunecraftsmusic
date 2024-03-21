@@ -42,7 +42,7 @@
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="<?= $this->Url->build('/') ?>">Customer Website</a>
+        <a class="navbar-brand ps-3" href="<?= $this->Url->build('/') ?>">To Customer Website</a>
         <!-- Navbar Search (search doesn't work but it seem to function as a spacer - don't remove this line)--> 
         <div class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0"></div>
         <!-- Navbar-->
@@ -69,10 +69,14 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Users
                         </a>                
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/bookings') ?>">
+                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Bookings', 'action' => 'index']) ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Bookings
-                        </a>                           
+                        </a>     
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Packages
+                        </a>                         
                     </div>
                 </div>
             </nav>

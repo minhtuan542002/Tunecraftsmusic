@@ -7,7 +7,7 @@
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 <div class="packages index content">
-    <h3><?= __('Packages') ?></h3>
+    <h3><?= __('Packages') ?> <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i>', ['action' => 'add'], ['escape' => false, 'title' => __('Add')])?> </h3>
     <div class="table-responsive user-table-container">
         <table class="table dataTable" id="dataTable">
             <thead>

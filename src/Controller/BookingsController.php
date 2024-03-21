@@ -109,7 +109,7 @@ class BookingsController extends AppController
                             $booking->remain_count++;
                             if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
                                 $booking->upcoming =  $lesson;
-                                //debug($lesson);
+                                debug($lesson);
                             }
                         }
                     }

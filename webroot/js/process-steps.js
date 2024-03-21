@@ -8,7 +8,7 @@ $(document).ready(function () {
   
     navListItems.click(function (e) {
         e.preventDefault();
-        //console.log("navListItems");
+        console.log("navListItems");
         var $target = $($(this).attr('href')),
                 $item = $(this);
   

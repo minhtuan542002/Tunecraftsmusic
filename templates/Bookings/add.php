@@ -11,12 +11,12 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
 <section id="book-a-lesson" class="book-a-lesson section-bg">
     <div class="container" data-aos="fade-up">
 
-    <div class="section-header">
-        <h2>Book A Lesson</h2>
-        <p>Book <span>Your Lesson</span> With Us</p>
-    </div>
+        <div class="section-header">
+            <h2>Book A Lesson</h2>
+            <p>Book <span>Your Lesson</span> With Us</p>
+        </div>
 
-    <div class="row g-0">
+        <div class="row g-0">
             <div class="stepwizard col-md-offset-3">
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
@@ -42,111 +42,112 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
             <fieldset>
             
                 <div class="row setup-content" id="step-1">
-                <div class="col-xs-6 col-md-offset-3">
-                    <div class="col-md-12">
-                    <h3> Step 1</h3>
-                     <!----------------------------------------------------------->
-                    <div class="Packages index content">
-                        <h3><?= __('Packages') ?></h3>
-                        <div class="table-responsive-sm">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
-                                        <th><?= $this->Paginator->sort('description') ?></th>
-                                        <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
-                                        <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
-                                        <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
-                                        <th class="actions"><?= __('Actions') ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        //This is to fool cakePHP into accepting package_id as a form field
-                                        echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
-                                        'id'=>'dummy',
-                                        'label'=>false,
-                                        ]);
-                                        
-                                        foreach ($packages as $package): 
-                                    ?>
-                                    <tr id=<?= "package-line-" . $package->package_id ?> class="">
-                                        <td><?= h($package->package_name) ?></td>
-                                        <td><?= h($package->description) ?></td>
-                                        <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
-                                        <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
-                                        <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
-                                        <td class="actions">
+                    <div class="col-xs-6 col-md-offset-3">
+                        <div class="col-md-12">
+                            <h3> Step 1</h3>
+                            <!----------------------------------------------------------->
+                            <div class="Packages index content">
+                                <h3><?= __('Packages') ?></h3>
+                                <div class="table-responsive-sm">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
+                                                <th><?= $this->Paginator->sort('description') ?></th>
+                                                <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
+                                                <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
+                                                <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
+                                                <th class="actions"><?= __('Actions') ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <?php
-                                                //Actual value of package_id -> the input name will be changed later in the script
-                                                echo $this->Form->checkbox('package_choice.' . $package->package_id, [
-                                                    'value' => $package->package_id, 
-                                                    'class'=>'btn-check', 
-                                                    'id'=>"btn-check-outlined" . $package->package_id,
-                                                    'time-duration'=>$package->lesson_duration_minutes,
-                                                    'numberLesson'=>$package->number_of_lessons,
-                                                    'cost'=>$package->cost_dollars,
-                                                    'package'=>$package->package_name,
-                                                    'description'=>$package->description,
-                                                    'packageId'=>$package->package_id,
+                                                //This is to fool cakePHP into accepting package_id as a form field
+                                                echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
+                                                'id'=>'dummy',
+                                                'label'=>false,
                                                 ]);
                                                 
+                                                foreach ($packages as $package): 
                                             ?>
-                                            <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
-                                                id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
+                                            <tr id=<?= "package-line-" . $package->package_id ?> class="">
+                                                <td><?= h($package->package_name) ?></td>
+                                                <td><?= h($package->description) ?></td>
+                                                <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
+                                                <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
+                                                <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
+                                                <td class="actions">
+                                                    <?php
+                                                        //Actual value of package_id -> the input name will be changed later in the script
+                                                        echo $this->Form->checkbox('package_choice.' . $package->package_id, [
+                                                            'value' => $package->package_id, 
+                                                            'class'=>'btn-check', 
+                                                            'id'=>"btn-check-outlined" . $package->package_id,
+                                                            'time-duration'=>$package->lesson_duration_minutes,
+                                                            'numberLesson'=>$package->number_of_lessons,
+                                                            'cost'=>$package->cost_dollars,
+                                                            'package'=>$package->package_name,
+                                                            'description'=>$package->description,
+                                                            'packageId'=>$package->package_id,
+                                                        ]);
+                                                        
+                                                    ?>
+                                                    <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
+                                                        id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                </div>
+                
                 <div class="row setup-content" id="step-2">
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">
-                        <h3> Step 2</h3>
-                        <h3>Schedule your first lesson</h3>
-                        <p>Tell us about your prefered start date</p> 
-                        <p>(We may contact you to change due to schedule conflicts)</p>
-                        <br>
-                        <?php
-                            echo $this->Form->control('lessons.0.lesson_start_time', [
-                                'label' => [
-                                    'text' => 'Your preferred date'
-                                ],
-                                'type' => 'datetime-local',
-                                'required' => "required", 
-                                'class'=>'form-control',
-                                'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
-                            ]);
-                            echo $this->Form->control('note', [
-                                'label' => [
-                                    'text' => 'Anything you want to tell us?'
-                                ],
-                                'type' => 'textarea', 
-                                'rows' => '4',
-                                'class'=>'form-control',
-                            ]);
-                        ?>
-                        <br>
-                        <br>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                            <?php if(!$loggedIn && $stage==0): ?>
-                                <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
-                            <?php else : ?>
-                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                            <?php endif; ?>
+                            <h3> Step 2</h3>
+                            <h3>Schedule your first lesson</h3>
+                            <p>Tell us about your prefered start date</p> 
+                            <p>(We may contact you to change due to schedule conflicts)</p>
+                            <br>
+                            <?php
+                                echo $this->Form->control('lessons.0.lesson_start_time', [
+                                    'label' => [
+                                        'text' => 'Your preferred date'
+                                    ],
+                                    'type' => 'datetime-local',
+                                    'required' => "required", 
+                                    'class'=>'form-control',
+                                    'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
+                                ]);
+                                echo $this->Form->control('note', [
+                                    'label' => [
+                                        'text' => 'Anything you want to tell us?'
+                                    ],
+                                    'type' => 'textarea', 
+                                    'rows' => '4',
+                                    'class'=>'form-control',
+                                ]);
+                            ?>
+                            <br>
+                            <br>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                                <?php if(!$loggedIn && $stage==0): ?>
+                                    <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
+                                <?php else : ?>
+                                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
                 <div class="row setup-content" id="step-3">
                     <div class="col-xs-6 col-md-offset-3">
@@ -282,9 +283,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                 </div>
             </fieldset>
             <?= $this->Form->end() ?>
-
-        <!-- End Reservation Form -->
-
+        </div><!-- End Reservation Form -->
     </div>
 </section><!-- End Book A Table Section -->
 
@@ -372,10 +371,9 @@ tbody tr.highlight td {
     <script>
         $(document).ready(function () {
             $('#btn-check-outlined<?= $booking->package_id ?>').attr( 'checked', true );
-            $('#btn-check-outlined<?= $booking->package_id ?>').text( "Choosen");
-            $('#btn-check-label<?= $booking->package_id ?>').attr("name","package_id");
+            $('#btn-check-label<?= $booking->package_id ?>').text( "Chosen");
+            $('#btn-check-outlined<?= $booking->package_id ?>').attr("name","package_id");
             $("#package-line-<?= $booking->package_id ?>").addClass("highlight")
-            $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_id");
             $('#lessons-0-lesson-start-time').attr('value', '<?= $booking->booking_datetime->format("Y-m-d\TH:i:s")?>');
             $('#note').attr('value', '<?= $booking->note?>');
             //$('.stepwizard-row.setup-panel').attr('stage', '3');
@@ -394,7 +392,7 @@ tbody tr.highlight td {
             for(var i=0; i<checkbox.length; i++){
                 if (checkbox.eq(i).is(':checked') && checkbox.eq(i).attr('id') != $(this).attr('id')) {
                     $('#btn-check-label'+checkbox.eq(i).attr("packageId")).text( "Choose");
-                    $('#btn-check-label'+checkbox.eq(i).attr("packageId")).attr("name","package_choice["+ checkbox.eq(i).attr("packageId") +"]");
+                    checkbox.eq(i).attr("name","package_choice["+ checkbox.eq(i).attr("packageId") +"]");
                     $("#package-line-"+checkbox.eq(i).attr("packageId")).removeClass("highlight")
                     checkbox.eq(i).attr( 'checked', false );
                     //console.log(i);

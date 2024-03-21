@@ -107,6 +107,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     </div>
                     </div>
                 </div>
+                </div>
                 <div class="row setup-content" id="step-2">
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">

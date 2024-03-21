@@ -23,7 +23,7 @@ class PackagesFixture extends TestFixture
                 'package_name' => 'Lorem ipsum dolor sit amet',
                 'number_of_lessons' => 1,
                 'lesson_duration_minutes' => 1,
-                'cost' => 1.5,
+                'cost_dollars' => 1.5,
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             ],
         ];

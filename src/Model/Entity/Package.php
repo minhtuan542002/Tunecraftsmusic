@@ -9,10 +9,10 @@ use Cake\ORM\Entity;
  * Package Entity
  *
  * @property int $package_id
- * @property string|null $package_name
+ * @property string $package_name
  * @property int|null $number_of_lessons
  * @property int|null $lesson_duration_minutes
- * @property string|null $cost
+ * @property string|null $cost_dollars
  * @property string|null $description
  */
 class Package extends Entity
@@ -30,7 +30,7 @@ class Package extends Entity
         'package_name' => true,
         'number_of_lessons' => true,
         'lesson_duration_minutes' => true,
-        'cost' => true,
+        'cost_dollars' => true,
         'description' => true,
     ];
 }

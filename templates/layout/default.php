@@ -59,6 +59,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
   <!-- Template Main CSS File -->
   <?= $this->Html->css('main.css') ?>
+  
+  <?= $this->Html->script('/vendor/jquery/jquery.min.1.3.2.js') ?>
 
   <!-- =======================================================
   * Template Name: Yummy

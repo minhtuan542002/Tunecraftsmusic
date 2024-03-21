@@ -46,6 +46,12 @@ class UsersTable extends Table
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
         ]);
+        $this->hasMany('Students', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Teachers', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**

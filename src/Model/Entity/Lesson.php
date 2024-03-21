@@ -9,13 +9,13 @@ use Cake\ORM\Entity;
  * Lesson Entity
  *
  * @property int $lesson_id
- * @property int|null $booking_id
- * @property int|null $teacher_id
- * @property \Cake\I18n\DateTime|null $lesson_start_time
+ * @property int $booking_id
+ * @property int $teacher_id
+ * @property \Cake\I18n\DateTime $lesson_start_time
  * @property string|null $note
  *
  * @property \App\Model\Entity\Booking $booking
- * @property \App\Model\Entity\Teacherlesson $teacherlesson
+ * @property \App\Model\Entity\Teacher $teacher
  */
 class Lesson extends Entity
 {
@@ -34,6 +34,6 @@ class Lesson extends Entity
         'lesson_start_time' => true,
         'note' => true,
         'booking' => true,
-        'teacherlesson' => true,
+        'teacher' => true,
     ];
 }

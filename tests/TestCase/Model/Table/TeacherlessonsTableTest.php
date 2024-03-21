@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BookingsTable;
+use App\Model\Table\TeacherlessonsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BookingsTable Test Case
+ * App\Model\Table\TeacherlessonsTable Test Case
  */
-class BookingsTableTest extends TestCase
+class TeacherlessonsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\BookingsTable
+     * @var \App\Model\Table\TeacherlessonsTable
      */
-    protected $Bookings;
+    protected $Teacherlessons;
 
     /**
      * Fixtures
@@ -24,9 +24,8 @@ class BookingsTableTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Bookings',
-        'app.Students',
-        'app.Packages',
+        'app.Teacherlessons',
+        'app.Teachers',
         'app.Lessons',
     ];
 
@@ -38,8 +37,8 @@ class BookingsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Bookings') ? [] : ['className' => BookingsTable::class];
-        $this->Bookings = $this->getTableLocator()->get('Bookings', $config);
+        $config = $this->getTableLocator()->exists('Teacherlessons') ? [] : ['className' => TeacherlessonsTable::class];
+        $this->Teacherlessons = $this->getTableLocator()->get('Teacherlessons', $config);
     }
 
     /**
@@ -49,7 +48,7 @@ class BookingsTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Bookings);
+        unset($this->Teacherlessons);
 
         parent::tearDown();
     }
@@ -58,7 +57,7 @@ class BookingsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\BookingsTable::validationDefault()
+     * @uses \App\Model\Table\TeacherlessonsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -69,7 +68,7 @@ class BookingsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\BookingsTable::buildRules()
+     * @uses \App\Model\Table\TeacherlessonsTable::buildRules()
      */
     public function testBuildRules(): void
     {

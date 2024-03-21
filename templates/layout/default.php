@@ -69,6 +69,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    
+  </style>
 </head>
 
 <body>
@@ -89,7 +92,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
-        <!-- <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking/add') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/booking/add') ?>">Booking</a></li> -->
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
 
@@ -118,10 +121,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               <li><a href="#">Drop Down 4</a></li> -->
             <!-- </ul>
           </li> -->
-</ul>
+        </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build('/bookings/add') ?>">Book Now</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

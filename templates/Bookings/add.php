@@ -17,8 +17,6 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
     </div>
 
     <div class="row g-0">
-
-        <legend><?= __('Add Booking') ?></legend>
             <div class="stepwizard col-md-offset-3">
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
@@ -27,7 +25,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                        <p>Schedule an appointment</p>
+                        <p>Schedule </p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
@@ -49,75 +47,65 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     <h3> Step 1</h3>
                      <!----------------------------------------------------------->
                     <div class="Packages index content">
-                    <h3><?= __('Packages') ?></h3>
-                    <div class="table-responsive-sm">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
-                                    <th><?= $this->Paginator->sort('description') ?></th>
-                                    <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
-                                    <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
-                                    <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
-                                    <th class="actions"><?= __('Actions') ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    //This is to fool cakePHP into accepting package_id as a form field
-                                    echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
-                                     'id'=>'dummy',
-                                    ]);
-                                    
-                                    foreach ($packages as $package): 
-                                ?>
-                                <tr id=<?= "package-line-" . $package->package_id ?> class="">
-                                    <td><?= h($package->package_name) ?></td>
-                                    <td><?= h($package->description) ?></td>
-                                    <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
-                                    <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
-                                    <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
-                                    <td class="actions">
-                                        <?php
-                                            //Actual value of package_id -> the input name will be changed later in the script
-                                            echo $this->Form->checkbox('package_choice.' . $package->package_id, [
-                                                'value' => $package->package_id, 
-                                                'class'=>'btn-check', 
-                                                'id'=>"btn-check-outlined" . $package->package_id,
-                                                'time-duration'=>$package->lesson_duration_minutes,
-                                                'numberLesson'=>$package->number_of_lessons,
-                                                'cost'=>$package->cost_dollars,
-                                                'package'=>$package->package_name,
-                                                'description'=>$package->description,
-                                                'packageId'=>$package->package_id,
-                                            ]);
-                                            
-                                        ?>
-                                        <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
-                                            id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        <h3><?= __('Packages') ?></h3>
+                        <div class="table-responsive-sm">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
+                                        <th><?= $this->Paginator->sort('description') ?></th>
+                                        <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
+                                        <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
+                                        <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
+                                        <th class="actions"><?= __('Actions') ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        //This is to fool cakePHP into accepting package_id as a form field
+                                        echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
+                                        'id'=>'dummy',
+                                        'label'=>false,
+                                        ]);
+                                        
+                                        foreach ($packages as $package): 
+                                    ?>
+                                    <tr id=<?= "package-line-" . $package->package_id ?> class="">
+                                        <td><?= h($package->package_name) ?></td>
+                                        <td><?= h($package->description) ?></td>
+                                        <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
+                                        <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
+                                        <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
+                                        <td class="actions">
+                                            <?php
+                                                //Actual value of package_id -> the input name will be changed later in the script
+                                                echo $this->Form->checkbox('package_choice.' . $package->package_id, [
+                                                    'value' => $package->package_id, 
+                                                    'class'=>'btn-check', 
+                                                    'id'=>"btn-check-outlined" . $package->package_id,
+                                                    'time-duration'=>$package->lesson_duration_minutes,
+                                                    'numberLesson'=>$package->number_of_lessons,
+                                                    'cost'=>$package->cost_dollars,
+                                                    'package'=>$package->package_name,
+                                                    'description'=>$package->description,
+                                                    'packageId'=>$package->package_id,
+                                                ]);
+                                                
+                                            ?>
+                                            <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?> 
+                                                id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
+                        </div>
                     </div>
-                    <div class="paginator">
-                        <?php //echo $this->Paginator->params()['pageCount']; ?>
-                        <?php if($this->Paginator->params()['pageCount']>1): ?>
-                        <ul class="pagination d-flex justify-content-around">
-                            <?= $this->Paginator->first('<< ' . __('first')) ?>
-                            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                            <?= $this->Paginator->numbers() ?>
-                            <?= $this->Paginator->next(__('next') . ' >') ?>
-                            <?= $this->Paginator->last(__('last') . ' >>') ?>
-                        </ul>
-                        <?php endif; ?>
-                        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
                     </div>
-                </div>
-                    <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
-                    </div>
-                </div>
                 </div>
                 <div class="row setup-content" id="step-2">
                     <div class="col-xs-6 col-md-offset-3">
@@ -148,13 +136,14 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         ?>
                         <br>
                         <br>
-
-                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                        <?php if(!$loggedIn && $stage==0): ?>
-                            <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
-                        <?php else : ?>
-                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                        <?php endif; ?>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                            <?php if(!$loggedIn && $stage==0): ?>
+                                <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
+                            <?php else : ?>
+                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
                 </div>
@@ -190,10 +179,12 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 <br>
                                 <br>
                             <?php endif; ?>
-                            <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                            <?php if($loggedIn){
-                                echo '<button class="btn btn-primary nextBtn btn-lg pull-right third" type="button">Next</button>';
-                            }?>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                                <?php if($loggedIn){
+                                    echo '<button class="btn btn-primary nextBtn btn-lg pull-right third" type="button">Next</button>';
+                                }?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -280,10 +271,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     <p>We will contact you to provide further details</p>
                                 </div>
                             </div>
-                            <button class="btn btn-primary prevBtn btn-lg pull-left" type="button" style='margin-top: 10px'>Previous</button>
-                                            
-                            <?= $this->Form->button(__('Submit'), ['class'=>"btn btn-success btn-lg pull-right", 'style'=>'margin-top: 10px']) ?>
-                            
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button" style='margin-top: 10px'>Previous</button>
+                                                
+                                <?= $this->Form->button(__('Submit'), ['class'=>"btn btn-success btn-lg pull-right", 'style'=>'margin-top: 10px']) ?>
+                            </div>
                         </div>
                     </div>
                 </div>

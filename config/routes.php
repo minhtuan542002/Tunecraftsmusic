@@ -86,6 +86,8 @@ return function (RouteBuilder $routes): void {
     // Define routes inside the dashboard scope
     $routes->scope('/dashboard', function (RouteBuilder $builder): void {
         $builder->connect('/bookings', ['controller' => 'Bookings', 'action' => 'index']);
+        $builder->connect('/bookings/edit/*', ['controller' => 'Bookings', 'action' => 'edit']);
+        $builder->connect('/bookings/view/*', ['controller' => 'Bookings', 'action' => 'view']);
         $builder->connect('/customisation', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
         $builder->connect('/packages', ['controller' => 'Packages', 'action' => 'index']);
         $builder->connect('/packages/add', ['controller' => 'Packages', 'action' => 'add']);

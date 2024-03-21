@@ -16,6 +16,17 @@ use Psr\Http\Message\UploadedFileInterface;
  */
 class ContentBlocksController extends AppController {
     /**
+     * Initialize method
+     * Authenticates permissions access
+     * 
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
+    }
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view

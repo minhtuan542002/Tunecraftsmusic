@@ -26,4 +26,4 @@
         </div>
     
     </div>
-</section><!-- End Home Section -->d
+</section><!-- End Home Section -->

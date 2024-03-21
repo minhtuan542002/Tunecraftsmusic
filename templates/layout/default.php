@@ -124,7 +124,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
+      <?php if ($loggedIn): ?>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Log Out</a>
+      <?php else: ?>
+        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Log In</a>
+      <?php endif; ?>
+    
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

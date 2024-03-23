@@ -47,6 +47,14 @@ $this->assign('title', 'Register new user');
         <?= $this->Form->button('Register') ?>
         <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
         <?= $this->Form->end() ?>
+        <?= $this->Form->create() ?>
+        <div>Password Criteria:<br>
+        Must be at least 8 characters long.<br>
+        Contain at least one uppercase letter.<br>
+        Contain at least one lowercase letter.<br>
+        Contain at least one digit and one special character.</div>
+
+
 
     </div>
 </div>

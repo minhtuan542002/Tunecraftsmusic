@@ -10,8 +10,8 @@ $debug = Configure::read('debug');
 $this->layout = 'login';
 $this->assign('title', 'Login');
 ?>
-<div class="container my-5 login flex justify-content-center">
-        <div class="section-bg col-md-7">
+<div class="container my-5 p-3 login d-flex justify-content-center section-bg">
+        <div class="col-md-12">
             <div class="users form content">
 
                 <?= $this->Form->create() ?>
@@ -46,15 +46,17 @@ $this->assign('title', 'Login');
                     ]);
                     ?>
                 </fieldset>
-
-                <?= $this->Form->button('Login') ?>
-                <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
+                <div class="d-flex justify-content-between pt-3">
+                    <?= $this->Form->button('Login', ['class'=> 'btn btn-danger']) ?>
+                    <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'btn btn-outline-danger']) ?>
+                </div>
                 <?= $this->Form->end() ?>
 
                 <hr class="hr-between-buttons">
-
-                <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
-                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
+                <div class="d-flex justify-content-between pt-3">
+                    <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-outline-danger']) ?>
+                    <?= $this->Html->link('Go to Homepage', '/', ['class'=> 'btn btn-outline-danger']) ?>
+                </div>
             </div>
         </div>
 </div>

@@ -10,9 +10,8 @@ $debug = Configure::read('debug');
 $this->layout = 'login';
 $this->assign('title', 'Login');
 ?>
-<div class="container login">
-    <div class="row">
-        <div class="column column-50 column-offset-25">
+<div class="container my-5 login flex justify-content-center">
+        <div class="section-bg col-md-7">
             <div class="users form content">
 
                 <?= $this->Form->create() ?>
@@ -36,12 +35,14 @@ $this->assign('title', 'Login');
                         'type' => 'email',
                         'required' => true,
                         'autofocus' => true,
-                        'value' => $debug ? "test@example.com" : ""
+                        'value' => $debug ? "test@example.com" : "",
+                        'class' => 'form-control',
                     ]);
                     echo $this->Form->control('password', [
                         'type' => 'password',
                         'required' => true,
-                        'value' => $debug ? 'password' : ''
+                        'value' => $debug ? 'password' : '',
+                        'class' => 'form-control',
                     ]);
                     ?>
                 </fieldset>
@@ -56,5 +57,4 @@ $this->assign('title', 'Login');
                 <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
             </div>
         </div>
-    </div>
 </div>

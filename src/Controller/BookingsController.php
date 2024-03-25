@@ -44,7 +44,7 @@ class BookingsController extends AppController
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
                     'conditions'=> [
-                        'bookings.student_id IS NOT NULL'
+                        'Bookings.student_id IS NOT NULL',
                     ],
                     'contain' => ['Students', 'Lessons', 'Packages'],
                 ]);
@@ -97,6 +97,7 @@ class BookingsController extends AppController
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
                     'conditions'=> [
+                        'Bookings.student_id IS NOT NULL',
                         'student_id'=>$user->students[0]->student_id,
                     ],
                     'contain' => ['Packages', 'Lessons'],
@@ -217,6 +218,7 @@ class BookingsController extends AppController
             $stage= 2;
             $booking = $this->Bookings->find('all', [
                 'conditions'=> [
+                    'session_id IS NOT NULL',
                     'session_id' => $this->request->getSession()->read('booking.session_id'),
                     'student_id IS NULL',
                 ],

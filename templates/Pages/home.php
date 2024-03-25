@@ -23,8 +23,8 @@ $this->assign('title', 'Home')
     <div class = "container">
         <div class="row justify-content-between gy-5"> 
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-top align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">TuneCraft Studio</h2>
-                <p data-aos="fade-up" data-aos-delay="100" style="font-size: 20px; style=font-weight: bold; font-family: Helvetica"> Ready to amplify your violin skills? Join us now for an unforgettable journey of musical growth! </p>
+                <h2 data-aos="fade-up"><?= $this->ContentBlock->text('website-title'); ?></h2>
+                <p data-aos="fade-up" data-aos-delay="100" style="font-size: 20px; style=font-weight: bold; font-family: Helvetica"> <?= $this->ContentBlock->text('home-content'); ?> </p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <!-- <div class="button-border"> -->
                     <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/auth/register') ? 'active' : '' ?>" href="<?= $this->Url->build(['controller'=>'auth', 'action'=> 'register']) ?>" style="font-size: 20px;">Sign Up</a>
@@ -34,12 +34,14 @@ $this->assign('title', 'Home')
                 </div>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <?= $this->Html->image('afrooz-potrait.jpg', [
+            <?= $this->ContentBlock->image('home-image'); ?>
+            <!-- <?= $this->Html->image('afrooz-potrait.jpg', [
                     'alt' => 'CakePHP', 
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
                     ]); ?>
+            -->
             </div>
             
         </div>

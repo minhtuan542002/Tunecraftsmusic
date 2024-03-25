@@ -19,68 +19,65 @@ $this->assign('title', 'About');
 <div class="container my-5">
     <div class="row">
         <div class="col-md-7" style="margin-top: 50px;">
-            <h1>Hello, I'm Afrooz Amini </h1>
+            <h1><?= $this->ContentBlock->text('about-heading-1') ?></h1>
             <p style="margin-top: 40px;">
-                Your violin instructor here at Tunecraftstudio. 
-                <h4>
-                    <b>8</b> Years of teaching experience,
+            <?= $this->ContentBlock->text('about-text-1'); ?>
+            <!--    
+            <h4>
+                <b>8</b> Years of teaching experience,
                 </h4>
                 Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
                 I assure to provide a comprehensive learning experience for my students 
                 on their musical journey here at Tunecraftstudio.
+            -->
                 
             </p>
         </div>
         <div class="col-md-4">
-            <!-- Placeholder for image -->
-            <!--            <img src="path-to-your-image.jpg" class="img-fluid" alt="Responsive image">-->
+            <?= $this->ContentBlock->image('about-image-1'); ?>
+            <!--
             <?= $this->Html->image('self-image.jpg', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
                 'data-aos' => "zoom-out",
                 'data-aos-delay' => "300"
             ]); ?>
+            -->
         </div>
     </div>
 
     <div class="row align-items-start my-5">
         <!-- Main heading and text -->
         <div class="col-md-6">
-            <h2>My work</h2>
-            <p>
-                My teaching approach emphasizes personalized attention and tailored instruction, ensuring each student
-                receives the support they need to thrive in a nurturing and inspiring learning environment. Specializing
-                in Suzuki methodology, I adapt my teaching to suit individual student needs, offering both traditional
-                violin lessons and comprehensive preparation for the AMEB examination in Australia, ensuring a
-                well-rounded musical education for aspiring violinists.</p>
+            <h2><?= $this->ContentBlock->text('about-heading-2') ?></h2>
+            <p><?= $this->ContentBlock->text('about-text-2') ?></p>
         </div>
 
         <!-- Sub-sections with icons -->
         <div class="col-md-6 m-auto d-flex flex-column justify-content-center">
             <div class="mb-3">
                 <h4 class="d-flex align-items-center">
-                    <span class="icon me-2">🎵</span> <!-- Replace with actual icon -->
+                    <span class="icon me-2">🎵</span>
                     Suzuki Method
                 </h4>
-                <!-- <p>Nostrud tempor cillum sunt excepteur du ot proident deserunt enim consequat exercitation</p> -->
             </div>
             <hr>
             <div class="d-flex align-items-center">
-                <h4 class="me-2"> <!-- Removed unnecessary d-flex class here -->
-                    <span class="icon me-2">🏅</span> <!-- Replace with actual icon -->
+                <h4 class="me-2">
+                    <span class="icon me-2">🏅</span>
                     AMEB certified
                 </h4>
-                <!-- <p>Ad do dolore cillum dolor et ex non dolor qui. Dolor amet tempor pariatur officia pariatur et</p> -->
             </div>
         </div>
 
     </div>
 
 
-    <h2>Our Studio</h2>
-    <!-- Placeholder images for studio -->
+    <h2><?= $this->ContentBlock->text('about-heading-3'); ?></h2>
     <div class="row">
         <div class="col-md-4">
+        <?= $this->ContentBlock->image('about-image-1'); ?>
+            <!--
             <?= $this->Html->image('studio_1.jpg', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
@@ -88,9 +85,11 @@ $this->assign('title', 'About');
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            <!--            <img src="path-to-your-image.jpg" class="img-fluid" alt="Placeholder image">-->
+            -->
         </div>
         <div class="col-md-4">
+        <?= $this->ContentBlock->image('about-image-2'); ?>
+            <!--
             <?= $this->Html->image('studio_2.jpg', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
@@ -98,9 +97,11 @@ $this->assign('title', 'About');
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            <!--            <img src="path-to-your-image.jpg" class="img-fluid" alt="Placeholder image">-->
+            -->
         </div>
         <div class="col-md-4">
+        <?= $this->ContentBlock->image('about-image-3'); ?>
+            <!--
             <?= $this->Html->image('studio_3.jpg', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
@@ -108,7 +109,7 @@ $this->assign('title', 'About');
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            <!--            <img src="path-to-your-image.jpg" class="img-fluid" alt="Placeholder image">-->
+            -->
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'TuneCraft Studio';
+$cakeDescription = $this->ContentBlock->text('website-title');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +91,7 @@ $cakeDescription = 'TuneCraft Studio';
       <a href="<?= $this->Url->build('/') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>TuneCraft Studio<span>.</span></h1>
+        <h1><?= $this->ContentBlock->text('website-title'); ?><span>.</span></h1>
       </a>
 
     <?php endif; ?>
@@ -177,7 +177,7 @@ $cakeDescription = 'TuneCraft Studio';
         <div class="col-lg-3 col-md-6 footer-links d-flex">
           <i class="bi bi-telephone icon"></i>
           <div>
-            <h4>Reservations</h4>
+            <h4>Contact</h4>
             <p>
               <strong>Phone:</strong> +1 5589 55488 55<br>
               <strong>Email:</strong> info@example.com<br>
@@ -211,7 +211,7 @@ $cakeDescription = 'TuneCraft Studio';
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>TuneCraft Studio</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span><?= $this->ContentBlock->text('website-title'); ?></span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

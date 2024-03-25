@@ -13,35 +13,7 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
-
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Http\Exception\NotFoundException;
-
-$this->layout = 'default';
-
-$checkConnection = function (string $name) {
-    $error = null;
-    $connected = false;
-    try {
-        $connection = ConnectionManager::get($name);
-        $connected = $connection->connect();
-    } catch (Exception $connectionError) {
-        $error = $connectionError->getMessage();
-        if (method_exists($connectionError, 'getAttributes')) {
-            $attributes = $connectionError->getAttributes();
-            if (isset($attributes['message'])) {
-                $error .= '<br />' . $attributes['message'];
-            }
-        }
-    }
-
-    return compact('connected', 'error');
-};
-
+$this->assign('title', 'About');
 ?>
 
 <!DOCTYPE html>
@@ -57,9 +29,9 @@ $checkConnection = function (string $name) {
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7" style="margin-top: 50px;">
             <h1>Hello, I'm Afrooz Amini </h1>
-            <p>Your violin instructor here at Tunecraftstudio. I bring over eight years of
+            <p style="margin-top: 40px;">Your violin instructor here at Tunecraftstudio. I bring over eight years of
                 teaching experience to the table, alongside a degree in classical music performance. My journey began
                 with studies at the Music Centre of Fine Arts and the Arts University of Tehran in Iran, shaping me into
                 the educator I am today. I'm well-versed in the Suzuki teaching approach and familiar with the AMEB

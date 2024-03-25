@@ -49,15 +49,21 @@ class PagesController extends AppController
         // Allow unauthenticated access to specific actions
         $this->Authentication->allowUnauthenticated(['display']);
 
+        // Get Users Table
+        $this->Users = $this->getTableLocator()->get('Users');
+
         // Load other components or configurations as needed
         $loggedIn = false;
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {
             $loggedIn = true;
         }
+
         $this->set('loggedIn', $loggedIn);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
         }
     }
 

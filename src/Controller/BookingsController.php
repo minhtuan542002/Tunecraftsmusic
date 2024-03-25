@@ -34,11 +34,6 @@ class BookingsController extends AppController
             $loggedIn = true;
         }
 
-<<<<<<< HEAD
-=======
-        $this->Authentication->allowUnauthenticated(['add']);
-
->>>>>>> 4ae0fd1c25246f7e6dc3ce396d63a72e4fab4480
         $this->set('loggedIn', $loggedIn);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();

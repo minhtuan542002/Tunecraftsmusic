@@ -7,10 +7,9 @@
 $this->layout = 'login';
 $this->assign('title', 'Register new user');
 ?>
-<div class="container register">
-    <div class="row justify-content-center"> <!-- Center the content horizontally -->
-        <div class="users form content col-md-6">
-            <?= $this->Form->create($user) ?>
+<div class="container register-div section-bg">
+    <div class="users form content">
+        <?= $this->Form->create($user) ?>
 
             <fieldset>
                 <legend>Register New User</legend>
@@ -75,7 +74,18 @@ $this->assign('title', 'Register new user');
                 <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
             </div>
 
-            <?= $this->Form->end() ?>
-        </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>
+<style>
+@media screen and (min-width: 1280px) {
+  .register-div {
+    width: 33%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .register-div {
+    width: 100%;
+  }
+}
+</style>

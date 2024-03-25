@@ -73,9 +73,8 @@ $this->assign('title', 'Register new user');
 
         <div class="buttons">
             <?= $this->Form->button('Register') ?>
+            <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
         </div>
-
-        <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
 
         <?= $this->Form->end() ?>
     </div>

@@ -131,9 +131,9 @@ $cakeDescription = 'TuneCraft Studio';
       </nav><!-- .navbar -->
 
       <?php if ($loggedIn): ?>
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Log Out</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Logout</a>
       <?php else: ?>
-        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Log In</a>
+        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Login</a>
       <?php endif; ?>
     
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

@@ -43,10 +43,10 @@ class BookingsController extends AppController
             if($user->role_id==3){
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
-                    'contain' => ['Students', 'Lessons', 'Packages'],
                     'conditions'=> [
-                        'student_id IS NOT NULL',
+                        'bookings.student_id IS NOT NULL'
                     ],
+                    'contain' => ['Students', 'Lessons', 'Packages'],
                 ]);
                 $bookings = $this->paginate($query);
                 //debug($bookings);

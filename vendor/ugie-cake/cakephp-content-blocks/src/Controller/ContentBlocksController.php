@@ -15,7 +15,6 @@ use Psr\Http\Message\UploadedFileInterface;
  * @method \ContentBlocks\Model\Entity\ContentBlock[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ContentBlocksController extends AppController {
-
     /**
      * Index method
      *

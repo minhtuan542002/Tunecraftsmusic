@@ -26,6 +26,7 @@ class UsersController extends AppController
         if ($result && $result->isValid()) {
             $loggedIn = true;
         }
+        
         $this->set('loggedIn', $loggedIn);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();

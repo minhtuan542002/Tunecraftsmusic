@@ -57,7 +57,7 @@ $checkConnection = function (string $name) {
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7" style="margin-top: 50px;">
             <h1>Hello, I'm Afrooz Amini </h1>
             <p>Your violin instructor here at Tunecraftstudio. I bring over eight years of
                 teaching experience to the table, alongside a degree in classical music performance. My journey began

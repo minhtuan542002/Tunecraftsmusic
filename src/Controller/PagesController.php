@@ -50,7 +50,7 @@ class PagesController extends AppController
         $this->Authentication->allowUnauthenticated(['display']);
 
         // Get Users Table
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
 
         // Load other components or configurations as needed
         $loggedIn = false;

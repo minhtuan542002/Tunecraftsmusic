@@ -27,7 +27,7 @@ class PackagesController extends AppController
             $loggedIn = true;
         }
         $this->set('loggedIn', $loggedIn);
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
 
        
         if($this->viewBuilder()->getVar('loggedIn')){

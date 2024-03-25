@@ -31,7 +31,7 @@ $this->assign('title', 'About');
     <div class="row">
         <div class="col-md-7" style="margin-top: 50px;">
             <h1>Hello, I'm Afrooz Amini </h1>
-            <p>Your violin instructor here at Tunecraftstudio. I bring over eight years of
+            <p style="margin-top: 40px;">Your violin instructor here at Tunecraftstudio. I bring over eight years of
                 teaching experience to the table, alongside a degree in classical music performance. My journey began
                 with studies at the Music Centre of Fine Arts and the Arts University of Tehran in Iran, shaping me into
                 the educator I am today. I'm well-versed in the Suzuki teaching approach and familiar with the AMEB

@@ -92,7 +92,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a></li>
+        <li>
+          <?php if ($loggedIn): ?>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
+          <?php else: ?>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a>
+          <?php endif; ?>  
+        </li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
 
@@ -124,7 +130,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'bookings', 'action'=>'add']) ?>">Book Now</a>
+      <?php if ($loggedIn): ?>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Log Out</a>
+      <?php else: ?>
+        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Log In</a>
+      <?php endif; ?>
+    
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

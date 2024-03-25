@@ -9,9 +9,9 @@ $this->layout = 'dashboard';
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('') ?></h4>
-            <?= $this->Html->link(__('View All Bookings'), ['action' => 'index'], ['class' => 'btn btn-info']) ?>
-            <?= $this->Html->link(__('Edit Booking'), ['action' => 'edit', $booking->booking_id], ['class' => 'btn btn-warning']) ?>
-            <?= $this->Form->postLink(__('Delete Booking'), ['action' => 'delete', $booking->booking_id], ['confirm' => __('Are you sure you want to delete # {0}?', $booking->booking_id), 'class' => 'btn btn-danger']) ?>
+            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i>', ['action' => 'index'], ['escape' => false, 'title' => __('Back')]) ?>
+            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $package->package_id], ['escape' => false, 'title' => __('Edit')]) ?>
+            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $package->package_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id)]) ?>
             <!-- <?= $this->Html->link(__('New Booking'), ['action' => 'add'], ['class' => 'btn btn-success']) ?> -->
         </div>
     </aside>

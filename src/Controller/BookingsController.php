@@ -109,7 +109,7 @@ class BookingsController extends AppController
                             $booking->remain_count++;
                             if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
                                 $booking->upcoming =  $lesson;
-                                //debug($lesson);
+                                debug($lesson);
                             }
                         }
                     }
@@ -292,6 +292,7 @@ class BookingsController extends AppController
 
             if($booking->student_id==null){
                 $stage=2;
+                $session = $this->request->getSession();
                 $session->write('booking.session_id', $booking->session_id);
                 $session->write('booking.in_progress', 'true');
                 //debug($user);

@@ -50,6 +50,15 @@ class PagesController extends AppController
         $this->Authentication->allowUnauthenticated(['display']);
 
         // Load other components or configurations as needed
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
+        }
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+        }
     }
 
     /**

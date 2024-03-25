@@ -53,7 +53,8 @@ class PackagesTable extends Table
         $validator
             ->scalar('package_name')
             ->maxLength('package_name', 255)
-            ->allowEmptyString('package_name');
+            ->requirePresence('package_name', 'create')
+            ->notEmptyString('package_name');
 
         $validator
             ->integer('number_of_lessons')
@@ -64,8 +65,8 @@ class PackagesTable extends Table
             ->allowEmptyString('lesson_duration_minutes');
 
         $validator
-            ->decimal('cost')
-            ->allowEmptyString('cost');
+            ->decimal('cost_dollars')
+            ->allowEmptyString('cost_dollars');
 
         $validator
             ->scalar('description')

@@ -10,9 +10,8 @@ $debug = Configure::read('debug');
 $this->layout = 'login';
 $this->assign('title', 'Login');
 ?>
-<div class="container login">
-    <div class="row">
-        <div class="column column-50 column-offset-25">
+<div class="container my-5 p-3 login d-flex justify-content-center section-bg">
+        <div class="col-md-12">
             <div class="users form content">
 
                 <?= $this->Form->create() ?>
@@ -36,25 +35,28 @@ $this->assign('title', 'Login');
                         'type' => 'email',
                         'required' => true,
                         'autofocus' => true,
-                        'value' => $debug ? "test@example.com" : ""
+                        'value' => $debug ? "test@example.com" : "",
+                        'class' => 'form-control',
                     ]);
                     echo $this->Form->control('password', [
                         'type' => 'password',
                         'required' => true,
-                        'value' => $debug ? 'password' : ''
+                        'value' => $debug ? 'password' : '',
+                        'class' => 'form-control',
                     ]);
                     ?>
                 </fieldset>
-
-                <?= $this->Form->button('Login') ?>
-                <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
+                <div class="d-flex justify-content-between pt-3">
+                    <?= $this->Form->button('Login', ['class'=> 'btn btn-danger']) ?>
+                    <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'btn btn-outline-danger']) ?>
+                </div>
                 <?= $this->Form->end() ?>
 
                 <hr class="hr-between-buttons">
-
-                <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
-                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
+                <div class="d-flex justify-content-between pt-3">
+                    <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-outline-danger']) ?>
+                    <?= $this->Html->link('Go to Homepage', '/', ['class'=> 'btn btn-outline-danger']) ?>
+                </div>
             </div>
         </div>
-    </div>
 </div>

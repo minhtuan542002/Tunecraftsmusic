@@ -8,7 +8,7 @@ $(document).ready(function () {
   
     navListItems.click(function (e) {
         e.preventDefault();
-        //console.log("navListItems");
+        console.log("navListItems");
         var $target = $($(this).attr('href')),
                 $item = $(this);
   
@@ -67,12 +67,14 @@ $(document).ready(function () {
   
     allNextBtn.click(function(){
         //console.log("nextbutton");
-        var curStep = $(this).closest(".setup-content"),
+        var curStep = $(this).closest("div").closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url'],input[type='datetime-local']"),
+            curInputs = curStep.find("input"),
             isValid = true;
   
+        console.log(curStep);
+        console.log(curInputs);
         $(".input").removeClass("has-error");
         for(var i=0; i<curInputs.length; i++){
             if (!curInputs[i].validity.valid){

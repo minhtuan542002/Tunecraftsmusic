@@ -33,7 +33,7 @@
                         <td class="actions">
                             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i>', ['action' => 'view', $user->user_id], ['escape' => false, 'title' => __('View')]) ?>
                             <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $user->user_id], ['escape' => false, 'title' => __('Edit')]) ?>
-                            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $user->id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $user->first_name)]) ?>
+                            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $user->user_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $user->first_name)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

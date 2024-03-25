@@ -23,7 +23,7 @@ class BookingsController extends AppController
             $loggedIn = true;
         }
         $this->set('loggedIn', $loggedIn);
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
 
         $this->Authentication->allowUnauthenticated(['add']);
     }
@@ -34,7 +34,7 @@ class BookingsController extends AppController
      */
     public function index()
     {
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
@@ -87,7 +87,7 @@ class BookingsController extends AppController
      */
     public function my()
     {
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
@@ -141,7 +141,7 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Lessons = $this->fetchTable('Lessons');
         $booking = $this->Bookings->get($id, [
             'contain' => ['Students', 'Packages'],
         ]);
@@ -173,7 +173,7 @@ class BookingsController extends AppController
      */
     public function viewOne($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Lessons = $this->fetchTable('Lessons');
         $booking = $this->Bookings->get($id, [
             'contain' => ['Students', 'Packages'],
         ]);
@@ -203,9 +203,9 @@ class BookingsController extends AppController
      */
     public function add()
     {
-        $this->Packages = $this->getTableLocator()->get('Packages');
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Lessons = $this->fetchTable('Lessons');
+        $this->Users = $this->fetchTable('Users');
         $query = $this->Packages->find();
         $packages = $this->paginate($query);
         //debug($packages);
@@ -326,7 +326,7 @@ class BookingsController extends AppController
      */
     public function edit($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Lessons = $this->fetchTable('Lessons');
         $booking = $this->Bookings->get($id, [
             'contain' => ['Lessons'],
         ]);
@@ -375,7 +375,7 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Lessons = $this->getTableLocator()->get('Lessons');
+        $this->Lessons = $this->fetchTable('Lessons');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
             'contain' => ['Lessons'],

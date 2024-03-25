@@ -19,6 +19,18 @@ $this->assign('title', 'Register new user');
 
                 <div class="input-container">
                     <div style="width: 210px;">
+                        <?= $this->Form->control('first_name', ['label' => 'First Name']); ?>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <div style="width: 210px;">
+                        <?= $this->Form->control('last_name', ['label' => 'Last Name']); ?>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <div style="width: 210px;">
                         <?= $this->Form->control('email', ['label' => 'Email']); ?>
                     </div>
                 </div>
@@ -29,17 +41,6 @@ $this->assign('title', 'Register new user');
                     </div>
                 </div>
 
-                <div class="input-container">
-                    <div style="width: 210px;">
-                        <?= $this->Form->control('first_name', ['label' => 'First Name']); ?>
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <div style="width: 210px;">
-                        <?= $this->Form->control('last_name', ['label' => 'Last Name']); ?>
-                    </div>
-                </div>
 
                 <div class="input-container">
                     <div style="width: 210px;">

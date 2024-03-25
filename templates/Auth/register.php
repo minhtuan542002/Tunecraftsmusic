@@ -12,49 +12,64 @@ $this->assign('title', 'Register new user');
 
         <?= $this->Form->create($user) ?>
 
-        <fieldset>
+        <fieldset style="display: flex; justify-content: space-between;">
             <legend>Register New User</legend>
 
-            <?= $this->Flash->render() ?>
+            <div style="width: 50%;">
+                <?= $this->Flash->render() ?>
 
-            <?= $this->Form->control('email'); ?>
+                <div class="input-container">
+                    <?= $this->Form->control('email', ['label' => 'Email', 'style' => 'width: 210px;']); ?>
+                </div>
 
-            <?= $this->Form->control('phone'); ?>
+                <div class="input-container">
+                    <?= $this->Form->control('phone', ['label' => 'Phone', 'style' => 'width: 210px;']); ?>
+                </div>
 
-            <div class="row">
-                <?= $this->Form->control('first_name', ['templateVars' => ['container_class' => 'column']]); ?>
-                <?= $this->Form->control('last_name', ['templateVars' => ['container_class' => 'column']]); ?>
+                <div class="input-container">
+                    <?= $this->Form->control('first_name', ['label' => 'First Name', 'style' => 'width: 210px;']); ?>
+                </div>
+
+                <div class="input-container">
+                    <?= $this->Form->control('last_name', ['label' => 'Last Name', 'style' => 'width: 210px;']); ?>
+                </div>
+
+                <div class="input-container">
+                    <?= $this->Form->control('password', [
+                        'value' => '',  // Ensure password is not sent back to the client side
+                        'label' => 'Password',
+                        'style' => 'width: 210px;'
+                    ]); ?>
+                </div>
+
+                <div class="input-container">
+                    <?= $this->Form->control('password_confirm', [
+                        'type' => 'password',
+                        'value' => '',  // Ensure password is not sent back to the client side
+                        'label' => 'Retype Password',
+                        'style' => 'width: 210px;'
+                    ]); ?>
+                </div>
             </div>
 
-            <div class="row">
-                <?php
-                echo $this->Form->control('password', [
-                    'value' => '',  // Ensure password is not sending back to the client side
-                    'templateVars' => ['container_class' => 'column']
-                ]);
-                // Validate password by repeating it
-                echo $this->Form->control('password_confirm', [
-                    'type' => 'password',
-                    'value' => '',  // Ensure password is not sending back to the client side
-                    'label' => 'Retype Password',
-                    'templateVars' => ['container_class' => 'column']
-                ]);
-                ?>
+            <div style="width: 40%;">
+                <div class="password-criteria">
+                    <h4>Password Criteria:</h4>
+                    <ul>
+                        <li>Must be at least 8 characters long.</li>
+                        <li>Contain at least one uppercase letter.</li>
+                        <li>Contain at least one lowercase letter.</li>
+                        <li>Contain at least one digit and one special character.</li>
+                    </ul>
+                </div>
             </div>
-
         </fieldset>
 
-        <?= $this->Form->button('Register') ?>
-        <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
+        <div class="buttons">
+            <?= $this->Form->button('Register') ?>
+            <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline float-right']) ?>
+        </div>
+
         <?= $this->Form->end() ?>
-        <?= $this->Form->create() ?>
-        <div>Password Criteria:<br>
-        Must be at least 8 characters long.<br>
-        Contain at least one uppercase letter.<br>
-        Contain at least one lowercase letter.<br>
-        Contain at least one digit and one special character.</div>
-
-
-
     </div>
 </div>

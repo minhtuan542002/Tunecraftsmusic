@@ -11,7 +11,7 @@ $this->layout = 'login';
 $this->assign('title', 'Login');
 ?>
 <div class="container my-5 p-3 login d-flex justify-content-center section-bg">
-        <div class="col-md-12">
+        <div class="col-md-4 login-div">
             <div class="users form content">
 
                 <?= $this->Form->create() ?>
@@ -54,9 +54,16 @@ $this->assign('title', 'Login');
 
                 <hr class="hr-between-buttons">
                 <div class="d-flex justify-content-between pt-3">
-                    <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-outline-danger']) ?>
-                    <?= $this->Html->link('Go to Homepage', '/', ['class'=> 'btn btn-outline-danger']) ?>
+                    <?= $this->Html->link('Sign Up', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-outline-danger']) ?>
+                    <?= $this->Html->link('Homepage', '/', ['class'=> 'btn btn-outline-danger']) ?>
                 </div>
             </div>
         </div>
 </div>
+<style>
+@media screen and (max-width: 768px) {
+  .login-div {
+    width: 100%;
+  }
+}
+</style>

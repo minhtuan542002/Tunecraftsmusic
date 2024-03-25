@@ -34,15 +34,12 @@ $this->assign('title', 'About');
             </p>
         </div>
         <div class="col-md-4">
-            <?= $this->ContentBlock->image('about-image-1'); ?>
-            <!--
-            <?= $this->Html->image('self-image.jpg', [
+            <?= $this->ContentBlock->image('about-heading-image', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
                 'data-aos' => "zoom-out",
                 'data-aos-delay' => "300"
             ]); ?>
-            -->
         </div>
     </div>
 
@@ -76,40 +73,32 @@ $this->assign('title', 'About');
     <h2><?= $this->ContentBlock->text('about-heading-3'); ?></h2>
     <div class="row">
         <div class="col-md-4">
-        <?= $this->ContentBlock->image('about-image-1'); ?>
-            <!--
-            <?= $this->Html->image('studio_1.jpg', [
+        <?= $this->ContentBlock->image('about-image-1', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
                 'data-aos' => "zoom-out",
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            -->
         </div>
         <div class="col-md-4">
-        <?= $this->ContentBlock->image('about-image-2'); ?>
-            <!--
-            <?= $this->Html->image('studio_2.jpg', [
+        <?= $this->ContentBlock->image('about-image-2', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
                 'data-aos' => "zoom-out",
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            -->
         </div>
         <div class="col-md-4">
-        <?= $this->ContentBlock->image('about-image-3'); ?>
-            <!--
-            <?= $this->Html->image('studio_3.jpg', [
+        <?= $this->ContentBlock->image('about-image-3', [
                 'alt' => 'CakePHP',
                 'class' => "img-fluid",
                 'data-aos' => "zoom-out",
                 'data-aos-delay' => "300",
                 'style' => 'height: 230px;'
             ]); ?>
-            -->
+
         </div>
     </div>
 </div>

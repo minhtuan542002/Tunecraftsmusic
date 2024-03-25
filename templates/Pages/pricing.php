@@ -22,15 +22,12 @@ $this->assign('title', 'Pricing')
         <div class="row justify-content-between gy-5">
             <div class="col-lg-4 order-lg-1 text-center text-lg-start">
                 <div class="lesson">
-                    <?= $this->ContentBlock->image('pricing-image-1'); ?>
-                    <!--
-                    <?= $this->Html->image('pricing-1.jpg', [
+                    <?= $this->ContentBlock->image('pricing-image-1', [
                         'alt' => '30 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
                         'data-aos-delay' => "300"
                     ]); ?>
-                    -->
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-1'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-1'); ?></h3>
                     <p data-aos="fade-up" data-aos-delay="100"><?= $this->ContentBlock->text('pricing-text-1'); ?></p>
@@ -38,15 +35,12 @@ $this->assign('title', 'Pricing')
             </div>
             <div class="col-lg-4 order-lg-2 text-center text-lg-start">
                 <div class="lesson">
-                    <?= $this->ContentBlock->image('pricing-image-2'); ?>
-                    <!--
-                    <?= $this->Html->image('pricing-2.jpg', [
+                    <?= $this->ContentBlock->image('pricing-image-2', [
                         'alt' => '45 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
                         'data-aos-delay' => "300"
                     ]); ?>
-                    -->
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-2'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-2'); ?></h3>
                     <p data-aos="fade-up" data-aos-delay="100"><?= $this->ContentBlock->text('pricing-text-2'); ?></p>
@@ -54,15 +48,12 @@ $this->assign('title', 'Pricing')
             </div>
             <div class="col-lg-4 order-lg-3 text-center text-lg-start">
                 <div class="lesson">
-                    <?= $this->ContentBlock->image('pricing-image-3'); ?>
-                    <!--
-                    <?= $this->Html->image('pricing-3.jpg', [
+                    <?= $this->ContentBlock->image('pricing-image-3', [
                         'alt' => '60 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
                         'data-aos-delay' => "300"
                     ]); ?>
-                    -->
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-3'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-3'); ?></h3>
                     <p data-aos="fade-up" data-aos-delay="100"><?= $this->ContentBlock->text('pricing-text-3'); ?></p>

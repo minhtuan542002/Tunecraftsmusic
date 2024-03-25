@@ -34,14 +34,12 @@ $this->assign('title', 'Home')
                 </div>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <?= $this->ContentBlock->image('home-image'); ?>
-            <!-- <?= $this->Html->image('afrooz-potrait.jpg', [
+            <?= $this->ContentBlock->image('home-image', [
                     'alt' => 'CakePHP', 
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
                     ]); ?>
-            -->
             </div>
             
         </div>

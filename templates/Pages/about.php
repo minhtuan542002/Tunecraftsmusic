@@ -13,35 +13,7 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
-
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Http\Exception\NotFoundException;
-
-$this->layout = 'default';
-
-$checkConnection = function (string $name) {
-    $error = null;
-    $connected = false;
-    try {
-        $connection = ConnectionManager::get($name);
-        $connected = $connection->connect();
-    } catch (Exception $connectionError) {
-        $error = $connectionError->getMessage();
-        if (method_exists($connectionError, 'getAttributes')) {
-            $attributes = $connectionError->getAttributes();
-            if (isset($attributes['message'])) {
-                $error .= '<br />' . $attributes['message'];
-            }
-        }
-    }
-
-    return compact('connected', 'error');
-};
-
+$this->assign('title', 'About');
 ?>
 
 <!DOCTYPE html>

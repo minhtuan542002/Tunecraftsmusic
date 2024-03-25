@@ -26,6 +26,13 @@ class BookingsController extends AppController
         $this->Users = $this->getTableLocator()->get('Users');
 
         $this->Authentication->allowUnauthenticated(['add']);
+
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
     }
     /**
      * Index method

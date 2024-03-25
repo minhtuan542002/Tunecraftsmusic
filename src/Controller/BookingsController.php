@@ -97,7 +97,7 @@ class BookingsController extends AppController
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
                     'conditions'=> [
-                        'Bookings.student_id IS NOT NULL',
+                        'student_id IS NOT NULL',
                         'student_id'=>$user->students[0]->student_id,
                     ],
                     'contain' => ['Packages', 'Lessons'],

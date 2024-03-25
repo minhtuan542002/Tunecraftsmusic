@@ -44,6 +44,9 @@ class BookingsController extends AppController
                 //debug($user->Students[0]);
                 $query = $this->Bookings->find('all', [
                     'contain' => ['Students', 'Lessons', 'Packages'],
+                    'conditions'=> [
+                        'student_id IS NOT NULL',
+                    ],
                 ]);
                 $bookings = $this->paginate($query);
                 //debug($bookings);

@@ -7,38 +7,49 @@
 $this->assign('title', 'Change User Password - Users');
 
 ?>
-<div class="row">
-    <div class="column-responsive">
-        <div class="users form content">
 
-            <?= $this->Form->create($user) ?>
+<div class="container login-div section-bg">
+    <div class="users form content">
 
-            <fieldset>
+        <?= $this->Form->create($user) ?>
 
-                <legend>Change Password for <u><?= h($user->first_name) ?> <?= h($user->last_name) ?></u></legend>
+        <fieldset>
 
-                <div class="row">
-                    <?php
-                    echo $this->Form->control('password', [
-                        'label' => 'New Password',
-                        'value' => '',  // Ensure password is not sending back to the client side
-                        'templateVars' => ['container_class' => 'column']
-                    ]);
-                    // Validate password by repeating it
-                    echo $this->Form->control('password_confirm', [
-                        'type' => 'password',
-                        'value' => '',  // Ensure password is not sending back to the client side
-                        'label' => 'Retype New Password',
-                        'templateVars' => ['container_class' => 'column']
-                    ]);
-                    ?>
-                </div>
+            <legend>Change Password for <u><?= h($user->first_name) ?> <?= h($user->last_name) ?></u></legend>
 
-            </fieldset>
+            <div class="row">
+                <?php
+                echo $this->Form->control('password', [
+                    'label' => 'New Password',
+                    'value' => '',  // Ensure password is not sending back to the client side
+                    'templateVars' => ['container_class' => 'column']
+                ]);
+                // Validate password by repeating it
+                echo $this->Form->control('password_confirm', [
+                    'type' => 'password',
+                    'value' => '',  // Ensure password is not sending back to the client side
+                    'label' => 'Retype New Password',
+                    'templateVars' => ['container_class' => 'column']
+                ]);
+                ?>
+            </div>
 
-            <?= $this->Form->button('Submit') ?>
-            <?= $this->Form->end() ?>
+        </fieldset>
 
-        </div>
+        <?= $this->Form->button('Submit') ?>
+        <?= $this->Form->end() ?>
+
     </div>
 </div>
+<style>
+@media screen and (min-width: 1280px) {
+  .login-div {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login-div {
+    width: 100%;
+  }
+}
+</style>

@@ -16,28 +16,20 @@
 $this->assign('title', 'About');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TuneCraft Studios</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
-
 <div class="container my-5">
     <div class="row">
         <div class="col-md-7" style="margin-top: 50px;">
             <h1>Hello, I'm Afrooz Amini </h1>
-            <p style="margin-top: 40px;">Your violin instructor here at Tunecraftstudio. I bring over eight years of
-                teaching experience to the table, alongside a degree in classical music performance. My journey began
-                with studies at the Music Centre of Fine Arts and the Arts University of Tehran in Iran, shaping me into
-                the educator I am today. I'm well-versed in the Suzuki teaching approach and familiar with the AMEB
-                violin exam syllabus, ensuring a comprehensive learning experience for my students. My background in
-                both Iranian and Australian music institutions gives me a unique perspective, enriching the education I
-                provide. I'm excited to guide aspiring violinists on their musical journey here at Tunecraftstudio.</p>
+            <p style="margin-top: 40px;">
+                Your violin instructor here at Tunecraftstudio. 
+                <h4>
+                    <b>8</b> Years of teaching experience,
+                </h4>
+                Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
+                I assure to provide a comprehensive learning experience for my students 
+                on their musical journey here at Tunecraftstudio.
+                
+            </p>
         </div>
         <div class="col-md-4">
             <!-- Placeholder for image -->
@@ -120,9 +112,3 @@ $this->assign('title', 'About');
         </div>
     </div>
 </div>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-

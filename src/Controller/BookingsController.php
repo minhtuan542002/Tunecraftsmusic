@@ -17,15 +17,29 @@ class BookingsController extends AppController
 {
     public function initialize():void {
         parent::initialize();
+        
+        // Load Authentication component
+        $this->loadComponent('Authentication.Authentication');
+
+        // Allow unauthenticated access to specific actions
+        $this->Authentication->allowUnauthenticated(['add']);
+
+        // Get Users Table
+        $this->Users = $this->fetchTable('Users');
+
+        // Load other components or configurations as needed
         $loggedIn = false;
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {
             $loggedIn = true;
         }
-        $this->set('loggedIn', $loggedIn);
-        $this->Users = $this->fetchTable('Users');
 
-        $this->Authentication->allowUnauthenticated(['add']);
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
     }
     /**
      * Index method
@@ -66,7 +80,7 @@ class BookingsController extends AppController
                         }
                     }
                 }
-                debug($bookings);
+                //debug($bookings);
             }
             else{
                 return $this->redirect(['action' => 'my']);
@@ -113,12 +127,12 @@ class BookingsController extends AppController
                             $booking->remain_count++;
                             if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
                                 $booking->upcoming =  $lesson;
-                                debug($lesson);
+                                //debug($lesson);
                             }
                         }
                     }
                 }
-                debug($bookings);
+                //debug($bookings);
                 
             }
             else{

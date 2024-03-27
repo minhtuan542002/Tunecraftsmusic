@@ -51,10 +51,10 @@ class ContentBlocksSeed extends AbstractSeed
                 "slug" => "about-text-1",
                 "type" => "text",
                 "value" => "
-                    Your violin instructor here at Tunecraftstudio. 
+                    Your violin instructor here at Tunecraftstudio.
                     8 Years of teaching experience.
                     Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
-                    I assure to provide a comprehensive learning experience for my students 
+                    I assure to provide a comprehensive learning experience for my students
                     on their musical journey here at Tunecraftstudio.
                 ",
             ],
@@ -70,7 +70,7 @@ class ContentBlocksSeed extends AbstractSeed
                 "parent" => "about",
                 "label" => "About Image 1",
                 "description" => "Image for the about us heading section",
-                "slug" => "about-image-1",
+                "slug" => "about-heading-image",
                 "type" => "image",
             ],
             [

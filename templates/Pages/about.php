@@ -13,24 +13,24 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
-$this->assign('title', 'About');
+$this->assign('title', 'About us');
 ?>
 
-<div class="container my-5">
+<div id="hero" class="hero container my-5">
     <div class="row">
         <div class="col-md-7" style="margin-top: 50px;">
-            <h1><?= $this->ContentBlock->text('about-heading-1') ?></h1>
+            <h2 data-aos="fade-up"><?= $this->ContentBlock->text('about-heading-1') ?></h2>
             <p style="margin-top: 40px;">
             <?= $this->ContentBlock->text('about-text-1'); ?>
-            <!--    
+            <!--
             <h4>
                 <b>8</b> Years of teaching experience,
                 </h4>
                 Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
-                I assure to provide a comprehensive learning experience for my students 
+                I assure to provide a comprehensive learning experience for my students
                 on their musical journey here at Tunecraftstudio.
             -->
-                
+
             </p>
         </div>
         <div class="col-md-4">

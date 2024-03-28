@@ -383,6 +383,7 @@ tbody tr.highlight td {
 <script>
     $(document).ready(function () {
         $('#dummy').hide();
+        $('#step-1').trigger('click');
         $('select option:eq(1)').attr('selected', 'selected');
         $('input.btn-check').click(function(){
             var checkbox= $("input.btn-check");

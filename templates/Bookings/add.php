@@ -288,9 +288,6 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
 </section><!-- End Book A Table Section -->
 
 <style>
-body {
-    margin-top:40px;
-}
 .stepwizard-step button {
     background-color: white;
 }

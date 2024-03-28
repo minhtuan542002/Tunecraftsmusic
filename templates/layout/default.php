@@ -70,7 +70,9 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <style>
-    
+    body {
+      margin-top: 70px;
+    }
   </style>
 </head>
 

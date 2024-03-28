@@ -50,8 +50,7 @@ $this->assign('title', 'Register new user');
 
                             <div class="w-100">
                                 <p class="social-media d-flex justify-content-end">
-                                    <!--                                    --><?php //= $this->Html->link('Homepage', '/', ['class' => 'btn btn-outline-danger']) ?>
-                                    <a href="/"
+                                    <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
                                        class="social-icon d-flex align-items-center justify-content-center"><span
                                             class="fa fa-home"></span></a>
                                     <!--                                    <a href="#"-->

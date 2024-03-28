@@ -6,12 +6,12 @@
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 
-$debug = Configure::read('debug');
-$this->disableAutoLayout();
+//$debug = Configure::read('debug');
+//$this->disableAutoLayout();
 $this->layout = 'login';
 $this->assign('title', 'Register new user');
 ?>
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
     <title>Registration</title>
@@ -23,10 +23,10 @@ $this->assign('title', 'Register new user');
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="<?php echo Router::url('/', true) ?>css/style.css"/>
-    <!--    <link rel="stylesheet" href="css/style.css">-->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
+<body> -->
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -73,7 +73,7 @@ $this->assign('title', 'Register new user');
                                     'required' => true,
                                     'label' => false,
                                     'autofocus' => true,
-                                    'value' => $debug ? "John" : "",
+                                    //'value' => $debug ? "John" : "",
                                     'placeholder' => "John",
                                     'class' => 'form-control',
                                 ]); ?>
@@ -85,7 +85,7 @@ $this->assign('title', 'Register new user');
                                     'required' => true,
                                     'label' => false,
                                     'autofocus' => true,
-                                    'value' => $debug ? "Doe" : "",
+                                    //'value' => $debug ? "Doe" : "",
                                     'placeholder' => "Doe",
                                     'class' => 'form-control',
                                 ]); ?>
@@ -101,7 +101,7 @@ $this->assign('title', 'Register new user');
                                     'label' => false,
                                     'required' => true,
                                     'autofocus' => true,
-                                    'value' => $debug ? "test@example.com" : "",
+                                    //'value' => $debug ? "test@example.com" : "",
                                     'class' => 'form-control',
                                 ]); ?>
                             </div>
@@ -112,7 +112,7 @@ $this->assign('title', 'Register new user');
                                     'required' => true,
                                     'autofocus' => true,
                                     'label' => false,
-                                    'value' => $debug ? "+61111111111" : "",
+                                    //'value' => $debug ? "+61111111111" : "",
                                     'placeholder' => "+61111111111",
                                     'class' => 'form-control',
                                 ]); ?>
@@ -126,7 +126,7 @@ $this->assign('title', 'Register new user');
                                 'type' => 'password',
                                 'required' => true,
                                 'label' => false,
-                                'value' => $debug ? 'password' : '',
+                                //'value' => $debug ? 'password' : '',
                                 'class' => 'form-control',
                             ]); ?>
                         </div>
@@ -144,7 +144,7 @@ $this->assign('title', 'Register new user');
                                 'type' => 'password',
                                 'label' => false,
                                 'required' => true,
-                                'value' => $debug ? 'password' : '',
+                                //'value' => $debug ? 'password' : '',
                                 'class' => 'form-control',
                             ]); ?>
                         </div>
@@ -163,16 +163,16 @@ $this->assign('title', 'Register new user');
     </div>
 </section>
 
-
+<!-- 
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/main.js"></script>
 
 </body>
-</html>
+</html> -->
 
-
+<!-- 
 <script>
 
     $(document).ready(function () {
@@ -189,5 +189,5 @@ $this->assign('title', 'Register new user');
             }
         });
     });
-</script>
+</script> -->
 

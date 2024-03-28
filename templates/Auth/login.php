@@ -6,12 +6,12 @@
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 
-$debug = Configure::read('debug');
-$this->disableAutoLayout();
+//$debug = Configure::read('debug');
+//$this->disableAutoLayout();
 $this->layout = 'login';
 $this->assign('title', 'Login');
 ?>
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
     <title>Login</title>
@@ -23,10 +23,10 @@ $this->assign('title', 'Login');
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="<?php echo Router::url('/', true) ?>css/style.css"/>
-    <!--    <link rel="stylesheet" href="css/style.css">-->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
+<body> -->
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -70,7 +70,7 @@ $this->assign('title', 'Login');
                                 'type' => 'text',
                                 'required' => true,
                                 'autofocus' => true,
-                                'value' => $debug ? "test@example.com" : "",
+                                //'value' => $debug ? "test@example.com" : "",
                                 'class' => 'form-control',
                             ]);
                             ?>
@@ -79,7 +79,7 @@ $this->assign('title', 'Login');
                             <?php echo $this->Form->control('password', [
                                 'type' => 'password',
                                 'required' => true,
-                                'value' => $debug ? 'password' : '',
+                                //'value' => $debug ? 'password' : '',
                                 'class' => 'form-control',
                             ]); ?>
                         </div>
@@ -103,16 +103,16 @@ $this->assign('title', 'Login');
     </div>
 </section>
 
-
+<!-- 
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/main.js"></script>
 
 </body>
-</html>
+</html> -->
 
-
+<!-- 
 <script>
 
     $(document).ready(function () {
@@ -129,5 +129,5 @@ $this->assign('title', 'Login');
             }
         });
     });
-</script>
+</script> -->
 

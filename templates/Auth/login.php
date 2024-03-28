@@ -49,15 +49,10 @@ $this->assign('title', 'Login');
                             </div>
 
                             <div class="w-100">
-                                <p class="social-media d-flex justify-content-end">
-                                    <!--                                    --><?php //= $this->Html->link('Homepage', '/', ['class' => 'btn btn-outline-danger']) ?>
-                                    <a href="/"
-                                       class="social-icon d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-home"></span></a>
-                                    <!--                                    <a href="#"-->
-                                    <!--                                       class="social-icon d-flex align-items-center justify-content-center"><span-->
-                                    <!--                                            class="fa fa-twitter"></span></a>-->
-                                </p>
+                            <p class="social-media d-flex justify-content-end">
+                                <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
+                                class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-home"></span></a>
+                            </p>
                             </div>
                         </div>
                         <?= $this->Flash->render() ?>
@@ -70,16 +65,15 @@ $this->assign('title', 'Login');
                                 'type' => 'text',
                                 'required' => true,
                                 'autofocus' => true,
-                                'value' => $debug ? "test@example.com" : "",
+                                'placeholder' => 'Enter your email',
                                 'class' => 'form-control',
-                            ]);
-                            ?>
+                            ]); ?>
                         </div>
                         <div class="form-group mb-3">
                             <?php echo $this->Form->control('password', [
                                 'type' => 'password',
                                 'required' => true,
-                                'value' => $debug ? 'password' : '',
+                                'placeholder' => 'Enter your password',
                                 'class' => 'form-control',
                             ]); ?>
                         </div>

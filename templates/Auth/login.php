@@ -66,7 +66,7 @@ $this->assign('title', 'Login');
                         <!--                        <form action="#" class="signin-form">-->
 
                         <div class="form-group mb-3">
-                            <?php echo $this->Form->control('Username', [
+                            <?php echo $this->Form->control('email', [
                                 'type' => 'text',
                                 'required' => true,
                                 'autofocus' => true,

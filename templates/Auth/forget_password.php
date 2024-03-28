@@ -14,7 +14,7 @@ $this->assign('title', 'Forget Password');
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Login 04</title>
+    <title>Forgot Password</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

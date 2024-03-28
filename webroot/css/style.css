@@ -8404,3 +8404,8 @@ h1, h2, h3, h4, h5,
     color: var(--color-message-error-text);
     border-color: var(--color-message-error-border);
 }
+
+.required-asterisk::after {
+    content: " *";
+    color: red;
+}

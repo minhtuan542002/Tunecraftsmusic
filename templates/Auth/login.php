@@ -69,20 +69,35 @@ $this->assign('title', 'Login');
                                 'class' => 'form-control',
                             ]); ?>
                         </div>
-                        <div class="form-group mb-3">
-                            <?php echo $this->Form->control('password', [
-                                'type' => 'password',
-                                'required' => true,
-                                'placeholder' => 'password',
-                                'class' => 'form-control',
-                            ]); ?>
+                        <?php
+                        echo $this->Form->label('password');
+                        ?>
+                        <div class="input-group mb-3" id="show_hide_password">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="login-password">
+                                    <a href="" style="color: #212529;"><i class="fa fa-eye-slash"
+                                                                          aria-hidden="true"></i></a>
+                                </span>
+                            </div>
+                            <?= $this->Form->password('password', ['class' => 'form-control mr-1', 'label' => false, 'placeholder' => 'Password']) ?>
+
                         </div>
+<!--                        <div class="form-group mb-3">-->
+<!--                            --><?php //echo $this->Form->control('password', [
+//                                'type' => 'password',
+//                                'required' => true,
+//                                'placeholder' => 'password',
+//                                'class' => 'form-control',
+//                            ]); ?>
+<!--                        </div>-->
+
                         <div class="form-group">
                             <?= $this->Form->button('Login', ['class' => 'form-control btn btn-primary rounded submit px-3']) ?>
                         </div>
                         <div class="form-group d-md-flex">
                             <div class="w-50">
-                                <!-- <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?> 
+                                <!-- <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?>
                                 -->
                             </div>
                         </div>
@@ -98,7 +113,7 @@ $this->assign('title', 'Login');
     </div>
 </section>
 
-<!-- 
+<!--
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
@@ -107,7 +122,6 @@ $this->assign('title', 'Login');
 </body>
 </html> -->
 
-<!-- 
 <script>
 
     $(document).ready(function () {
@@ -124,5 +138,5 @@ $this->assign('title', 'Login');
             }
         });
     });
-</script> -->
+</script>
 

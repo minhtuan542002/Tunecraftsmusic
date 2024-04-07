@@ -121,13 +121,24 @@ $this->assign('title', 'Register new user');
                         <div class="form-group mb-3">
                             <?= $this->Form->label('password', 'Password', ['class' => 'required-asterisk']) ?>
 
-                            <?php echo $this->Form->control('password', [
-                                'type' => 'password',
-                                'required' => true,
-                                'label' => false,
-                                //'value' => $debug ? 'password' : '',
-                                'class' => 'form-control',
-                            ]); ?>
+                            <div class="input-group mb-3" id="show_hide_password">
+
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="login-password">
+                                    <a href="" style="color: #212529;"><i class="fa fa-eye-slash"
+                                                                          aria-hidden="true"></i></a>
+                                </span>
+                                </div>
+                                <?= $this->Form->password('password', ['class' => 'form-control mr-1', 'label' => false, 'placeholder' => 'Password']) ?>
+
+                            </div>
+<!--                            --><?php //echo $this->Form->control('password', [
+//                                'type' => 'password',
+//                                'required' => true,
+//                                'label' => false,
+//                                //'value' => $debug ? 'password' : '',
+//                                'class' => 'form-control',
+//                            ]); ?>
                         </div>
                         <small class="form-text text-muted">Password Criteria:</small>
                         <ul class="password-criteria">
@@ -139,13 +150,24 @@ $this->assign('title', 'Register new user');
                         <div class="form-group mb-3">
                             <?= $this->Form->label('password_confirm', 'Password Confirm', ['class' => 'required-asterisk']) ?>
 
-                            <?php echo $this->Form->control('password_confirm', [
-                                'type' => 'password',
-                                'label' => false,
-                                'required' => true,
-                                //'value' => $debug ? 'password' : '',
-                                'class' => 'form-control',
-                            ]); ?>
+                            <div class="input-group mb-3" id="show_hide_password">
+
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="login-password">
+                                    <a href="" style="color: #212529;"><i class="fa fa-eye-slash"
+                                                                          aria-hidden="true"></i></a>
+                                </span>
+                                </div>
+                                <?= $this->Form->password('password_confirm', ['class' => 'form-control mr-1', 'label' => false, 'placeholder' => '']) ?>
+
+                            </div>
+<!--                            --><?php //echo $this->Form->control('password_confirm', [
+//                                'type' => 'password',
+//                                'label' => false,
+//                                'required' => true,
+//                                //'value' => $debug ? 'password' : '',
+//                                'class' => 'form-control',
+//                            ]); ?>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->button('Register', ['class' => 'form-control btn btn-primary rounded submit px-3']) ?>
@@ -162,7 +184,7 @@ $this->assign('title', 'Register new user');
     </div>
 </section>
 
-<!-- 
+<!--
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
@@ -171,7 +193,7 @@ $this->assign('title', 'Register new user');
 </body>
 </html> -->
 
-<!-- 
+<!--
 <script>
 
     $(document).ready(function () {

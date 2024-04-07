@@ -49,10 +49,13 @@ $this->assign('title', 'Login');
                             </div>
 
                             <div class="w-100">
-                            <p class="social-media d-flex justify-content-end">
-                                <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
-                                class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-home"></span></a>
-                            </p>
+                                <p class="social-media d-flex justify-content-end">
+                                    <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
+                                       style="background: #ce1212;"
+                                       class="social-icon d-flex align-items-center justify-content-center"><span
+                                            style="color: white;"
+                                            class="fa fa-home"></span></a>
+                                </p>
                             </div>
                         </div>
                         <?= $this->Flash->render() ?>
@@ -83,14 +86,14 @@ $this->assign('title', 'Login');
                             <?= $this->Form->password('password', ['class' => 'form-control mr-1', 'label' => false, 'placeholder' => 'Password']) ?>
 
                         </div>
-<!--                        <div class="form-group mb-3">-->
-<!--                            --><?php //echo $this->Form->control('password', [
-//                                'type' => 'password',
-//                                'required' => true,
-//                                'placeholder' => 'password',
-//                                'class' => 'form-control',
-//                            ]); ?>
-<!--                        </div>-->
+                        <!--                        <div class="form-group mb-3">-->
+                        <!--                            --><?php //echo $this->Form->control('password', [
+                        //                                'type' => 'password',
+                        //                                'required' => true,
+                        //                                'placeholder' => 'password',
+                        //                                'class' => 'form-control',
+                        //                            ]); ?>
+                        <!--                        </div>-->
 
                         <div class="form-group">
                             <?= $this->Form->button('Login', ['class' => 'form-control btn btn-primary rounded submit px-3']) ?>

@@ -10,10 +10,50 @@ $this->Html->script('ContentBlocks.ckeditor/ckeditor', ['block' => true]);
 
 $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
 ?>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
 <style>
     .ck-editor__editable_inline {
         min-height: 25rem; /* CKEditor field minimal height */
+    }
+    .content {
+        margin: 20px;
+    }
+
+    .user-details table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .user-details th,
+    .user-details td {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .user-actions {
+        margin-top: 20px;
+    }
+
+    .side-nav {
+        padding-left: 10px;
+    }
+
+    .side-nav h4.heading {
+        margin-top: 0;
+        color: #3498db;
+    }
+
+    .btn {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn i {
+        margin-right: 5px;
     }
 </style>
 
@@ -33,15 +73,17 @@ $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
             <?php
             if ($contentBlock->type === 'text') {
                 echo $this->Form->control('value', [
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'value' => html_entity_decode($contentBlock->value),
                     'label' => false,
+                    'style' => 'width: 80%; resize: both;'
                 ]);
             } else if ($contentBlock->type === 'html') {
                 echo $this->Form->control('value', [
                     'type' => 'textarea',
                     'label' => false,
-                    'id' => 'content-value-input'
+                    'id' => 'content-value-input',
+                    'style' => 'width: 80%; resize: both;'
                 ]);
 
                 ?>
@@ -95,10 +137,14 @@ $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
             }
 
             ?>
-            <div class="content-blocks--form-actions">
-                <?= $this->Form->button(__('Save'), ['class' => 'button btn']) ?>
-                <?= $this->Html->link('Cancel', ['action' => 'index']) ?>
-            </div>
+            <aside class="user-actions">
+                <div class="side-nav">
+                    <h4 class="heading"><?= __('Actions') ?></h4>
+                    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                    <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+                    <?= $this->Form->end() ?>
+                </div>
+            </aside>
             <?= $this->Form->end() ?>
         </div>
     </div>

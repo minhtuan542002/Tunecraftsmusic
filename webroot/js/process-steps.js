@@ -20,8 +20,8 @@ $(document).ready(function () {
             $target.find('input:eq(0)').focus();
             
             if($(this).text()=="4"){
-                $('div.choosen-datetime').empty();
-                $('div.choosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
+                $('div.chosen-datetime').empty();
+                $('div.chosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
                     hour12: true,
                 })+'</p>');
 
@@ -116,8 +116,9 @@ $(document).ready(function () {
         }
 
         if($(this).hasClass("third")){
-            $('div.choosen-datetime').empty();
-            $('div.choosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
+            $('div.chosen-datetime').empty();
+            //$('div.chosen-datetime').prepend('<p> bruh </p>');
+            $('div.chosen-datetime').prepend('<p>'+ (new Date($('#lessons-0-lesson-start-time').val())).toLocaleString('en-AU', {
                 hour12: true,
             })+'</p>');
 

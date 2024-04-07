@@ -72,6 +72,10 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <style>
     body {
       margin-top: 90px;
+      min-height: 100%;
+    }
+    html {
+      min-height: 100%;
     }
     @media (max-width: 575px) {
       body {

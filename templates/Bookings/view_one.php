@@ -54,13 +54,11 @@
             </table>
             </div>
             <div class="related">
-                <h4><?= __('All Booking Lines') ?></h4>
-                <?php if (!empty($booking->booking_lines)) : ?>
+                <h4><?= __('Included Lessons') ?></h4>
+                <?php if (!($booking->remaining == 0)) : ?>
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
-                            <th><?= __('Id') ?></th>
-                            <!--<th><?= __('Booking Id') ?></th>-->
                             <th><?= __('Service Name') ?></th>
                             <th><?= __('Service Id') ?></th>
                             <th><?= __('No Of Unit') ?></th>

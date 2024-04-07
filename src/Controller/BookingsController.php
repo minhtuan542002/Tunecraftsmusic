@@ -290,7 +290,7 @@ class BookingsController extends AppController
             $booking->booking_datetime=$booking->lessons[0]->lesson_start_time;
             
             if ($this->Bookings->save($booking, ['associated' => []])) {
-                $this->Flash->success(__('The booking has been saved.'));                
+                //$this->Flash->success(__('The booking has been saved.'));                
             }
 
             $booking = $this->Bookings->get($booking->booking_id, [

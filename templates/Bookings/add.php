@@ -20,7 +20,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
             <div class="stepwizard col-md-offset-3">
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
-                        <a href="#step-1" type="button" class="btn btn-primary-2 btn-circle">1</a>
+                        <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
                         <p>Choose your Packages</p>
                     </div>
                     <div class="stepwizard-step">
@@ -102,7 +102,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 </div>
 
                                 <div class="d-flex justify-content-end">
-                                    <button class="btn btn-primary-2 nextBtn btn-lg pull-right first" type="button">Next</button>
+                                    <button class="btn btn-primary nextBtn btn-lg pull-right first" type="button">Next</button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <?php
                                 echo $this->Form->control('lessons.0.lesson_start_time', [
                                     'label' => [
-                                        'text' => 'Your preferred date'
+                                        'text' => 'Your prefered date'
                                     ],
                                     'type' => 'datetime-local',
                                     'required' => "required",
@@ -139,11 +139,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <br>
                             <br>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary-2 prevBtn btn-lg pull-left" type="button">Previous</button>
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
                                 <?php if(!$loggedIn && $stage==0): ?>
                                     <?= $this->Form->button(__('Next'), ['class'=>"btn btn-primary nextBtn btn-lg pull-right"]) ?>
                                 <?php else : ?>
-                                    <button class="btn btn-primary-2 nextBtn btn-lg pull-right" type="button">Next</button>
+                                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -175,16 +175,16 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 </table>
                             <?php else : ?>
                                 <h3> Please log in or sign up to continue</h3>
-                                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary-2']); ?>
-                                <?= $this->Html->link('Sign up', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-primary-2']);  ?>
+                                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary']); ?>
+                                <?= $this->Html->link('Sign up', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-primary']);  ?>
 
                                 <br>
                                 <br>
                             <?php endif; ?>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary-2 prevBtn btn-lg pull-left" type="button">Previous</button>
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
                                 <?php if($loggedIn){
-                                    echo '<button class="btn btn-primary-2 nextBtn btn-lg pull-right third" type="button">Next</button>';
+                                    echo '<button class="btn btn-primary nextBtn btn-lg pull-right third" type="button">Next</button>';
                                 }?>
                             </div>
                         </div>
@@ -197,7 +197,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <h3> Complete your booking</h3>
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
-                                    <h4>Your choosen Packages</h4>
+                                    <h4>Your chosen Packages</h4>
                                     <div class="table">
                                         <table class="table table-borderless package-summary">
                                             <tr>
@@ -219,7 +219,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                         </table>
                                     </div>
                                 </div>
-                                <a href="#step-1" type="button" class="btn btn-primary-2 btn-circle" onclick="$('div.setup-panel div a').eq(0).trigger('click');" >Edit</a>
+                                <a href="#step-1" type="button" class="btn btn-primary btn-circle" onclick="$('div.setup-panel div a').eq(0).trigger('click');" >Edit</a>
                             </div>
 
                             <br>
@@ -227,13 +227,13 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
                                     <h4>Your selected date</h4>
-                                    <div class="choosen-datetime">
+                                    <div class="chosen-datetime">
 
                                     </div>
                                     <h4>Your note to us: </h4>
                                     <p id='your-note'></p>
                                 </div>
-                                <a href="#step-2" type="button" class="btn btn-primary-2 btn-circle" onclick="$('div.setup-panel div a').eq(1).trigger('click');">Edit</a>
+                                <a href="#step-2" type="button" class="btn btn-primary btn-circle" onclick="$('div.setup-panel div a').eq(1).trigger('click');">Edit</a>
                             </div>
 
                             <br>
@@ -274,7 +274,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary-2 prevBtn btn-lg pull-left" type="button" style='margin-top: 10px'>Previous</button>
+                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button" style='margin-top: 10px'>Previous</button>
 
                                 <?= $this->Form->button(__('Submit'), ['class'=>"btn btn-success btn-lg pull-right", 'style'=>'margin-top: 10px']) ?>
                             </div>
@@ -356,7 +356,7 @@ h4.error-message{
 }
 
 tbody tr.highlight td {
-    background-color: #e79b9b;
+    background-color: #c5eafa;
 }
 
 .table-borderless tr td, .table-borderless tr th{

@@ -5,6 +5,9 @@
  * @var string[]|\Cake\Collection\CollectionInterface $customers
  */
 $this->layout = 'dashboard';
+$this->loadHelper('Form', [
+    'templates' => 'app_form',
+]);
 ?>
 <div class="row">
     <div class="column-responsive column-80">
@@ -17,8 +20,6 @@ $this->layout = 'dashboard';
                         <tr>
                             <th>Weekly date time:</th>
                             <td>
-                                <div class="form-group col-md-8">
-                                    
                                     <?php
                                     echo $this->Form->control('booking_datetime', [
                                         'label' => false,
@@ -26,22 +27,19 @@ $this->layout = 'dashboard';
                                         'class'=>'form-control',
                                         'min' => date('Y-m-d', strtotime("+6 days")) . 'T07:00',
                                     ]);?>
-                                </div>
                                 Note that you reschedule all the lessons starting a week from now
                             </td>
                         </tr>
                         <tr>
                             <th>Note:</th>
                             <td>
-                                <div class="form-group col-md-8">
                                     <?php
                                     echo $this->Form->control('note', [
                                         'label' => false,
                                         'rows' => '3',
                                         'type' => 'textarea',
-                                        'class' => 'col-md-9 form-control',
+                                        'class' => 'form-control',
                                     ]);?>
-                                </div>
                             </td>
                         </tr>
                     </table>

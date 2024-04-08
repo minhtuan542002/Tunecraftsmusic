@@ -4,6 +4,9 @@
  * @var \App\Model\Entity\Booking $booking
  * @var string[]|\Cake\Collection\CollectionInterface $customers
  */
+$this->loadHelper('Form', [
+    'templates' => 'app_form',
+]);
 ?>
 <div class="row">
     <aside class="column">

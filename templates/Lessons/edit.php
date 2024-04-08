@@ -5,6 +5,9 @@
  * @var string[]|\Cake\Collection\CollectionInterface $bookings
  * @var string[]|\Cake\Collection\CollectionInterface $teachers
  */
+$this->loadHelper('Form', [
+    'templates' => 'app_form',
+]);
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
@@ -69,6 +72,7 @@
                     <tr>
                         <th><?= __("Teacher's Note") ?></th>
                         <td><?= $this->Form->control('note', [
+                            'label' => false,
                             'type' => 'textarea',
                             'rows' => '4',
                             'class'=>'form-control',

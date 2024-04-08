@@ -7,7 +7,7 @@ $this->layout = 'dashboard';
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-<div class="row">
+<div class="row mb-5 mt-2">
     <!-- <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('') ?></h4>
@@ -17,7 +17,9 @@ $this->layout = 'dashboard';
     </aside> -->
     <div class="column-responsive column-80">
         <div class="bookings view content">
-            <div class="d-flex gap-5">
+            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], 
+                ['escape' => false, 'class' => 'btn btn-primary']) ?>
+            <div class="d-flex gap-5 mt-3">
                 <h3>View Booking</h3>
                 
             </div>

@@ -31,9 +31,8 @@
                         <td><?= h($user->phone) ?></td>
                         <td><?= h($user->role->role_name) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i>', ['action' => 'view', $user->user_id], ['escape' => false, 'title' => __('View')]) ?>
-                            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $user->user_id], ['escape' => false, 'title' => __('Edit')]) ?>
-                            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $user->user_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $user->first_name)]) ?>
+                            <?= $this->Html->link('View', ['action' => 'view', $user->user_id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary']) ?>
+                            <?= $this->Html->link('Edit', ['action' => 'edit', $user->user_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

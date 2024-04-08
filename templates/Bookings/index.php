@@ -37,13 +37,16 @@ $this->layout = 'dashboard';
                     <td><?= $booking->remain_count ?></td>
                     <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
                     <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
-                    <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], ['class' => 'btn btn-outline-success']) ?></td>
+                    <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], ['class' => 'btn btn-outline-success',
+                        'escape' => false, 'title' => __('Delete'), 
+                        'confirm' => __('Are you sure you want to confirm payment status as: '. ($booking->is_paid? "No":"Yes"))]) ?></td>
                     <td><?= $booking->note==NULL? "None":$booking->note ?></td>
                     <td class="actions">
                         <div class="d-grid gap-2 col-4 mx-auto">
-                        <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i>', ['action' => 'view', $booking->booking_id], ['escape' => false, 'title' => __('View')]) ?>
-                        <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $booking->booking_id], ['escape' => false, 'title' => __('Edit')]) ?>
-                        <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
+                            <?= $this->Html->link('View', ['action' => 'view', $booking->booking_id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary']) ?>
+                            <?= $this->Html->link('Change', ['action' => 'edit', $booking->booking_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
+                            <?= $this->Form->postLink('Remove', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-danger', 
+                                'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
                         </div>
                     </td>
                 </tr>

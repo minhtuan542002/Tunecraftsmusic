@@ -5,16 +5,16 @@
  */
 $this->layout = 'dashboard';
 ?>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 <div class="row">
-    <aside class="column">
+    <!-- <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('') ?></h4>
             <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i>', ['action' => 'index'], ['escape' => false, 'title' => __('Back')]) ?>
             <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $package->package_id], ['escape' => false, 'title' => __('Edit')]) ?>
             <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $package->package_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id)]) ?>
-            <!-- <?= $this->Html->link(__('New Booking'), ['action' => 'add'], ['class' => 'btn btn-success']) ?> -->
-        </div>
-    </aside>
+    </aside> -->
     <div class="column-responsive column-80">
         <div class="bookings view content">
             <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
@@ -55,69 +55,62 @@ $this->layout = 'dashboard';
             </table>
             </div>
             <div class="related">
-                <h4><?= __('All Booking Lines') ?></h4>
-                <?php if (!empty($booking->booking_lines)) : ?>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <!--<th><?= __('Booking Id') ?></th>-->
-                            <th><?= __('Service Name') ?></th>
-                            <th><?= __('Service Id') ?></th>
-                            <th><?= __('No Of Unit') ?></th>
-                            <!--<th class="actions"><?= __('Actions') ?></th>-->
-                        </tr>
-                        <?php foreach ($booking_lines as $bookingLines) : ?>
-                        <tr>
-                            <td><?= h($bookingLines->id) ?></td>
-                            
-                            <!--<td><?= h($bookingLines->booking_id) ?></td>-->
-                            <td><?= h($bookingLines->service->service_name) ?></td>
-                            <td><?= h($bookingLines->service_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'BookingLines', 'action' => 'view', $bookingLines->id], ['class' => 'btn btn-info']) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'BookingLines', 'action' => 'edit', $bookingLines->id], ['class' => 'btn btn-warning']) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'BookingLines', 'action' => 'delete', $bookingLines->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookingLines->id), 'class' => 'btn btn-danger']) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
+                <?php if (!($booking->remain_count == 0)) : ?>
+                    <h4><?= __('Included Lessons') ?></h4>                
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th><?= __('Lesson Schedule') ?></th>
+                                    <th><?= __('Is completed') ?></th>
+                                    <th><?= __("Teacher's Note") ?></th>
+                                    <th><?= __("Actions") ?></th>
+                                </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lessons as $lesson) : ?>
+                                <tr>
+                                    <td><?= h($lesson->lesson_start_time) ?></td>
+                                    <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
+                                    <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
+                                    <td class="actions">
+                                        <div class="d-grid gap-2 col-4 mx-auto">
+                                            <?= $this->Html->link('Reschedule', ['action' => 'edit', $lesson], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
+                                            <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-primary', 
+                                                'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
-            <!--<div class="related">
-                <h4><?= __('Related Invoices') ?></h4>
-                <?php if (!empty($booking->invoices)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Invoice Total') ?></th>
-                            <th><?= __('Pay Datetime') ?></th>
-                            <th><?= __('Booking Id') ?></th>
-                            <th><?= __('Surcharge') ?></th>
-                            <th><?= __('Discount') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($booking->invoices as $invoices) : ?>
-                        <tr>
-                            <td><?= h($invoices->id) ?></td>
-                            <td><?= h($invoices->invoice_total) ?></td>
-                            <td><?= h($invoices->pay_datetime) ?></td>
-                            <td><?= h($invoices->booking_id) ?></td>
-                            <td><?= h($invoices->surcharge) ?></td>
-                            <td><?= h($invoices->discount) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Invoices', 'action' => 'view', $invoices->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Invoices', 'action' => 'edit', $invoices->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Invoices', 'action' => 'delete', $invoices->id], ['confirm' => __('Are you sure you want to delete # {0}?', $invoices->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
-            </div>-->
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "searching": true,
+            "columnDefs": [
+                {
+                    "targets": [3],
+                    "orderable": false
+                }
+            ],
+            "language": {
+                "emptyTable": "No data available in table",
+                "search": '<i class="fas fa-search"></i>',
+                "searchPlaceholder": "Search...",
+            },
+            "dom": '<"top"lf>rt<"bottom"ip><"clear">'
+        });
+    });
+</script>

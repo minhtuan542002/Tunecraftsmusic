@@ -63,10 +63,6 @@
         <fieldset>
             <table>
                 <tr>
-                    <th><?= __('Role') ?></th>
-                    <td><?= $this->Form->select('role_id', $roles, ['empty' => false]) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('First Name') ?></th>
                     <td><?= $this->Form->control('first_name', ['style' => 'width: 25%;']) ?></td> 
                 </tr>

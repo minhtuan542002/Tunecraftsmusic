@@ -18,20 +18,21 @@
     <div class="column-responsive column-80">
         <div class="bookings view content">
             <div class="d-flex gap-5">
-                <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
-                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit', $booking->booking_id], 
-                    ['escape' => false, 'class' => 'btn btn-info']) ?> 
+                <h3>View My Booking </h3>
+                
             </div>
             <?= $this->Flash->render() ?>
             <div class = "table-responsive pb-5">
                 <table class="table">
                     <tr>
-                        <th><?= __('Customer') ?></th>
+                        <th><?= __('Student') ?></th>
                         <td>
-                            <?php if ($booking->has('customer')) : ?>
+                            <?php if ($booking->has('student')) : ?>
                                 <?= $this->Html->link(
-                                    h($booking->customer->id . ' - ' . $booking->customer->first_name . ' ' . $booking->customer->last_name),
-                                    ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]
+                                    h($booking->student->user->user_id . ' - ' . 
+                                        $booking->student->user->first_name . ' ' . 
+                                        $booking->student->user->last_name),
+                                    ['controller' => 'Users', 'action' => 'view', $booking->student->user->user_id]
                                 ) ?>
                             <?php endif; ?>
                         </td>
@@ -62,7 +63,10 @@
                     </tr>
                 </table>
             </div>
-            <div class="related">
+
+            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit', $booking->booking_id], 
+                    ['escape' => false, 'class' => 'btn btn-success']) ?> 
+            <div class="related pt-5">
                 <?php if (!($booking->remain_count == 0)) : ?>
                     <h4><?= __('Included Lessons') ?></h4>                
                     <div class="table-responsive">

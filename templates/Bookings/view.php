@@ -18,20 +18,21 @@ $this->layout = 'dashboard';
     <div class="column-responsive column-80">
         <div class="bookings view content">
             <div class="d-flex gap-5">
-                <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
-                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit_admin', $booking->booking_id], 
-                    ['escape' => false, 'class' => 'btn btn-info']) ?> 
+                <h3>View Booking</h3>
+                
             </div>
             <?= $this->Flash->render() ?>
             <div class = "table-responsive pb-5">
                 <table class="table">
                     <tr>
-                        <th><?= __('Customer') ?></th>
+                        <th><?= __('Student') ?></th>
                         <td>
-                            <?php if ($booking->has('customer')) : ?>
+                            <?php if ($booking->has('student')) : ?>
                                 <?= $this->Html->link(
-                                    h($booking->customer->id . ' - ' . $booking->customer->first_name . ' ' . $booking->customer->last_name),
-                                    ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]
+                                    h($booking->student->user->first_name . ' ' . 
+                                        $booking->student->user->last_name). ' - User ID: ' .
+                                        $booking->student->user->user_id,
+                                    ['controller' => 'Users', 'action' => 'view', $booking->student->user->user_id]
                                 ) ?>
                             <?php endif; ?>
                         </td>
@@ -58,7 +59,9 @@ $this->layout = 'dashboard';
                     </tr>
                 </table>
             </div>
-            <div class="related">
+            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit_admin', $booking->booking_id], 
+                    ['escape' => false, 'class' => 'btn btn-success']) ?> 
+            <div class="related pt-5">
                 <?php if (!($booking->remain_count == 0)) : ?>
                     <h4><?= __('Included Lessons') ?></h4>                
                     <div class="table-responsive">
@@ -79,7 +82,7 @@ $this->layout = 'dashboard';
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
-                                        <div class="d-grid gap-2 col-4 mx-auto">
+                                        <div class="">
                                             <?= $this->Html->link('Reschedule', ['controller'=> 'lessons', 'action' => 'edit', $lesson->lesson_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
                                             <!-- <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-primary', 
                                                 'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?> -->

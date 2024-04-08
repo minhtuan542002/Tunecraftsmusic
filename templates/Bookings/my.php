@@ -20,11 +20,10 @@
                         <tr>
                             <th><?= h('#ID') ?></th>
                             <th><?= h('Weekly Date & Time') ?></th>
-                            <th><?= h('Remaining Number of Lesson') ?></th>
+                            <th><?= h('Remaining Lessons') ?></th>
                             <th><?= h('Upcoming Lesson') ?></th>
                             <th><?= h('Each Lesson Duration') ?></th>
                             <th><?= h('Is Paid for') ?></th>
-                            <th><?= h('Notes') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -37,7 +36,6 @@
                                 <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
                                 <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                                 <td><?= $booking->is_paid? "Yes":"No" ?></td>
-                                <td><?= $booking->note==NULL? "None":$booking->note ?></td>
                                 <td class="actions">
                                     <?= $this->Html->link(__('View'), ['action' => 'view_one', $booking->booking_id], ['class' => 'btn btn-info']) ?>
                                     <?php if(!$booking->is_paid):?>
@@ -66,7 +64,7 @@
             "searching": true,
             "columnDefs": [
                 {
-                    "targets": [7],
+                    "targets": [6],
                     "orderable": false
                 }
             ],

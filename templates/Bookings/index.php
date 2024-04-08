@@ -42,11 +42,10 @@ $this->layout = 'dashboard';
                         <th><?= h('#ID') ?></th>
                         <th><?= h('Customer Name') ?></th>
                         <th><?= h('Weekly Date & Time') ?></th>
-                        <th><?= h('Remaining Number of Lesson') ?></th>
+                        <th><?= h('Remaining Lessons') ?></th>
                         <th><?= h('Upcoming Lesson') ?></th>
                         <th><?= h('Each Lesson Duration') ?></th>
                         <th><?= h('Is Paid for') ?></th>
-                        <th><?= h('Notes') ?></th>
                         <th class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
@@ -62,7 +61,6 @@ $this->layout = 'dashboard';
                         <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
                             ['class' => 'btn btn-outline-success', 
                                 'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
-                        <td><?= $booking->note==NULL? "None":$booking->note ?></td>
                         <td class="actions">
                             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
                                 ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>
@@ -91,7 +89,7 @@ $this->layout = 'dashboard';
             "searching": true,
             "columnDefs": [
                 {
-                    "targets": [8],
+                    "targets": [7],
                     "orderable": false
                 }
             ],

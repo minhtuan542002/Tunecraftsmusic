@@ -17,7 +17,7 @@ $this->layout = 'dashboard';
                         <tr>
                             <th>Weekly date time:</th>
                             <td>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-8">
                                     
                                     <?php
                                     echo $this->Form->control('booking_datetime', [
@@ -32,13 +32,16 @@ $this->layout = 'dashboard';
                         </tr>
                         <tr>
                             <th>Note:</th>
-                            <td><?php
-                                echo $this->Form->control('note', [
-                                    'label' => false,
-                                    'rows' => '3',
-                                    'type' => 'textarea',
-                                    'class' => 'col-md-9 form-control',
-                                ]);?>
+                            <td>
+                                <div class="form-group col-md-8">
+                                    <?php
+                                    echo $this->Form->control('note', [
+                                        'label' => false,
+                                        'rows' => '3',
+                                        'type' => 'textarea',
+                                        'class' => 'col-md-9 form-control',
+                                    ]);?>
+                                </div>
                             </td>
                         </tr>
                     </table>

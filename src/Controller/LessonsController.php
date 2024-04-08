@@ -41,7 +41,7 @@ class LessonsController extends AppController
             $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
     }
-    
+
     /**
      * Edit method
      *
@@ -59,6 +59,7 @@ class LessonsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
+            debug($lesson);
             $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
         }
         $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();

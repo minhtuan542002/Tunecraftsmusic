@@ -55,14 +55,22 @@
             <?= $this->Form->create($lesson) ?>
             <fieldset>
                 <legend><?= __('Edit Lesson') ?></legend>
-                <table>
+                <table class = "table">
                     <tr>
                         <th><?= __('Lesson Start Time and Date') ?></th>
-                        <td><?= $this->Form->input('lesson_start_time') ?></td>
+                        <td><?= $this->Form->input('lesson_start_time', [
+                            'type' => 'datetime-local',
+                            'required' => "required",
+                            'class'=>'form-control',
+                        ]) ?></td>
                     </tr>
                     <tr>
                         <th><?= __("Teacher's Note") ?></th>
-                        <td><?= $this->Form->input('note') ?></td>
+                        <td><?= $this->Form->input('note', [
+                            'type' => 'textarea',
+                            'rows' => '4',
+                            'class'=>'form-control',
+                        ]) ?></td>
                     </tr>
                 </table>
             </fieldset>

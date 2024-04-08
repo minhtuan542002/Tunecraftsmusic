@@ -67,6 +67,9 @@ $this->loadHelper('Form', [
                                 'required' => "required",
                                 'class'=>'form-control',
                             ]) ?>
+                            Note that scheduling the lesson time to the past imply that it is completed 
+                            <br>
+                            While scheduling to the future imply it is yet to happen
                         </td>
                     </tr>
                     <tr>

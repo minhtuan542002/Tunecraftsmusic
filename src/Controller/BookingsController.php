@@ -344,6 +344,7 @@ class BookingsController extends AppController
         $booking = $this->Bookings->get($id, [
             'contain' => ['Lessons'],
         ]);
+        //debug($booking);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
             
@@ -370,7 +371,7 @@ class BookingsController extends AppController
                 }
                 
                 $this->Flash->success(__('The booking has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view_one', $booking->booking_id]);
             }
             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
 
@@ -419,7 +420,7 @@ class BookingsController extends AppController
                 }
                 
                 $this->Flash->success(__('The booking has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $booking->booking_id]);
             }
             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
 

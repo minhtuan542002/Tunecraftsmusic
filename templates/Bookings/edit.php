@@ -25,6 +25,9 @@
                             <td><?php
                                 echo $this->Form->control('booking_datetime', [
                                     'label' => false,
+                                    'required' => "required",
+                                    'class'=>'form-control',
+                                    'min' => date('Y-m-d', strtotime("+6 days")) . 'T07:00',
                                 ]);?>
                                 Note that you reschedule all the lessons starting a week from now
                             </td>
@@ -36,30 +39,21 @@
                                     'label' => false,
                                     'rows' => '3',
                                     'type' => 'textarea',
-                                    'class' => 'col-md-9',
-                                    'required' => "required",
-                                    'min' => date('Y-m-d', strtotime("+6 days")) . 'T07:00',
+                                    'class' => 'col-md-9 form-control',
                                 ]);?>
                             </td>
                         </tr>
                     </table>
                 </div>
             </fieldset>
+            <aside class="user-actions">
+                <div class="side-nav d-flex justify-content-between">
+                    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                    <?= $this->Form->button('Save', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
+                </div>
+            </aside>
+            <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
 
-<aside class="user-actions">
-    <div class="side-nav">
-        <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-        <?= $this->Html->postLink('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
-        <?= $this->Form->end() ?>
-    </div>
-</aside>
-
-<script>
-document.getElementById('submit-form').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector('form').submit();
-});
-</script>

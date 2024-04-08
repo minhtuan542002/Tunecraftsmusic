@@ -68,23 +68,23 @@
                 </tr>
                 <tr>
                     <th><?= __('First Name') ?></th>
-                    <td><?= $this->Form->input('first_name', ['style' => 'width: 25%;']) ?></td> 
+                    <td><?= $this->Form->control('first_name', ['style' => 'width: 25%;']) ?></td> 
                 </tr>
                 <tr>
                     <th><?= __('Last Name') ?></th>
-                    <td><?= $this->Form->input('last_name', ['style' => 'width: 25%;']) ?></td>
+                    <td><?= $this->Form->control('last_name', ['style' => 'width: 25%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Email') ?></th>
-                    <td><?= $this->Form->input('email', ['style' => 'width: 30%;']) ?></td>
+                    <td><?= $this->Form->control('email', ['style' => 'width: 30%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Phone') ?></th>
-                    <td><?= $this->Form->input('phone', ['style' => 'width: 15%;']) ?></td> 
+                    <td><?= $this->Form->control('phone', ['style' => 'width: 15%;']) ?></td> 
                 </tr>
                 <tr>
                     <th><?= __('User Id') ?></th>
-                    <td><?= $this->Form->input('user_id', ['disabled' => true, 'style' => 'width: 25%;']) ?></td> 
+                    <td><?= $this->Form->control('user_id', ['disabled' => true, 'style' => 'width: 25%;']) ?></td> 
                 </tr>
                 <tr>
                     <th><?= __('Note') ?></th>

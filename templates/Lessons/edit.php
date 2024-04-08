@@ -58,15 +58,17 @@
                 <table class = "table">
                     <tr>
                         <th><?= __('Lesson Start Time and Date') ?></th>
-                        <td><?= $this->Form->input('lesson_start_time', [
-                            'type' => 'datetime-local',
-                            'required' => "required",
-                            'class'=>'form-control',
-                        ]) ?></td>
+                        <td><?php
+                            echo $this->Form->control('lesson_start_time', [
+                                'label' => false,
+                                'required' => "required",
+                                'class'=>'form-control',
+                            ]) ?>
+                        </td>
                     </tr>
                     <tr>
                         <th><?= __("Teacher's Note") ?></th>
-                        <td><?= $this->Form->input('note', [
+                        <td><?= $this->Form->control('note', [
                             'type' => 'textarea',
                             'rows' => '4',
                             'class'=>'form-control',

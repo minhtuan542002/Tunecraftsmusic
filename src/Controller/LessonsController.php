@@ -51,19 +51,32 @@ class LessonsController extends AppController
      */
     public function edit($id = null)
     {
-        $lesson = $this->Lessons->get($id, contain: []);
+        $this->Users = $this->fetchTable('Users');
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Students'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
+        }
+
+        $lesson = $this->Lessons->get($id, [
+            'contain' => [],
+        ]);
+        //debug($lesson);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            //debug($lesson);
             $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
             if ($this->Lessons->save($lesson)) {
                 $this->Flash->success(__('The lesson has been saved.'));
 
-                return $this->redirect(['controller' => 'bookings', 'action' => 'index', $lesson->booking_id]);
+                return $this->redirect(['controller' => 'bookings', 'action' => 'view_admin', $lesson->booking_id]);
             }
-            debug($lesson);
+            //debug($lesson);
             $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
         }
-        $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teachers'));
+        $this->set(compact('lesson'));
     }
 }

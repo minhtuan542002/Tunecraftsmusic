@@ -55,19 +55,19 @@
             <table>
                 <tr>
                     <th><?= __('Package Name') ?></th>
-                    <td><?= $this->Form->input('package_name', ['style' => 'width: 30%;']) ?></td>
+                    <td><?= $this->Form->control('package_name', ['style' => 'width: 30%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Number of Lessons') ?></th>
-                    <td><?= $this->Form->input('number_of_lessons', ['style' => 'width: 10%;']) ?></td>
+                    <td><?= $this->Form->control('number_of_lessons', ['style' => 'width: 10%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Lesson Duration (Minutes)') ?></th>
-                    <td><?= $this->Form->input('lesson_duration_minutes', ['style' => 'width: 10%;']) ?></td>
+                    <td><?= $this->Form->control('lesson_duration_minutes', ['style' => 'width: 10%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Cost (Dollars)') ?></th>
-                    <td><?= $this->Form->input('cost_dollars', ['style' => 'width: 10%;']) ?></td>
+                    <td><?= $this->Form->control('cost_dollars', ['style' => 'width: 10%;']) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Description') ?></th>

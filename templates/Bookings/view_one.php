@@ -17,46 +17,50 @@
     </aside> -->
     <div class="column-responsive column-80">
         <div class="bookings view content">
-            <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
+            <div class="d-flex gap-5">
+                <h3>Booking ID: <?= h($booking->booking_id) ?></h3>
+                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit', $booking->booking_id], 
+                    ['escape' => false, 'class' => 'btn btn-info']) ?> 
+            </div>
             <?= $this->Flash->render() ?>
-            <div class = "table-responsive">
-            <table class="table">
-                <tr>
-                    <th><?= __('Customer') ?></th>
-                    <td>
-                        <?php if ($booking->has('customer')) : ?>
-                            <?= $this->Html->link(
-                                h($booking->customer->id . ' - ' . $booking->customer->first_name . ' ' . $booking->customer->last_name),
-                                ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]
-                            ) ?>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($booking->booking_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Weakly Datetime') ?></th>
-                    <td><?= $booking->booking_datetime->format('l H:i') ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Each Lesson Duration') ?></th>
-                    <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
-                </tr>
-                <tr>
-                    <th><?= h('Upcoming Lesson') ?></th>
-                    <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Number of Remaining Lessons') ?></th>
-                    <td><?= $booking->remain_count ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Payment Confirmed') ?></th>
-                    <td><?= $booking->is_paid? "Yes":"No" ?></td>
-                </tr>
-            </table>
+            <div class = "table-responsive pb-5">
+                <table class="table">
+                    <tr>
+                        <th><?= __('Customer') ?></th>
+                        <td>
+                            <?php if ($booking->has('customer')) : ?>
+                                <?= $this->Html->link(
+                                    h($booking->customer->id . ' - ' . $booking->customer->first_name . ' ' . $booking->customer->last_name),
+                                    ['controller' => 'Customers', 'action' => 'view', $booking->customer->id]
+                                ) ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Id') ?></th>
+                        <td><?= $this->Number->format($booking->booking_id) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Weakly Datetime') ?></th>
+                        <td><?= $booking->booking_datetime->format('l H:i') ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Each Lesson Duration') ?></th>
+                        <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= h('Upcoming Lesson') ?></th>
+                        <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Number of Remaining Lessons') ?></th>
+                        <td><?= $booking->remain_count ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Payment Confirmed') ?></th>
+                        <td><?= $booking->is_paid? "Yes":"No" ?></td>
+                    </tr>
+                </table>
             </div>
             <div class="related">
                 <?php if (!($booking->remain_count == 0)) : ?>
@@ -85,6 +89,8 @@
                         If there were a problem please contact us</p>
                 <?php endif; ?>
             </div>
+            <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> Back to My Bookings', ['action' => 'index'], 
+                ['escape' => false, 'class' => 'btn btn-success']) ?>
         </div>
     </div>
 </div>

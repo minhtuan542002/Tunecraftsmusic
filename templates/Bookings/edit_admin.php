@@ -39,13 +39,21 @@ $this->layout = 'dashboard';
                     </table>
                 </div>
             </fieldset>
-            <aside class="user-actions">
-                <div class="d-flex justify-content-between">
-                    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                    <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
-            </aside>
         </div>
     </div>
 </div>
+
+<aside class="user-actions">
+    <div class="d-flex justify-content-between">
+        <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+        <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+        <?= $this->Form->end() ?>
+    </div>
+</aside>
+
+<script>
+document.getElementById('submit-form').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('form').submit();
+});
+</script>

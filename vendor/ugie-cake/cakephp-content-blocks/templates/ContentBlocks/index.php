@@ -58,7 +58,7 @@ $slugify = function($text) {
                     </div>
                     <div class="content-blocks--actions">
                         <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $contentBlock->id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-success btn-sm']) ?>
-                        <?php if (!empty($contentBlock->previous_value)) echo " :: " . $this->Html->link('<i class="fas fa-history fa-fw"></i> Restore', ['action' => 'restore', $contentBlock->id], ['escape' => false, 'title' => __('Restore'), 'class' => 'btn btn-warning btn-sm', 'confirm' => __("Are you sure you want to restore the previous version for this item?\n{0}/{1}\nNote: You cannot cancel this action!", $contentBlock->parent, $contentBlock->slug)]) ?>
+                        <?php if (!empty($contentBlock->previous_value)) echo " :: " . $this->Form->postlink('<i class="fas fa-history fa-fw"></i> Restore', ['action' => 'restore', $contentBlock->id], ['escape' => false, 'title' => __('Restore'), 'class' => 'btn btn-warning btn-sm', 'confirm' => __("Are you sure you want to restore the previous version for this item?\n{0}/{1}\nNote: You cannot cancel this action!", $contentBlock->parent, $contentBlock->slug)]) ?>
                     </div>
                 </li>
             <?php } ?>

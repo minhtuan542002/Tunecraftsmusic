@@ -51,11 +51,10 @@ $this->assign('title', 'Register new user');
                             <div class="w-100">
                                 <p class="social-media d-flex justify-content-end">
                                     <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
+                                       style="background: #ce1212;"
                                        class="social-icon d-flex align-items-center justify-content-center"><span
+                                            style="color: white;"
                                             class="fa fa-home"></span></a>
-                                    <!--                                    <a href="#"-->
-                                    <!--                                       class="social-icon d-flex align-items-center justify-content-center"><span-->
-                                    <!--                                            class="fa fa-twitter"></span></a>-->
                                 </p>
                             </div>
                         </div>
@@ -101,6 +100,7 @@ $this->assign('title', 'Register new user');
                                     'required' => true,
                                     'autofocus' => true,
                                     //'value' => $debug ? "test@example.com" : "",
+                                    'placeholder' => "john.doe@example.com",
                                     'class' => 'form-control',
                                 ]); ?>
                             </div>
@@ -112,23 +112,27 @@ $this->assign('title', 'Register new user');
                                     'autofocus' => true,
                                     'label' => false,
                                     //'value' => $debug ? "+61111111111" : "",
-                                    'placeholder' => "+61111111111",
+                                    'placeholder' => "04111111111",
                                     'class' => 'form-control',
                                 ]); ?>
                             </div>
                         </div>
 
+
                         <div class="form-group mb-3">
                             <?= $this->Form->label('password', 'Password', ['class' => 'required-asterisk']) ?>
-
-                            <?php echo $this->Form->control('password', [
-                                'type' => 'password',
-                                'required' => true,
-                                'label' => false,
-                                //'value' => $debug ? 'password' : '',
-                                'class' => 'form-control',
-                            ]); ?>
+                            <div class="input-group mb-3" id="show_hide_password">
+                                <div class="input-group-prepend">
+            <span class="input-group-text" id="login-password">
+                <a href="" style="color: #212529;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            </span>
+                                </div>
+                                <?= $this->Form->password('password', ['id' => 'password', 'class' => 'form-control mr-1', 'label' => false, 'placeholder' => 'Password']) ?>
+                            </div>
+                            <div id="password-error" style="display: none; color: red;"></div>
                         </div>
+
+
                         <small class="form-text text-muted">Password Criteria:</small>
                         <ul class="password-criteria">
                             <li>Must be at least 8 characters long.</li>
@@ -138,14 +142,15 @@ $this->assign('title', 'Register new user');
                         </ul>
                         <div class="form-group mb-3">
                             <?= $this->Form->label('password_confirm', 'Password Confirm', ['class' => 'required-asterisk']) ?>
-
-                            <?php echo $this->Form->control('password_confirm', [
-                                'type' => 'password',
-                                'label' => false,
-                                'required' => true,
-                                //'value' => $debug ? 'password' : '',
-                                'class' => 'form-control',
-                            ]); ?>
+                            <div class="input-group mb-3" id="show_hide_password">
+                                <div class="input-group-prepend">
+            <span class="input-group-text" id="login-password">
+                <a href="" style="color: #212529;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            </span>
+                                </div>
+                                <?= $this->Form->password('password_confirm', ['id' => 'password_confirm', 'class' => 'form-control mr-1', 'label' => false, 'placeholder' => '']) ?>
+                            </div>
+                            <div id="password-confirm-error" style="display: none; color: red;"></div>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->button('Register', ['class' => 'form-control btn btn-primary rounded submit px-3']) ?>
@@ -162,7 +167,7 @@ $this->assign('title', 'Register new user');
     </div>
 </section>
 
-<!-- 
+<!--
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
@@ -171,7 +176,7 @@ $this->assign('title', 'Register new user');
 </body>
 </html> -->
 
-<!-- 
+
 <script>
 
     $(document).ready(function () {
@@ -187,6 +192,119 @@ $this->assign('title', 'Register new user');
                 $('#show_hide_password i').addClass("fa-eye");
             }
         });
-    });
-</script> -->
+        //
+        // const passwordField = document.getElementById('password');
+        // const passwordError = document.getElementById('password-error');
+        //
+        // passwordField.addEventListener('input', function () {
+        //     const password = passwordField.value;
+        //     const errors = [];
+        //
+        //     // Check length
+        //     if (password.length < 8) {
+        //         errors.push('Must be at least 8 characters long.');
+        //     }
+        //
+        //     // Check for uppercase letter
+        //     if (!/[A-Z]/.test(password)) {
+        //         errors.push('Must contain at least one uppercase letter.');
+        //     }
+        //
+        //     // Check for lowercase letter
+        //     if (!/[a-z]/.test(password)) {
+        //         errors.push('Must contain at least one lowercase letter.');
+        //     }
+        //
+        //     // Check for digit and special character
+        //     if (!/\d/.test(password) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+        //         errors.push('Must contain at least one digit and one special character.');
+        //     }
+        //
+        //     // Display errors if any, otherwise hide error message
+        //     if (errors.length > 0) {
+        //         passwordError.innerHTML = errors.join('<br>');
+        //         passwordError.style.display = 'block';
+        //     } else {
+        //         passwordError.innerHTML = '';
+        //         passwordError.style.display = 'none';
+        //     }
+        // });
 
+    });
+
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordField = document.getElementById('password');
+        const passwordConfirmField = document.getElementById('password_confirm');
+        const passwordError = document.getElementById('password-error');
+        const passwordConfirmError = document.getElementById('password-confirm-error');
+
+        // Function to validate password criteria
+        function validatePasswordCriteria(password) {
+            const errors = [];
+
+            // Check length
+            if (password.length < 8) {
+                errors.push('Must be at least 8 characters long.');
+            }
+
+            // Check for uppercase letter
+            if (!/[A-Z]/.test(password)) {
+                errors.push('Must contain at least one uppercase letter.');
+            }
+
+            // Check for lowercase letter
+            if (!/[a-z]/.test(password)) {
+                errors.push('Must contain at least one lowercase letter.');
+            }
+
+            // Check for digit and special character
+            if (!/\d/.test(password) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+                errors.push('Must contain at least one digit and one special character.');
+            }
+
+            return errors;
+        }
+
+
+        // Function to validate password match
+        function validatePasswordMatch() {
+            const password = passwordField.value;
+            const confirmPassword = passwordConfirmField.value;
+
+            if (password !== confirmPassword) {
+                passwordConfirmError.innerHTML = 'Passwords do not match.';
+                passwordConfirmError.style.display = 'block';
+            } else {
+                passwordConfirmError.innerHTML = '';
+                passwordConfirmError.style.display = 'none';
+            }
+        }
+
+        // Event listeners for password fields
+        passwordField.addEventListener('input', function () {
+            const password = passwordField.value;
+            const errors = validatePasswordCriteria(password);
+
+            if (errors.length > 0) {
+                passwordError.innerHTML = errors.join('<br>');
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.innerHTML = '';
+                passwordError.style.display = 'none';
+            }
+
+            // Also validate password match
+            validatePasswordMatch();
+        });
+
+        passwordConfirmField.addEventListener('input', function () {
+            // Validate password match
+            validatePasswordMatch();
+        });
+
+    });
+</script>

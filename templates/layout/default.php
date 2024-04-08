@@ -111,8 +111,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
         <ul>
           
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/services') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/services') ?>">Services</a></li>
         <li>
           <?php if ($loggedIn): ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
@@ -120,9 +119,10 @@ $cakeDescription = $this->ContentBlock->text('website-title');
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a>
           <?php endif; ?>  
         </li>
+        <!-- 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
-
+        -->
 
           <!-- <li><a href="#home">Home</a></li>
           <li><a href="#about">About Us</a></li>

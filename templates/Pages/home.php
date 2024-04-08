@@ -15,7 +15,7 @@
  */
 
 
-$this->assign('title', 'About us');
+$this->assign('title', 'Home');
 ?>
 <div class="section-bg">
     <div id="hero" class="hero container mt-5 section-bg">
@@ -42,7 +42,7 @@ $this->assign('title', 'About us');
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
-                    'style' => 'height: 500px; width: 500px; object-fit: cover;'
+                    'style' => 'height: 400px; width: 500px; object-fit: contain;'
                 ]); ?>
             </div>
         </div>

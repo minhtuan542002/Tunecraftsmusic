@@ -37,8 +37,7 @@ $this->layout = 'dashboard';
 
 <section class="page-section clearfix">
     <div class="bookings index content">
-        <h3><?= __('My Bookings') ?></h3>
-        <?= $this->Flash->render() ?>
+        <h3><?= __('All Bookings') ?></h3>
         <div class="table-responsive user-table-container">
             <table class="table dataTable" id="dataTable">
                 <thead>

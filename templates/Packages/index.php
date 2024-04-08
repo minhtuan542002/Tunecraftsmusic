@@ -30,7 +30,11 @@
     }
 </style>
 <div class="packages index content">
-    <h3><?= __('Packages') ?> <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Package', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-info']) ?> </h3>
+    <div class="d-flex gap-5">
+        <h3><?= __('Packages') ?> </h3>
+        <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Package', ['action' => 'add'], 
+            ['escape' => false, 'class' => 'btn btn-info']) ?> 
+    </div>
     <div class="table-responsive user-table-container">
         <table class="table dataTable" id="dataTable">
             <thead>

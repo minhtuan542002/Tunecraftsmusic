@@ -10,7 +10,7 @@ namespace App\Controller;
  */
 class PackagesController extends AppController
 {
-        /**
+    /**
      * Initialize method
      * Authenticates permissions access
      * 
@@ -41,6 +41,7 @@ class PackagesController extends AppController
             $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
     }
+    
     /**
      * Index method
      *

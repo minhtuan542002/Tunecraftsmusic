@@ -11,54 +11,37 @@ namespace App\Controller;
 class LessonsController extends AppController
 {
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
+     * Initialize method
+     * Authenticates permissions access
+     * 
+     * @return void
      */
-    public function index()
+    public function initialize(): void
     {
-        $query = $this->Lessons->find()
-            ->contain(['Bookings', 'Teachers']);
-        $lessons = $this->paginate($query);
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
 
-        $this->set(compact('lessons'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Lesson id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $lesson = $this->Lessons->get($id, contain: ['Bookings', 'Teachers']);
-        $this->set(compact('lesson'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $lesson = $this->Lessons->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
-            if ($this->Lessons->save($lesson)) {
-                $this->Flash->success(__('The lesson has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
         }
-        $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teachers'));
-    }
+        $this->set('loggedIn', $loggedIn);
+        $this->Users = $this->fetchTable('Users');
 
+       
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
+    }
+    
     /**
      * Edit method
      *
@@ -81,25 +64,5 @@ class LessonsController extends AppController
         $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
         $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
         $this->set(compact('lesson', 'bookings', 'teachers'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Lesson id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $lesson = $this->Lessons->get($id);
-        if ($this->Lessons->delete($lesson)) {
-            $this->Flash->success(__('The lesson has been deleted.'));
-        } else {
-            $this->Flash->error(__('The lesson could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

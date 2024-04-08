@@ -49,10 +49,13 @@ $this->assign('title', 'Login');
                             </div>
 
                             <div class="w-100">
-                            <p class="social-media d-flex justify-content-end">
-                                <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
-                                class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-home"></span></a>
-                            </p>
+                                <p class="social-media d-flex justify-content-end">
+                                    <a href="<?= $this->Html->Url->build(['controller' => 'Pages', 'action' => 'display', 'home']) ?>"
+                                       style="background: #ce1212;"
+                                       class="social-icon d-flex align-items-center justify-content-center"><span
+                                            style="color: white;"
+                                            class="fa fa-home"></span></a>
+                                </p>
                             </div>
                         </div>
                         <?= $this->Flash->render() ?>
@@ -69,20 +72,35 @@ $this->assign('title', 'Login');
                                 'class' => 'form-control',
                             ]); ?>
                         </div>
-                        <div class="form-group mb-3">
-                            <?php echo $this->Form->control('password', [
-                                'type' => 'password',
-                                'required' => true,
-                                'placeholder' => 'password',
-                                'class' => 'form-control',
-                            ]); ?>
+                        <?php
+                        echo $this->Form->label('password');
+                        ?>
+                        <div class="input-group mb-3" id="show_hide_password">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="login-password">
+                                    <a href="" style="color: #212529;"><i class="fa fa-eye-slash"
+                                                                          aria-hidden="true"></i></a>
+                                </span>
+                            </div>
+                            <?= $this->Form->password('password', ['class' => 'form-control mr-1', 'label' => false, 'placeholder' => 'Password']) ?>
+
                         </div>
+                        <!--                        <div class="form-group mb-3">-->
+                        <!--                            --><?php //echo $this->Form->control('password', [
+                        //                                'type' => 'password',
+                        //                                'required' => true,
+                        //                                'placeholder' => 'password',
+                        //                                'class' => 'form-control',
+                        //                            ]); ?>
+                        <!--                        </div>-->
+
                         <div class="form-group">
                             <?= $this->Form->button('Login', ['class' => 'form-control btn btn-primary rounded submit px-3']) ?>
                         </div>
                         <div class="form-group d-md-flex">
                             <div class="w-50">
-                                <!-- <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?> 
+                                <!-- <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?>
                                 -->
                             </div>
                         </div>
@@ -98,7 +116,7 @@ $this->assign('title', 'Login');
     </div>
 </section>
 
-<!-- 
+<!--
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/popper.js"></script>
 <script type="text/javascript" src="<?php echo Router::url("/", true) ?>js/login/js/bootstrap.min.js"></script>
@@ -107,7 +125,6 @@ $this->assign('title', 'Login');
 </body>
 </html> -->
 
-<!-- 
 <script>
 
     $(document).ready(function () {
@@ -124,5 +141,5 @@ $this->assign('title', 'Login');
             }
         });
     });
-</script> -->
+</script>
 

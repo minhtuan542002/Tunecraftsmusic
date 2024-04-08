@@ -41,7 +41,8 @@ $this->assign('title', 'About us');
                     'alt' => 'CakePHP',
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300"
+                    'data-aos-delay' => "300",
+                    'style' => 'height: 500px; width: 500px; object-fit: cover;'
                 ]); ?>
             </div>
         </div>
@@ -81,7 +82,7 @@ $this->assign('title', 'About us');
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
-                    'style' => 'height: 230px;'
+                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
                 ]); ?>
             </div>
             <div class="col-md-4">
@@ -90,7 +91,7 @@ $this->assign('title', 'About us');
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
-                    'style' => 'height: 230px;'
+                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
                 ]); ?>
             </div>
             <div class="col-md-4">
@@ -99,7 +100,7 @@ $this->assign('title', 'About us');
                     'class' => "img-fluid",
                     'data-aos' => "zoom-out",
                     'data-aos-delay' => "300",
-                    'style' => 'height: 230px;'
+                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
                 ]); ?>
 
             </div>

@@ -70,7 +70,7 @@ $this->layout = 'dashboard';
                             <div class="btn-group" role="group">
                                 <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
                                     ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $booking->booking_id], 
+                                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit_admin', $booking->booking_id], 
                                     ['escape' => false, 'class' => 'btn btn-warning']) ?>
                                 <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', 
                                     ['action' => 'delete', $booking->booking_id], 

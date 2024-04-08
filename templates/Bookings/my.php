@@ -8,7 +8,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 <section id="my-lesson" class="my-lesson "> 
     <div class="bookings my content mt-5 pt-5">
-        <div class="bookings index content">
+        <div class="bookings index content my-bookings">
             <div class="d-flex gap-5">
                 <h3><?= __('My Bookings') ?> </h3>
                 <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> New Booking', ['action' => 'add'], 

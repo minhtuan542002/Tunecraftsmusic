@@ -45,16 +45,18 @@
                     </table>
                 </div>
             </fieldset>
-            <aside class="user-actions">
-                <div class="side-nav">
-                    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                    <?= $this->Html->postLink('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
-            </aside>
         </div>
     </div>
 </div>
+
+<aside class="user-actions">
+    <div class="side-nav">
+        <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+        <?= $this->Html->postLink('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+        <?= $this->Form->end() ?>
+    </div>
+</aside>
+
 <script>
 document.getElementById('submit-form').addEventListener('click', function(e) {
     e.preventDefault();

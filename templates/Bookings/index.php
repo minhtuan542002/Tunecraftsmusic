@@ -5,32 +5,29 @@
  */
 $this->layout = 'dashboard';
 ?>
-
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
 <style>
     .content {
         margin: 20px;
     }
 
-    .user-table-container table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
+    .side-nav {
+        padding-left: 10px;
     }
 
-    .user-table-container th,
-    .user-table-container td {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        text-align: left;
-    }
-
-    .actions {
-        width: 150px;
+    .side-nav h4.heading {
+        margin-top: 0;
+        color: #3498db;
     }
 
     .btn {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn i {
         margin-right: 5px;
     }
 </style>
@@ -67,16 +64,14 @@ $this->layout = 'dashboard';
                                 'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
                         <td><?= $booking->note==NULL? "None":$booking->note ?></td>
                         <td class="actions">
-                            <div class="btn-group" role="group">
-                                <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>
-                                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit_admin', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-succcess btn-sm']) ?>
-                                <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', 
-                                    ['action' => 'delete', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-danger btn-sm', 
-                                        'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
-                            </div>
+                            <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
+                                ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>
+                            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit_admin', $booking->booking_id], 
+                                ['escape' => false, 'class' => 'btn btn-success btn-sm']) ?>
+                            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', 
+                                ['action' => 'delete', $booking->booking_id], 
+                                ['escape' => false, 'class' => 'btn btn-danger btn-sm', 
+                                    'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

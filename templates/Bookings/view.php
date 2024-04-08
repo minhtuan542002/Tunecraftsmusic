@@ -76,9 +76,9 @@ $this->layout = 'dashboard';
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
                                         <div class="d-grid gap-2 col-4 mx-auto">
-                                            <?= $this->Html->link('Reschedule', ['action' => 'edit', $lesson], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
-                                            <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-primary', 
-                                                'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
+                                            <?= $this->Html->link('Reschedule', ['controller'=> 'lessons', 'action' => 'edit', $lesson->lesson_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
+                                            <!-- <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-primary', 
+                                                'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?> -->
                                         </div>
                                     </td>
                                 </tr>

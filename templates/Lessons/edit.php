@@ -6,32 +6,79 @@
  * @var string[]|\Cake\Collection\CollectionInterface $teachers
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $lesson->lesson_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $lesson->lesson_id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Lessons'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<style>
+    .content {
+        margin: 20px;
+    }
+
+    .package-details table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .package-details th,
+    .package-details td {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .package-actions {
+        margin-top: 20px;
+    }
+
+    .side-nav {
+        padding-left: 10px;
+    }
+
+    .side-nav h4.heading {
+        margin-top: 0;
+        color: #3498db;
+    }
+
+    .btn {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+</style>
+
+<div class="content">
+    <div class="lessons-edit">
         <div class="lessons form content">
             <?= $this->Form->create($lesson) ?>
             <fieldset>
                 <legend><?= __('Edit Lesson') ?></legend>
-                <?php
-                    echo $this->Form->control('booking_id', ['options' => $bookings]);
-                    echo $this->Form->control('teacher_id', ['options' => $teachers]);
-                    echo $this->Form->control('lesson_start_time');
-                    echo $this->Form->control('note');
-                ?>
+                <table>
+                    <tr>
+                        <th><?= __('Lesson Start Time and Date') ?></th>
+                        <td><?= $this->Form->input('lesson_start_time') ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __("Teacher's Note") ?></th>
+                        <td><?= $this->Form->input('note') ?></td>
+                    </tr>
+                </table>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
         </div>
     </div>
+    <aside class="user-actions">
+        <div class="side-nav">
+            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'view',  $lesson->booking_id], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </aside>
 </div>
+<script>
+document.getElementById('submit-form').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('form').submit();
+});
+</script>

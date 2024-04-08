@@ -57,7 +57,7 @@ class LessonsController extends AppController
             if ($this->Lessons->save($lesson)) {
                 $this->Flash->success(__('The lesson has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'bookings', 'action' => 'index', $lesson->booking_id]);
             }
             debug($lesson);
             $this->Flash->error(__('The lesson could not be saved. Please, try again.'));

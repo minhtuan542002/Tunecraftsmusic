@@ -26,7 +26,8 @@ $this->assign('title', 'Pricing')
                         'alt' => '30 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
-                        'data-aos-delay' => "300"
+                        'data-aos-delay' => "300",
+                        'style' => 'height: 300px; width: 500px; object-fit: cover;'
                     ]); ?>
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-1'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-1'); ?></h3>
@@ -39,7 +40,8 @@ $this->assign('title', 'Pricing')
                         'alt' => '45 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
-                        'data-aos-delay' => "300"
+                        'data-aos-delay' => "300",
+                        'style' => 'height: 300px; width: 500px; object-fit: cover;'
                     ]); ?>
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-2'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-2'); ?></h3>
@@ -52,7 +54,8 @@ $this->assign('title', 'Pricing')
                         'alt' => '60 Minute Lesson', 
                         'class' => "img-fluid",
                         'data-aos' => "zoom-out",
-                        'data-aos-delay' => "300"
+                        'data-aos-delay' => "300",
+                        'style' => 'height: 300px; width: 500px; object-fit: cover;'
                     ]); ?>
                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('pricing-heading-3'); ?></h2>
                     <h3 data-aos="fade-up" data-aos-delay="200"><?= $this->ContentBlock->text('pricing-price-3'); ?></h3>

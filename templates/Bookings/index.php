@@ -60,7 +60,7 @@ $this->layout = 'dashboard';
                         <td><?= $booking->student->user->first_name . " " . $booking->student->user->last_name ?></td>
                         <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                         <td><?= $booking->remain_count ?></td>
-                        <td><?= $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') ?></td>
+                        <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
                         <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                         <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
                             ['class' => 'btn btn-outline-success', 

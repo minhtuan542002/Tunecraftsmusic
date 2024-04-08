@@ -69,12 +69,12 @@ $this->layout = 'dashboard';
                         <td class="actions">
                             <div class="btn-group" role="group">
                                 <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                                    ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>
                                 <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit_admin', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-warning']) ?>
+                                    ['escape' => false, 'class' => 'btn btn-succcess btn-sm']) ?>
                                 <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', 
                                     ['action' => 'delete', $booking->booking_id], 
-                                    ['escape' => false, 'class' => 'btn btn-danger', 
+                                    ['escape' => false, 'class' => 'btn btn-danger btn-sm', 
                                         'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?>
                             </div>
                         </td>

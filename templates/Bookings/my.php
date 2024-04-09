@@ -14,7 +14,7 @@
                 <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> New Booking', ['action' => 'add'], 
                     ['escape' => false, 'class' => 'btn btn-info']) ?> 
             </div>
-            <div class="table-responsive user-table-container">
+            <div class="table-responsive user-table-container pt-5">
                 <table class= "table dataTable" id= 'dataTable'>
                     <thead>
                         <tr>

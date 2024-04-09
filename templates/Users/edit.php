@@ -4,6 +4,9 @@
  * @var \App\Model\Entity\User $user
  * @var string[]|\Cake\Collection\CollectionInterface $roles
  */
+$this->loadHelper('Form', [
+    'templates' => 'app_form',
+]);
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
@@ -36,33 +39,15 @@
     <div class="user-details">
         <?= $this->Form->create($user) ?>
         <fieldset>
-            <table>
-                <tr>
-                    <th><?= __('First Name') ?></th>
-                    <td><?= $this->Form->input('first_name', ['style' => 'width: 25%;']) ?></td> 
-                </tr>
-                <tr>
-                    <th><?= __('Last Name') ?></th>
-                    <td><?= $this->Form->input('last_name', ['style' => 'width: 25%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Email') ?></th>
-                    <td><?= $this->Form->input('email', ['style' => 'width: 30%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Phone') ?></th>
-                    <td><?= $this->Form->input('phone', ['style' => 'width: 15%;']) ?></td> 
-                </tr>
-                <tr>
-                    <th><?= __('User Id') ?></th>
-                    <td><?= $this->Form->input('user_id', ['disabled' => true, 'style' => 'width: 25%;']) ?></td> 
-                </tr>
-                <tr>
-                    <th><?= __('Note') ?></th>
-                    <td><?= $this->Form->textarea('note', ['style' => 'width: 50%; resize: vertical;']) ?></td>
-
-                </tr>
-            </table>
+            <?= $this->Form->control('first_name') ?> 
+            <?= $this->Form->control('last_name') ?>
+            <?= $this->Form->control('email') ?>
+            <?= $this->Form->control('phone') ?>
+            <?= $this->Form->control('user_id') ?>
+            <?= $this->Form->control('note', [
+                'rows' => '3',
+                'type' => 'textarea',
+                ]) ?>
         </fieldset>
         <div class="d-flex gap-3 mt-3">
             <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>

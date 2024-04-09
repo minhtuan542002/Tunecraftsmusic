@@ -269,8 +269,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
                                     <h4>How to pay:</h4>
-                                    <p>You are expected to pay at the first class in studio if there are any payment required</p>
-                                    <p>We will contact you to provide further details</p>
+                                    <p>Payments will be handled in studio at your first class</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">

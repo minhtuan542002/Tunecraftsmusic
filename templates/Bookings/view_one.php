@@ -27,19 +27,6 @@
             <div class = "table-responsive pb-5">
                 <table class="table">
                     <tr>
-                        <th><?= __('Student') ?></th>
-                        <td>
-                            <?php if ($booking->has('student')) : ?>
-                                <?= $this->Html->link(
-                                    h($booking->student->user->first_name . ' ' . 
-                                        $booking->student->user->last_name). ' - User ID: ' .
-                                        $booking->student->user->user_id,
-                                    ['controller' => 'Users', 'action' => 'view', $booking->student->user->user_id]
-                                ) ?>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <tr>
                         <th><?= __('Id') ?></th>
                         <td><?= $this->Number->format($booking->booking_id) ?></td>
                     </tr>

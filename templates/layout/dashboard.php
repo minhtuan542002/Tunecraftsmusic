@@ -57,7 +57,7 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Views</div>
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/customisation') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div>
                             Customisation
                         </a> 
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/users') ?>">

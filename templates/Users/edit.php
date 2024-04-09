@@ -40,10 +40,20 @@ $this->loadHelper('Form', [
         <?= $this->Form->create($user) ?>
         <h4> $user->user_id ?> </h4>
         <fieldset>
-            <?= $this->Form->control('first_name') ?> 
-            <?= $this->Form->control('last_name') ?>
-            <?= $this->Form->control('email') ?>
-            <?= $this->Form->control('phone') ?>
+            <?= $this->Form->control('first_name'), [
+                'required' => true,
+            ] ?> 
+            <?= $this->Form->control('last_name'), [
+                'required' => true,
+            ] ?>
+            <?= $this->Form->control('email'), [
+                'type' => 'email',
+                'required' => true,
+            ] ?>
+            <?= $this->Form->control('phone', [
+                'type' => 'tel',
+                'required' => true,
+            ]) ?>
             <?= $this->Form->control('note', [
                 'rows' => '3',
                 'type' => 'textarea',

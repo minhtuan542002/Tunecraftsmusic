@@ -17,11 +17,8 @@ $this->layout = 'dashboard';
     </aside> -->
     <div class="column-responsive column-80">
         <div class="bookings view content">
-            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], 
-                ['escape' => false, 'class' => 'btn btn-primary']) ?>
             <div class="d-flex gap-5 mt-3">
                 <h3>View Booking</h3>
-                
             </div>
             <?= $this->Flash->render() ?>
             <div class = "table-responsive pb-5">
@@ -61,8 +58,12 @@ $this->layout = 'dashboard';
                     </tr>
                 </table>
             </div>
-            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit_admin', $booking->booking_id], 
-                    ['escape' => false, 'class' => 'btn btn-success']) ?> 
+            <div class="d-flex gap-3 mt-3">
+                <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], 
+                    ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit_admin', $booking->booking_id], 
+                        ['escape' => false, 'class' => 'btn btn-success']) ?> 
+            </div>
             <div class="related pt-5">
                 <?php if (!($booking->remain_count == 0)) : ?>
                     <h4><?= __('Included Lessons') ?></h4>                
@@ -86,7 +87,7 @@ $this->layout = 'dashboard';
                                     <td class="actions">
                                         <div class="">
                                             <?= $this->Html->link('Reschedule', ['controller'=> 'lessons', 'action' => 'edit', $lesson->lesson_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
-                                            <!-- <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-primary', 
+                                            <!-- <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-danger', 
                                                 'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?> -->
                                         </div>
                                     </td>

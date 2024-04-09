@@ -9,10 +9,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
 <style>
-    .content {
-        margin: 20px;
-    }
-
     .user-details table {
         width: 100%;
         border-collapse: collapse;
@@ -35,7 +31,7 @@
 
 </style>
 
-<div class="content">
+<div class="mt-3">
     <h3><?= __('Edit User') ?></h3>
     <div class="user-details">
         <?= $this->Form->create($user) ?>
@@ -68,12 +64,10 @@
                 </tr>
             </table>
         </fieldset>
-        <aside class="user-actions">
-            <div class="d-flex gap-3 mt-3 ">
-                <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
-            </div>
-        </aside>
+        <div class="d-flex gap-3 mt-3">
+            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+            <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
+        </div>
         <?= $this->Form->end() ?>
     </div>
 </div>

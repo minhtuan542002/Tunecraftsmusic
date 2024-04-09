@@ -11,10 +11,14 @@ return [
      * https://api.cakephp.org/3.6/class-Cake.View.Helper.FormHelper.html#%24_defaultConfig so that they look
      * more like what the "Modular Default HTML" template (https://github.com/modularcode/modular-Default-html) uses.
      */
-    'inputContainer' => '<div class="form-group {{class}}">{{content}}</div>',
-    'label' => '<label class="control-label" {{attrs}}><span>{{text}}</span></label>',
-    'input' => '<input type="{{type}}" name="{{name}}" class="form-control underlined" {{attrs}}/>',
-    'textarea' => '<textarea name="{{name}}" class="form-control underlined" {{attrs}}>{{value}}</textarea>',
+    'inputContainer' => '<div class="form-group mb-3 row {{class}}">{{content}}</div>',
+    'label' => '<label class="col-sm-2 col-form-label" {{attrs}}><span>{{text}}</span></label>',
+    'input' => '<div class="col-sm-10">
+        <input type="{{type}}" name="{{name}}" class="form-control underlined" {{attrs}}/>
+        </div>',
+    'textarea' => '<div class="col-sm-10">
+        <textarea name="{{name}}" class="form-control underlined" {{attrs}}>{{value}}</textarea>
+        </div>',
 
     // The additional "<span>" here is because the "Modular Default HTML template does some magic with regards to
     // styling checkboxes. It actually hides the real checkbox, and replaces it with a fancy box that it styles

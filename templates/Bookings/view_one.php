@@ -91,8 +91,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <p>*** The system will mark lessons as completed after the designated date. 
-                        If there were a problem please contact us</p>
                 <?php endif; ?>
             </div>
             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> Back to My Bookings', ['action' => 'index'], 

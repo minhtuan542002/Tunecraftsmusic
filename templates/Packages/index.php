@@ -6,30 +6,8 @@
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-<style>
-    .content {
-        margin: 20px;
-    }
 
-    .side-nav {
-        padding-left: 10px;
-    }
-
-    .side-nav h4.heading {
-        margin-top: 0;
-        color: #3498db;
-    }
-
-    .btn {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
-</style>
-<div class="packages index content">
+<div class="packages index mt-3">
     <div class="d-flex gap-5">
         <h3><?= __('Packages') ?> </h3>
         <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Package', ['action' => 'add'], 
@@ -44,7 +22,7 @@
                     <th>Lesson Duration (Minutes)</th>
                     <th>Total Cost (AUD)</th>
                     <th>Package ID</th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +33,7 @@
                         <td><?= $package->lesson_duration_minutes === null ? '' : $this->Number->format($package->lesson_duration_minutes) ?></td>
                         <td><?= $package->cost_dollars === null ? '' : '$'. $this->Number->format($package->cost_dollars) ?></td>
                         <td><?= $this->Number->format($package->package_id) ?></td>
-                        <td class="actions">
+                        <td class="d-flex gap-2">
                             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $package->package_id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary btn-sm']) ?>
                             <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $package->package_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-success btn-sm']) ?>
                             <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $package->package_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id), 'class' => 'btn btn-danger btn-sm']) ?>

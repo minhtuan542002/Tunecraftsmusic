@@ -15,7 +15,7 @@
                     <th><?= $this->Paginator->sort('booking_id') ?></th>
                     <th><?= $this->Paginator->sort('teacher_id') ?></th>
                     <th><?= $this->Paginator->sort('lesson_start_time') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                     <td><?= $lesson->hasValue('booking') ? $this->Html->link($lesson->booking->booking_id, ['controller' => 'Bookings', 'action' => 'view', $lesson->booking->booking_id]) : '' ?></td>
                     <td><?= $lesson->hasValue('teacher') ? $this->Html->link($lesson->teacher->teacher_id, ['controller' => 'Teachers', 'action' => 'view', $lesson->teacher->teacher_id]) : '' ?></td>
                     <td><?= h($lesson->lesson_start_time) ?></td>
-                    <td class="actions">
+                    <td class="d-flex gap-3">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $lesson->lesson_id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $lesson->lesson_id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $lesson->lesson_id], ['confirm' => __('Are you sure you want to delete # {0}?', $lesson->lesson_id)]) ?>

@@ -29,15 +29,24 @@ $this->loadHelper('Form', [
     <div class="package-details">
         <?= $this->Form->create($package) ?>
         <fieldset>
-            <td><?= $this->Form->control('package_name', [
+            <?= $this->Form->control('package_name', [
+                'required' => 'required',
                 ]) ?>
-            <td><?= $this->Form->control('number_of_lessons', [
+            <?= $this->Form->control('number_of_lessons', [
+                'required' => 'required',
+                'min' => '1',
                 ]) ?>
-            <td><?= $this->Form->control('lesson_duration_minutes', [
+            <?= $this->Form->control('lesson_duration_minutes', [
+                'label' => 'Lesson Duration (Minutes)',
+                'required' => 'required',
+                'min' => '1',
                 ]) ?>
-            <td><?= $this->Form->control('cost_dollars', [
+            <?= $this->Form->control('cost_dollars', [
+                'label' => 'Cost (AUD)',
+                'required' => 'required',
+                'min' => '0',
                 ]) ?>
-            <td><?= $this->Form->control('description', [
+            <?= $this->Form->control('description', [
                 'rows' => '3',
                 'type' => 'textarea',
                 ]) ?>

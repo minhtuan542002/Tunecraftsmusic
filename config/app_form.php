@@ -21,7 +21,7 @@ return [
     // itself.
     'checkbox' => '<input type="checkbox" class="checkbox" name="{{name}}" value="{{value}}"{{attrs}}><span></span>',
 
-    'inputSubmit' => '<input type="{{type}}" class="btn btn-block btn-primary" {{atrs}} />',
-    'button' => '<button class="btn btn-primary" {{atrs}}>{{text}}</button>',
+    'inputSubmit' => '<input type="{{type}}" class="btn btn-block btn-success" {{atrs}} />',
+    'button' => '<button class="btn btn-success" {{atrs}}>{{text}}</button>',
 ];
 

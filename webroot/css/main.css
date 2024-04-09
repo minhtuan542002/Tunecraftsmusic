@@ -1578,6 +1578,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
+  margin-top: -45px;
   font-size: 14px;
   background-color: #1f1f24;
   padding: 50px 0;

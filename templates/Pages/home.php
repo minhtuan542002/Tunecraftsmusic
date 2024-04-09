@@ -106,5 +106,4 @@ $this->assign('title', 'Home');
             </div>
         </div>
     </div>
-
 </div>

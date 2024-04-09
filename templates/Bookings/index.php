@@ -15,21 +15,19 @@ $this->layout = 'dashboard';
             <table class="table dataTable" id="dataTable">
                 <thead>
                     <tr>
-                        <th><?= h('#ID') ?></th>
                         <th><?= h('Customer Name') ?></th>
                         <th><?= h('Weekly Date & Time') ?></th>
                         <th><?= h('Remaining Lessons') ?></th>
                         <th><?= h('Upcoming Lesson') ?></th>
                         <th><?= h('Each Lesson Duration') ?></th>
                         <th><?= h('Is Paid for') ?></th>
-                        <th><?= h('Notes') ?></th>
+                        <th><?= h('Booking ID') ?></th>
                         <th><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($bookings as $booking): ?>
                     <tr>
-                        <td><?= $booking->booking_id ?></td>
                         <td><?= $booking->student->user->first_name . " " . $booking->student->user->last_name ?></td>
                         <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                         <td><?= $booking->remain_count ?></td>
@@ -38,7 +36,7 @@ $this->layout = 'dashboard';
                         <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
                             ['class' => 'btn btn-outline-success btn-sm', 
                                 'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
-                        <td><?= $booking->note==NULL? "None":$booking->note ?></td>
+                        <td><?= $booking->booking_id ?></td>
                         <td class="d-flex gap-2">
                             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
                                 ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>

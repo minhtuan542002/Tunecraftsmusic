@@ -7,6 +7,16 @@ $this->layout = 'dashboard';
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+<style>
+    .note {
+        margin-top: 20px;
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-left: 3px solid #3498db;
+    }
+</style>
+
 <div class="row mb-5 mt-2">
     <!-- <aside class="column">
         <div class="side-nav">
@@ -57,14 +67,21 @@ $this->layout = 'dashboard';
                         <td><?= $booking->is_paid? "Yes":"No" ?></td>
                     </tr>
                 </table>
-            </div>
-            <div class="d-flex gap-3 mt-3">
+                <div class="note">
+                    <strong><?= __('Note') ?></strong>
+                    <blockquote>
+                        <?= $this->Text->autoParagraph(h($booking->note)); ?>
+                    </blockquote>
+                </div>
+                <div class="d-flex gap-3 mt-3">
                 <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], 
                     ['escape' => false, 'class' => 'btn btn-primary']) ?>
                 <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit Booking', ['action' => 'edit_admin', $booking->booking_id], 
                         ['escape' => false, 'class' => 'btn btn-success']) ?> 
+                </div>
             </div>
-            <div class="related pt-5">
+            
+            <div class="related">
                 <?php if (!($booking->remain_count == 0)) : ?>
                     <h4><?= __('Included Lessons') ?></h4>                
                     <div class="table-responsive">

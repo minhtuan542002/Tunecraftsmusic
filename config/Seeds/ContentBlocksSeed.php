@@ -17,24 +17,6 @@ class ContentBlocksSeed extends AbstractSeed
                 "type" => "text",
                 "value" => "TuneCraft Studio",
             ],
-            // Home Content Blocks
-            [
-                "parent" => "home",
-                "label" => "Home Page Content",
-                "description" => "The main content shown in the centre of the home page.",
-                "slug" => "home-content",
-                "type" => "text",
-                "value" => "
-                    Ready to amplify your violin skills? Join us now for an unforgettable journey of musical growth!
-                ",
-            ],
-            [
-                "parent" => "home",
-                "label" => "Home Page Image",
-                "description" => "Image shown on the right of the home page.",
-                "slug" => "home-image",
-                "type" => "image",
-            ],
             // About Us Content Blocks
             [
                 "parent" => "about",
@@ -114,112 +96,6 @@ class ContentBlocksSeed extends AbstractSeed
                 "label" => "Studio Image 3",
                 "description" => "Image for the third studio image in the 'Our Studio' section.",
                 "slug" => "about-image-3",
-                "type" => "image",
-            ],
-            // Pricing Content Blocks
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Heading 1",
-                "description" => "Heading for the 1st pricing section.",
-                "slug" => "pricing-heading-1",
-                "type" => "text",
-                "value" => "30 Minute Lesson",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Price 1",
-                "description" => "Price content for the 1st pricing section.",
-                "slug" => "pricing-price-1",
-                "type" => "text",
-                "value" => "
-                $50
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Text 1",
-                "description" => "Price content for the 1st pricing section.",
-                "slug" => "pricing-text-1",
-                "type" => "text",
-                "value" => "
-                    Wanting to start your violin journey but have a busy schedule? Book our 30 minute weekly class to get started without having to move your schedule around.
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Heading 2",
-                "description" => "Heading for the 2nd pricing section.",
-                "slug" => "pricing-heading-2",
-                "type" => "text",
-                "value" => "45 Minute Lesson",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Price 2",
-                "description" => "Price content for the 2nd pricing section.",
-                "slug" => "pricing-price-2",
-                "type" => "text",
-                "value" => "
-                $65
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Text 2",
-                "description" => "Text content for the 2nd pricing section.",
-                "slug" => "pricing-text-2",
-                "type" => "text",
-                "value" => "
-                    This lesson type provides a balanced duration for comprehensive learning without feeling too rushed. Our 45 minute weekly lesson are a good way to take your journey to the next level.
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Heading 3",
-                "description" => "Heading for the 3rd pricing section.",
-                "slug" => "pricing-heading-3",
-                "type" => "text",
-                "value" => "60 Minute Lesson",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Price 3",
-                "description" => "Price content for the 3rd pricing section.",
-                "slug" => "pricing-price-3",
-                "type" => "text",
-                "value" => "
-                $75
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Text 3",
-                "description" => "Text content for the 3rd pricing section.",
-                "slug" => "pricing-text-3",
-                "type" => "text",
-                "value" => "
-                    This is perfect for anyone seeking an in-depth learning experience with ample time for practice and exploration. Our 60 minute weekly lessons allow you to immerse yourself and really hone in on bringing out your inner musician!
-                ",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Image 1",
-                "description" => "Image for the 1st pricing section.",
-                "slug" => "pricing-image-1",
-                "type" => "image",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Image 2",
-                "description" => "Image for the 2nd pricing section.",
-                "slug" => "pricing-image-2",
-                "type" => "image",
-            ],
-            [
-                "parent" => "pricing",
-                "label" => "Pricing Image 3",
-                "description" => "Image for the 3rd pricing section.",
-                "slug" => "pricing-image-3",
                 "type" => "image",
             ],
         ];

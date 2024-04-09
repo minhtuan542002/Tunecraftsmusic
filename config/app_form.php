@@ -11,7 +11,7 @@ return [
      * https://api.cakephp.org/3.6/class-Cake.View.Helper.FormHelper.html#%24_defaultConfig so that they look
      * more like what the "Modular Default HTML" template (https://github.com/modularcode/modular-Default-html) uses.
      */
-    'inputContainer' => '<div class="form-group">{{content}}</div>',
+    'inputContainer' => '<div class="form-group {{class}}">{{content}}</div>',
     'label' => '<label class="control-label" {{attrs}}><span>{{text}}</span></label>',
     'input' => '<input type="{{type}}" name="{{name}}" class="form-control underlined" {{attrs}}/>',
     'textarea' => '<textarea name="{{name}}" class="form-control underlined" {{attrs}}>{{value}}</textarea>',

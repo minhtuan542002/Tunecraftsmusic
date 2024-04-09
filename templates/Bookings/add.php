@@ -57,7 +57,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                                 <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
                                                 <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
                                                 <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
-                                                <th class="actions"><?= __('Actions') ?></th>
+                                                <th class="actions"><?= __('Select One') ?></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -93,7 +93,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
 
                                                     ?>
                                                     <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?>
-                                                        id=<?php echo "btn-check-label" . $package->package_id ?>>Choose</label>
+                                                        id=<?php echo "btn-check-label" . $package->package_id ?>>Select</label>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -398,13 +398,13 @@ tbody tr.highlight td {
                 if (checkbox.eq(i).is(':checked'))console.log(i);
             }
             if($(this).is(':checked')){
-                $('#btn-check-label'+$(this).attr("packageId")).text( "Chosen");
+                $('#btn-check-label'+$(this).attr("packageId")).text( "Selected");
                 $(this).attr("name","package_id");
                 $("#package-line-"+$(this).attr("packageId")).addClass("highlight")
                 //console.log("D");
             }
             else{
-                $('#btn-check-label'+$(this).attr("packageId")).text( "Choose");
+                $('#btn-check-label'+$(this).attr("packageId")).text( "Select");
                 $(this).attr("name","package_choice["+ $(this).attr("packageId") +"]");
                 $("#package-line-"+$(this).attr("packageId")).removeClass("highlight")
             }

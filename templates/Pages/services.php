@@ -83,6 +83,9 @@ $this->assign('title', 'Services');
     </style>
     
     <div class="container">
+        <!-- Add the heading here -->
+        <h2 class="section-title text-center mb-4">Our Services</h2>
+        
         <div class="row justify-content-center">
             <?php if (empty($packages)): ?>
                 <div class="col-md-12 text-center" data-aos="fade-up">

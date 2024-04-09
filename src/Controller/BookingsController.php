@@ -290,23 +290,20 @@ class BookingsController extends AppController
             $booking->booking_datetime=$booking->lessons[0]->lesson_start_time;
             
             if ($this->Bookings->save($booking, ['associated' => []])) {
-                //$this->Flash->success(__('The booking has been saved.'));                
-            }
-
-            $booking = $this->Bookings->get($booking->booking_id, [
-                'contain' => ['Packages', 'Lessons'],
-            ]);
-            $start_date=$booking->booking_datetime;
-            for($i = 0; $i<$booking->package->number_of_lessons; $i++) {
-                $new_lesson = $this->Lessons->newEmptyEntity();
-                $new_lesson->teacher_id = 1;
-                $new_lesson->booking_id = $booking->booking_id;
-                $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
-                //debug($new_lesson);
-                $this->Lessons->save($new_lesson);
-                
-            }
-            
+                $booking = $this->Bookings->get($booking->booking_id, [
+                    'contain' => ['Packages', 'Lessons'],
+                ]);
+                $start_date=$booking->booking_datetime;
+                for($i = 0; $i < $booking->package->number_of_lessons; $i++) {
+                    $new_lesson = $this->Lessons->newEmptyEntity();
+                    $new_lesson->teacher_id = 1;
+                    $new_lesson->booking_id = $booking->booking_id;
+                    $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
+                    //debug($new_lesson);
+                    $this->Lessons->save($new_lesson);
+                    
+                }            
+            }            
             //debug($booking);
 
             if($booking->student_id==null){

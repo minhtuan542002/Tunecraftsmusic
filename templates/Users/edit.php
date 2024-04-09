@@ -38,12 +38,12 @@ $this->loadHelper('Form', [
     <h3><?= __('Edit User') ?></h3>
     <div class="user-details">
         <?= $this->Form->create($user) ?>
+        <h4> $user->user_id ?> </h4>
         <fieldset>
             <?= $this->Form->control('first_name') ?> 
             <?= $this->Form->control('last_name') ?>
             <?= $this->Form->control('email') ?>
             <?= $this->Form->control('phone') ?>
-            <?= $this->Form->control('user_id') ?>
             <?= $this->Form->control('note', [
                 'rows' => '3',
                 'type' => 'textarea',

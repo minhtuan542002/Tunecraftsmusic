@@ -8,6 +8,9 @@ $this->loadHelper('Form', [
     'templates' => 'app_form',
 ]);
 ?>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -17,7 +20,7 @@ $this->loadHelper('Form', [
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <div class="bookings form content">
+        <div class="bookings form content mt-3">
             <?= $this->Form->create($booking) ?>
             <fieldset>
                 <legend><?= __('Edit Booking') ?></legend>
@@ -50,9 +53,9 @@ $this->loadHelper('Form', [
                 </div>
             </fieldset>
             <aside class="user-actions">
-                <div class="side-nav d-flex justify-content-between">
+                <div class="d-flex gap-3 mt-3">
                     <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                    <?= $this->Form->button('Save', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
+                    <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
                 </div>
             </aside>
             <?= $this->Form->end() ?>

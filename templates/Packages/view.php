@@ -31,27 +31,6 @@
         border-left: 3px solid #3498db;
     }
 
-    .package-actions {
-        margin-top: 20px;
-    }
-
-    .side-nav {
-        padding-left: 10px;
-    }
-
-    .side-nav h4.heading {
-        margin-top: 0;
-        color: #3498db;
-    }
-
-    .btn {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
 </style>
 
 <div class="content">
@@ -88,14 +67,13 @@
     </div>
 </div>
 
-<aside class="package-actions">
-    <div class="side-nav">
-        <h4 class="heading"><?= __('Actions') ?></h4>
-        <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-        <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $package->package_id], ['escape' => false, 'class' => 'btn btn-success']) ?>
-        <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $package->package_id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id)]) ?>
-    </div>
-</aside>
+
+<div class="d-flex gap-3 mt-3 ms-3">
+    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+    <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $package->package_id], ['escape' => false, 'class' => 'btn btn-success']) ?>
+    <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $package->package_id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id)]) ?>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

@@ -8,32 +8,8 @@ $this->layout = 'dashboard';
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
-<style>
-    .content {
-        margin: 20px;
-    }
-
-    .side-nav {
-        padding-left: 10px;
-    }
-
-    .side-nav h4.heading {
-        margin-top: 0;
-        color: #3498db;
-    }
-
-    .btn {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
-</style>
-
 <section class="page-section clearfix">
-    <div class="bookings index content">
+    <div class="bookings index mt-3">
         <h3><?= __('All Bookings') ?></h3>
         <div class="table-responsive user-table-container">
             <table class="table dataTable" id="dataTable">
@@ -46,7 +22,8 @@ $this->layout = 'dashboard';
                         <th><?= h('Upcoming Lesson') ?></th>
                         <th><?= h('Each Lesson Duration') ?></th>
                         <th><?= h('Is Paid for') ?></th>
-                        <th class="actions"><?= __('Actions') ?></th>
+                        <th><?= h('Notes') ?></th>
+                        <th><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,9 +36,10 @@ $this->layout = 'dashboard';
                         <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
                         <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                         <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
-                            ['class' => 'btn btn-outline-success', 
+                            ['class' => 'btn btn-outline-success btn-sm', 
                                 'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
-                        <td class="actions">
+                        <td><?= $booking->note==NULL? "None":$booking->note ?></td>
+                        <td class="d-flex gap-2">
                             <?= $this->Html->link('<i class="fas fa-eye fa-fw"></i> View', ['action' => 'view', $booking->booking_id], 
                                 ['escape' => false, 'class' => 'btn btn-primary btn-sm']) ?>
                             <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit_admin', $booking->booking_id], 

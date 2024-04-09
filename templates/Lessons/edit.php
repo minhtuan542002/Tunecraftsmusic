@@ -11,46 +11,6 @@ $this->loadHelper('Form', [
 ?>
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-<style>
-    .content {
-        margin: 20px;
-    }
-
-    .package-details table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    .package-details th,
-    .package-details td {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        text-align: left;
-    }
-
-    .package-actions {
-        margin-top: 20px;
-    }
-
-    .side-nav {
-        padding-left: 10px;
-    }
-
-    .side-nav h4.heading {
-        margin-top: 0;
-        color: #3498db;
-    }
-
-    .btn {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
-</style>
 
 <div class="content">
     <div class="lessons-edit">
@@ -83,19 +43,14 @@ $this->loadHelper('Form', [
                     </tr>
                 </table>
             </fieldset>
-        </div>
-    </div>
-    <aside class="user-actions">
-        <div class="side-nav">
-            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'view',  $lesson->booking_id], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-            <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Save', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+            <aside class="user-actions">
+                <div class="d-flex gap-3 mt-3">
+                    <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['controller'=>'bookings','action' => 'view',  $lesson->booking_id], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                    <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
+                </div>
+            </aside>
             <?= $this->Form->end() ?>
         </div>
-    </aside>
+    </div>
+    
 </div>
-<script>
-document.getElementById('submit-form').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector('form').submit();
-});
-</script>

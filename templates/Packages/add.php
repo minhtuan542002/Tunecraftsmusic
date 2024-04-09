@@ -10,10 +10,6 @@ $this->loadHelper('Form', [
 <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 <style>
-    .content {
-        margin: 20px;
-    }
-
     .package-details table {
         width: 100%;
         border-collapse: collapse;
@@ -26,31 +22,9 @@ $this->loadHelper('Form', [
         border-bottom: 1px solid #ccc;
         text-align: left;
     }
-
-    .package-actions {
-        margin-top: 20px;
-    }
-
-    .side-nav {
-        padding-left: 10px;
-    }
-
-    .side-nav h4.heading {
-        margin-top: 0;
-        color: #3498db;
-    }
-
-    .btn {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
 </style>
 
-<div class="content">
+<div class="content mt-3">
     <h3><?= __('Add Package') ?></h3>
     <div class="package-details">
         <?= $this->Form->create($package) ?>

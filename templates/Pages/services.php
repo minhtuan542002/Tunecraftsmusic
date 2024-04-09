@@ -85,13 +85,13 @@ $this->assign('title', 'Services');
     <div class="container">
         <div class="row justify-content-center">
             <?php if (empty($packages)): ?>
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center" data-aos="fade-up">
                     <p>No Packages found.</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($packages as $package): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
+                    <div class="col-md-4 mb-4" data-aos="fade-up">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo h($package->package_name); ?></h5>
                                 <p class="card-text"><span class="lesson-label">Lessons:</span> <?php echo h($package->number_of_lessons); ?></p>
@@ -106,3 +106,7 @@ $this->assign('title', 'Services');
         </div>
     </div>
 </section><!-- End Hero Section -->
+
+<script>
+  AOS.init();
+</script>

@@ -72,10 +72,10 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                             ?>
                                             <tr id=<?= "package-line-" . $package->package_id ?> class="">
                                                 <td><?= h($package->package_name) ?></td>
-                                                <td><?= h($package->description) ?></td>
-                                                <td><?= $package->cost_dollars === '0.00' ? 'Free' : ($package->cost_dollars . ' AUD'); ?></td>
-                                                <td><?= $package->number_of_lessons === null ? 'None' : $this->Number->format($package->number_of_lessons) . " lessons" ?></td>
-                                                <td><?= $package->lesson_duration_minutes === null ? 'No durations' : $this->Number->format($package->lesson_duration_minutes) . " min" ?></td>
+                                                <td class="col-sm-6"><?= h($package->description) ?></td>
+                                                <td><?= $package->cost_dollars === '0.00' ? 'Free' : ('$' . $package->cost_dollars); ?></td>
+                                                <td><?= $package->number_of_lessons === null ? 'Nil' : $this->Number->format($package->number_of_lessons) ?></td>
+                                                <td><?= $package->lesson_duration_minutes === null ? 'No duration' : $this->Number->format($package->lesson_duration_minutes) . " Minutes" ?></td>
                                                 <td class="actions">
                                                     <?php
                                                         //Actual value of package_id -> the input name will be changed later in the script
@@ -361,6 +361,10 @@ tbody tr.highlight td {
 
 .table-borderless tr td, .table-borderless tr th{
     background-color: #eee;
+}
+
+.actions {
+    min-width: 110px;
 }
 </style>
 

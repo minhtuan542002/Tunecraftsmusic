@@ -55,7 +55,7 @@ $this->loadHelper('Form', [
     <div class="package-details">
         <?= $this->Form->create($package) ?>
         <fieldset>
-        <?= $this->Form->control('package_name', [
+            <?= $this->Form->control('package_name', [
                 'required' => 'required',
                 ]) ?>
             <?= $this->Form->control('number_of_lessons', [
@@ -77,19 +77,10 @@ $this->loadHelper('Form', [
                 'type' => 'textarea',
                 ]) ?>
         </fieldset>
-    </div>
-</div>
-<aside class="user-actions">
-    <div class="side-nav">
-        <h4 class="heading"><?= __('Actions') ?></h4>
-        <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-        <?= $this->Html->link('<i class="fas fa-save fa-fw"></i> Add', '#', ['escape' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'id' => 'submit-form']) ?>
+        <div class="d-flex gap-3 mt-3">
+            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+            <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
+        </div>
         <?= $this->Form->end() ?>
     </div>
-</aside>
-<script>
-document.getElementById('submit-form').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector('form').submit();
-});
-</script>
+</div>

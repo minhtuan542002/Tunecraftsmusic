@@ -52,11 +52,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th><?= $this->Paginator->sort('package_name', 'Packages') ?></th>
+                                                <th><?= $this->Paginator->sort('package_name', 'Package') ?></th>
                                                 <th><?= $this->Paginator->sort('description') ?></th>
-                                                <th><?= $this->Paginator->sort('cost', 'Total Cost') ?></th>
-                                                <th><?= $this->Paginator->sort('number_of_lessons', 'Number of Lessons') ?></th>
-                                                <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Duration per Lesson') ?></th>
+                                                <th><?= $this->Paginator->sort('cost', 'Cost (AUD)') ?></th>
+                                                <th><?= $this->Paginator->sort('number_of_lessons', 'No. Lessons') ?></th>
+                                                <th><?= $this->Paginator->sort('lesson_duration_minutes', 'Lesson Duration') ?></th>
                                                 <th class="actions"><?= __('Select One') ?></th>
                                             </tr>
                                         </thead>
@@ -93,7 +93,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
 
                                                     ?>
                                                     <label class= "btn btn-outline-primary" for=<?php echo "btn-check-outlined" . $package->package_id ?>
-                                                        id=<?php echo "btn-check-label" . $package->package_id ?>>Select</label>
+                                                        id=<?php echo "btn-check-label" . $package->package_id ?>>- Select -</label>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -368,7 +368,7 @@ tbody tr.highlight td {
     <script>
         $(document).ready(function () {
             $('#btn-check-outlined<?= $booking->package_id ?>').attr( 'checked', true );
-            $('#btn-check-label<?= $booking->package_id ?>').text( "Chosen");
+            $('#btn-check-label<?= $booking->package_id ?>').text( "Selected");
             $('#btn-check-outlined<?= $booking->package_id ?>').attr("name","package_id");
             $("#package-line-<?= $booking->package_id ?>").addClass("highlight")
             $('#lessons-0-lesson-start-time').attr('value', '<?= $booking->booking_datetime->format("Y-m-d\TH:i:s")?>');
@@ -389,7 +389,7 @@ tbody tr.highlight td {
             var checkbox= $("input.btn-check");
             for(var i=0; i<checkbox.length; i++){
                 if (checkbox.eq(i).is(':checked') && checkbox.eq(i).attr('id') != $(this).attr('id')) {
-                    $('#btn-check-label'+checkbox.eq(i).attr("packageId")).text( "Choose");
+                    $('#btn-check-label'+checkbox.eq(i).attr("packageId")).text( "- Select -");
                     checkbox.eq(i).attr("name","package_choice["+ checkbox.eq(i).attr("packageId") +"]");
                     $("#package-line-"+checkbox.eq(i).attr("packageId")).removeClass("highlight")
                     checkbox.eq(i).attr( 'checked', false );
@@ -398,13 +398,13 @@ tbody tr.highlight td {
                 if (checkbox.eq(i).is(':checked'))console.log(i);
             }
             if($(this).is(':checked')){
-                $('#btn-check-label'+$(this).attr("packageId")).text( "Selected");
+                $('#btn-check-label'+$(this).attr("packageId")).text("Selected");
                 $(this).attr("name","package_id");
                 $("#package-line-"+$(this).attr("packageId")).addClass("highlight")
                 //console.log("D");
             }
             else{
-                $('#btn-check-label'+$(this).attr("packageId")).text( "Select");
+                $('#btn-check-label'+$(this).attr("packageId")).text("- Select -");
                 $(this).attr("name","package_choice["+ $(this).attr("packageId") +"]");
                 $("#package-line-"+$(this).attr("packageId")).removeClass("highlight")
             }

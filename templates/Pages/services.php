@@ -5,7 +5,6 @@
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
  *
  * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @link      https://cakephp.org CakePHP(tm) Project
@@ -24,6 +23,7 @@ $this->assign('title', 'Services');
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
             background-color: #fff;
+            border: 1px solid #e1e1e1;
         }
 
         .card:hover {
@@ -40,6 +40,36 @@ $this->assign('title', 'Services');
         .card-text {
             margin-bottom: 5px;
             color: #666;
+        }
+
+        .card-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            background-color: #0056b3;
+        }
+
+        .lesson-label {
+            color: #007bff; /* Blue */
+            font-weight: bold;
+        }
+
+        .duration-label {
+            color: #8e44ad; /* Purple */
+            font-weight: bold;
+        }
+
+        .price-label {
+            color: #dc3545; /* Red */
+            font-weight: bold;
         }
 
         #hero {
@@ -64,9 +94,9 @@ $this->assign('title', 'Services');
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo h($package->package_name); ?></h5>
-                                <p class="card-text">Lessons: <?php echo h($package->number_of_lessons); ?></p>
-                                <p class="card-text">Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes</p>
-                                <p class="card-text">Price: $<?php echo h($package->cost_dollars); ?></p>
+                                <p class="card-text"><span class="lesson-label">Lessons:</span> <?php echo h($package->number_of_lessons); ?></p>
+                                <p class="card-text"><span class="duration-label">Duration:</span> <?php echo h($package->lesson_duration_minutes); ?> minutes</p>
+                                <p class="card-text"><span class="price-label">Price:</span> $<?php echo h($package->cost_dollars); ?></p>
                                 <p class="card-text"><?php echo h($package->description); ?></p>
                             </div>
                         </div>

@@ -29,28 +29,18 @@ $this->loadHelper('Form', [
     <div class="package-details">
         <?= $this->Form->create($package) ?>
         <fieldset>
-            <table>
-                <tr>
-                    <th><?= __('Package Name') ?></th>
-                    <td><?= $this->Form->control('package_name', ['style' => 'width: 30%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Number of Lessons') ?></th>
-                    <td><?= $this->Form->control('number_of_lessons', ['style' => 'width: 10%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Lesson Duration (Minutes)') ?></th>
-                    <td><?= $this->Form->control('lesson_duration_minutes', ['style' => 'width: 10%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Cost (Dollars)') ?></th>
-                    <td><?= $this->Form->control('cost_dollars', ['style' => 'width: 10%;']) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Description') ?></th>
-                    <td><?= $this->Form->textarea('description', ['style' => 'width: 75%; resize: vertical;']) ?></td>
-                </tr>
-            </table>
+            <td><?= $this->Form->control('package_name', [
+                ]) ?>
+            <td><?= $this->Form->control('number_of_lessons', [
+                ]) ?>
+            <td><?= $this->Form->control('lesson_duration_minutes', [
+                ]) ?>
+            <td><?= $this->Form->control('cost_dollars', [
+                ]) ?>
+            <td><?= $this->Form->control('description', [
+                'rows' => '3',
+                'type' => 'textarea',
+                ]) ?>
         </fieldset>
         <div class="d-flex gap-3 mt-3">
             <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>

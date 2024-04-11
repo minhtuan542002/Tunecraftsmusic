@@ -48,7 +48,7 @@ $this->layout = 'dashboard';
                         <td><?= $this->Number->format($booking->booking_id) ?></td>
                     </tr>
                     <tr>
-                        <th><?= __('Weakly Datetime') ?></th>
+                        <th><?= __('Weekly Datetime') ?></th>
                         <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                     </tr>
                     <tr>

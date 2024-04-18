@@ -30,9 +30,9 @@
         events: [
             <?php foreach ($lesson as $lessons): ?>
                 {
-                title: 'Long Event',
-                start: '2023-01-07',
-                end: '2023-01-10'
+                title: 'Lesson',
+                start: '<?= $lesson->lesson_start_time ?>',
+                end: '<?= $lesson->lesson_start_time ?>',
                 },
             <?php endforeach; ?>
         ]

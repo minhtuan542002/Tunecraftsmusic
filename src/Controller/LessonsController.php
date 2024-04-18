@@ -98,8 +98,11 @@ class LessonsController extends AppController
             }
         }
 
-        $query = $this->Lessons->find();
+        $query = $this->Lessons->find('all', ['contain' => ['Bookings'],]);
         $lessons = $this->paginate($query);
+        foreach ($lesson as $lessons) {
+            
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             //debug($lesson);
             $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());

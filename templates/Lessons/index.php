@@ -27,6 +27,15 @@
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         selectable: true,
+        events: [
+            <?php foreach ($lesson as $lessons): ?>
+                {
+                title: 'Long Event',
+                start: '2023-01-07',
+                end: '2023-01-10'
+                },
+            <?php endforeach; ?>
+        ]
         });
     calendar.render();
     });

@@ -4,45 +4,31 @@
  * @var iterable<\App\Model\Entity\Lesson> $lessons
  */
 ?>
-<div class="lessons index content">
-    <?= $this->Html->link(__('New Lesson'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Lessons') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('lesson_id') ?></th>
-                    <th><?= $this->Paginator->sort('booking_id') ?></th>
-                    <th><?= $this->Paginator->sort('teacher_id') ?></th>
-                    <th><?= $this->Paginator->sort('lesson_start_time') ?></th>
-                    <th><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($lessons as $lesson): ?>
-                <tr>
-                    <td><?= $this->Number->format($lesson->lesson_id) ?></td>
-                    <td><?= $lesson->hasValue('booking') ? $this->Html->link($lesson->booking->booking_id, ['controller' => 'Bookings', 'action' => 'view', $lesson->booking->booking_id]) : '' ?></td>
-                    <td><?= $lesson->hasValue('teacher') ? $this->Html->link($lesson->teacher->teacher_id, ['controller' => 'Teachers', 'action' => 'view', $lesson->teacher->teacher_id]) : '' ?></td>
-                    <td><?= h($lesson->lesson_start_time) ?></td>
-                    <td class="d-flex gap-3">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $lesson->lesson_id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $lesson->lesson_id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $lesson->lesson_id], ['confirm' => __('Are you sure you want to delete # {0}?', $lesson->lesson_id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+<div class="lessons index content mt-3">
+    <div class="d-flex gap-5 mb-3">
+        <h3><?= __('My calendar') ?> </h3>
+        <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Package', ['action' => 'add'], 
+            ['escape' => false, 'class' => 'btn btn-info']) ?> 
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+    <div id='calendar'></div>
 </div>
+<?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+            initialView: 'timeGridWeek',
+        },
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        selectable: true,
+        });
+    calendar.render();
+    });
+
+</script>

@@ -79,4 +79,38 @@ class LessonsController extends AppController
         }
         $this->set(compact('lesson'));
     }
+
+    /**
+     * Index method
+     *
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function index()
+    {
+        $this->Users = $this->fetchTable('Users');
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Students'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
+        }
+
+        $query = $this->Lessons->find();
+        $lessons = $this->paginate($query);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            //debug($lesson);
+            $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
+            if ($this->Lessons->save($lesson)) {
+                $this->Flash->success(__('The lesson has been saved.'));
+
+                return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
+            }
+            //debug($lesson);
+            $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+        }
+        $this->set(compact('lessons'));
+    }
 }

@@ -29,6 +29,7 @@
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <?= $this->Html->css('dashboard') ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -71,6 +72,10 @@
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Packages
+                        </a>                         
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            My Schedule
                         </a>                         
                     </div>
                 </div>

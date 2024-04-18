@@ -66,7 +66,7 @@ $this->assign('title', 'Home');
                 <div class="d-flex align-items-center">
                     <h4 class="me-2">
                         <span class="icon me-2">🏅</span>
-                        AMEB certified
+                        AMEB Syllabus
                     </h4>
                 </div>
             </div>

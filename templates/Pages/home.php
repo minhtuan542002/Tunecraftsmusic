@@ -74,7 +74,30 @@ $this->assign('title', 'Home');
         </div>
 
 
-        <h2><?= $this->ContentBlock->text('about-heading-3'); ?></h2>
+        <!-- ======= Gallery Section ======= -->
+        <section id="gallery" class="gallery section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
+                </div>
+
+                <div class="gallery-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <?php
+                        $images = glob("./img/Studio/*.{jpg,png,gif}", GLOB_BRACE);
+                        foreach ($images as $img) {
+                            echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
+                        }
+                        ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Gallery Section -->
+        
+        <!--
         <div class="row">
             <div class="col-md-4">
                 <?= $this->ContentBlock->image('about-image-1', [
@@ -106,4 +129,5 @@ $this->assign('title', 'Home');
             </div>
         </div>
     </div>
+            -->
 </div>

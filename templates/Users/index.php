@@ -44,28 +44,28 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable({
-            "paging": true,
-            "ordering": true,
-            "searching": true,
-            "lengthMenu": [10, 25, 50, 100], // Show entries options
-            "language": {
-                "lengthMenu": "Show _MENU_ entries", // Customize show entries label
-                "search": '<i class="fas fa-search" aria-hidden="true"></i>', // Custom search icon
-                "searchPlaceholder": "Search...", // Placeholder text for search input
-            },
-            "columnDefs": [
-                { "targets": 4, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
-            ],
-            "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
-                    '<"table-responsive"t>' +
-                    '<"row align-items-center mt-3"<"col-md-6"i><"col-md-6"p>>', // Adjust the DOM layout for search and show entries on the same row
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "paging": true,
+                "ordering": true,
+                "searching": true,
+                "lengthMenu": [10, 25, 50, 100], // Show entries options
+                "language": {
+                    "lengthMenu": "Show _MENU_ entries", // Customize show entries label
+                    "search": '<i class="fas fa-search" aria-hidden="true"></i>', // Custom search icon
+                    "searchPlaceholder": "Search...", // Placeholder text for search input
+                },
+                "columnDefs": [
+                    { "targets": 4, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
+                ],
+                "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
+                       '<"table-responsive"t>' +
+                       '<"row align-items-center mt-3"<"col-md-6"i><"col-md-6"p>>', // Adjust the DOM layout for search and show entries on the same row
+            });
         });
-    });
-</script>
-
+    </script>
+</body>

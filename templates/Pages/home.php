@@ -24,14 +24,7 @@ $this->assign('title', 'Home');
                 <h2 data-aos="fade-up"><?= $this->ContentBlock->text('about-heading-1') ?></h2>
                 <p style="margin-top: 20px;">
                     <?= $this->ContentBlock->text('about-text-1'); ?>
-                    <!--
-                    <h4>
-                        <b>8</b> Years of teaching experience,
-                        </h4>
-                        Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
-                        I assure to provide a comprehensive learning experience for my students
-                        on their musical journey here at Tunecraftstudio.
-                    -->
+                    
                     <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/auth/register') ? 'active' : '' ?>" href="<?= $this->Url->build(['controller'=>'auth', 'action'=> 'register']) ?>" style="font-size: 20px; margin-top: 30px;">Sign Up</a>
 
                 </p>

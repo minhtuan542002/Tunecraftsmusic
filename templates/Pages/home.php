@@ -49,15 +49,15 @@ $this->assign('title', 'Home');
 
             <!-- Sub-sections with icons -->
             <div class="col-md-6 m-auto d-flex flex-column justify-content-center">
-                <div class="mb-3">
+                <div>
                     <h4 class="d-flex align-items-center">
                         <span class="icon me-2">🎵</span>
                         Suzuki Method
                     </h4>
                 </div>
                 <hr>
-                <div class="d-flex align-items-center">
-                    <h4 class="me-2">
+                <div>
+                    <h4 class="d-flex align-items-center">
                         <span class="icon me-2">🏅</span>
                         AMEB Syllabus
                     </h4>

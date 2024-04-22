@@ -96,38 +96,6 @@ $this->assign('title', 'Home');
 
             </div>
         </section><!-- End Gallery Section -->
-        
-        <!--
-        <div class="row">
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-1', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
-            </div>
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-2', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
-            </div>
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-3', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
-
-            </div>
-        </div>
+       
     </div>
-            -->
 </div>

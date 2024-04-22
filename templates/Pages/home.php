@@ -85,7 +85,7 @@ $this->assign('title', 'Home');
                 <div class="gallery-slider swiper">
                     <div class="swiper-wrapper align-items-center">
                         <?php
-                        $images = glob("./img/Studio/*.{jpg,png,gif}", GLOB_BRACE);
+                        $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
                         foreach ($images as $img) {
                             echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
                         }

@@ -62,6 +62,13 @@ $this->assign('title', 'Home');
                         AMEB Syllabus
                     </h4>
                 </div>
+                <hr>
+                <div>
+                    <h4 class="d-flex align-items-center">
+                        <span class="icon me-2">🎵</span>
+                        AMEB Theory
+                    </h4>
+                </div>    
             </div>
 
         </div>

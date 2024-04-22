@@ -180,7 +180,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Address</h4>
             <p>
-            <?= $this->ContentBlock->text('address'); ?>
+            <?= $this->ContentBlock->html('address'); ?>
             </p>
           </div>
 
@@ -191,8 +191,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Contact</h4>
             <p>
-              <strong>Phone:</strong> <?= $this->ContentBlock->text('phone'); ?><br>
-              <strong>Email:</strong> <?= $this->ContentBlock->text('email'); ?><br>
+              <?= $this->ContentBlock->html('contact'); ?>
             </p>
           </div>
         </div>
@@ -202,7 +201,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <?= $this->ContentBlock->text('open-hours'); ?>
+              <?= $this->ContentBlock->html('open-hours'); ?>
             </p>
           </div>
         </div>

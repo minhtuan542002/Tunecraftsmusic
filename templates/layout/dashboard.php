@@ -24,7 +24,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>
-        <?= $this->fetch('title') ?>
+        Dashboard: <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.css" rel="stylesheet" />

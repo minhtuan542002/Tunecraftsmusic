@@ -73,6 +73,55 @@ $this->assign('title', 'Home');
 
         </div>
 
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials section-bg">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <p>Check <span>Testimonials</span></p>
+                </div>
+
+                <!-- Testimonials pulled from the controller -->
+                <div class="slides-1 swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        <?php if (empty($testimonials)): ?>
+                            <div class="col-md-12 text-center" data-aos="fade-up">
+                                <p>No Testimonials Found.</p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($testimonials as $testimonial): ?>
+                                <div class="swiper-slide">
+                                    <div class="testimonial-item">
+                                        <div class="row gy-4 justify-content-center">
+                                            <div class="col-lg-6">
+                                                <div class="testimonial-content">
+                                                    <p>
+                                                        <i class="bi bi-quote quote-icon-left"></i>
+                                                        <?= h($testimonial->testimonial_text); ?>
+                                                        <i class="bi bi-quote quote-icon-right"></i>
+                                                    </p>
+                                                    <h3><?= h($testimonial->student_name); ?></h3>
+                                                    <h4><?= h($testimonial->testimonial_title); ?></h4>
+                                                    <div class="stars">
+                                                        <?php for ($i = 0; $i < $testimonial->rating; $i++): ?>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        <?php endfor; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 text-center">
+                                                <img src="<?= h($testimonial->image_url); ?>" class="img-fluid testimonial-img" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End testimonial item -->
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+        </section><!-- End Testimonials Section -->
+
 
         <!-- ======= Gallery Section ======= -->
         <section id="gallery" class="gallery section-bg">

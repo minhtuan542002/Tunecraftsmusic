@@ -18,7 +18,6 @@
                 <thead>
                     <tr>
                         <th>Student Name</th>
-                        <th>Testimonial Text</th>
                         <th>Testimonial Title</th>
                         <th>Rating</th>
                         <th>ID</th>
@@ -29,7 +28,6 @@
                     <?php foreach ($testimonials as $testimonial): ?>
                         <tr>
                             <td><?= h($testimonial->student_name) ?></td>
-                            <td><?= h($testimonial->testimonial_text) ?></td>
                             <td><?= h($testimonial->testimonial_title) ?></td>
                             <td>
                                 <div class="stars">

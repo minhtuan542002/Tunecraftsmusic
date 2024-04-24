@@ -39,7 +39,7 @@ class TestimonialsTable extends Table
 
         $this->setTable('testimonials');
         $this->setDisplayField('student_name');
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('testimonial_id');
     }
 
     /**

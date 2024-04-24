@@ -64,8 +64,8 @@
 </div>
 <div class="d-flex gap-3 mt-3">
     <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-    <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $testimonial->id], ['escape' => false, 'class' => 'btn btn-success']) ?>
-    <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $testimonial->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete # {0}?', $testimonial->id)]) ?>
+    <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $testimonial->testimonial_id], ['escape' => false, 'class' => 'btn btn-success']) ?>
+    <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $testimonial->testimonial_id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete # {0}?', $testimonial->testimonial_id)]) ?>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

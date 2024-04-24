@@ -24,9 +24,9 @@ $this->assign('title', 'Home');
                 <h2 data-aos="fade-up"><?= $this->ContentBlock->text('about-heading-1') ?></h2>
                 <p style="margin-top: 20px;">
                     <?= $this->ContentBlock->text('about-text-1'); ?>
-                    
+                    <!--
                     <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/auth/register') ? 'active' : '' ?>" href="<?= $this->Url->build(['controller'=>'auth', 'action'=> 'register']) ?>" style="font-size: 20px; margin-top: 30px;">Sign Up</a>
-
+                    -->
                 </p>
             </div>
             <div class="col-md-4">

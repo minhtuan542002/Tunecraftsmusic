@@ -66,7 +66,7 @@
                 "searchPlaceholder": "Search...", // Placeholder text for search input
             },
             "columnDefs": [
-                { "targets": 5, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
+                { "targets": 4, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
             ],
             "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
                    '<"table-responsive"t>' +

@@ -9,6 +9,7 @@
         <h3><?= __('My calendar') ?> </h3>
         <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Package', ['action' => 'add'], 
             ['escape' => false, 'class' => 'btn btn-info']) ?> 
+            
     </div>
     <div id='calendar'></div>
 </div>
@@ -28,11 +29,11 @@
         editable: true,
         selectable: true,
         events: [
-            <?php foreach ($lesson as $lessons): ?>
+            <?php foreach ($lessons as $lesson): ?>
                 {
-                title: 'Lesson',
-                start: '<?= $lesson->lesson_start_time ?>',
-                end: '<?= $lesson->lesson_start_time ?>',
+                title: 'Lesson with <?= $lesson->student_name ?>',
+                start: '<?= $lesson->lesson_start_time->format('c') ?>',
+                end: '<?= $lesson->lesson_end_time->format('c') ?>',
                 },
             <?php endforeach; ?>
         ]

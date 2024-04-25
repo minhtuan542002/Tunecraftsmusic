@@ -88,6 +88,8 @@ class LessonsController extends AppController
     public function index()
     {
         $this->Users = $this->fetchTable('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
@@ -100,9 +102,18 @@ class LessonsController extends AppController
 
         $query = $this->Lessons->find('all', ['contain' => ['Bookings'],]);
         $lessons = $this->paginate($query);
-        foreach ($lesson as $lessons) {
-            
+        foreach ($lessons as $lesson) {
+            $package = $this->Packages->get($lesson->booking->package_id);
+            $student_user = $this->Students->get($lesson->booking->student_id);
+            $student = $this->Users->get($student_user->student_id);
+            debug($student);
+            debug($student_user);
+            $lesson->student_name = $student->first_name;
+            $end_datetime = $lesson -> lesson_start_time;
+            $lesson->lesson_end_time = $end_datetime->modify(
+                "+". $package->lesson_duration_minutes ." minutes");
         }
+        debug($lessons);
         if ($this->request->is(['patch', 'post', 'put'])) {
             //debug($lesson);
             $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());

@@ -24,16 +24,18 @@
             initialView: 'timeGridWeek',
         },
         navLinks: true, // can click day/week names to navigate views
-        editable: true,
         selectable: true,
+        eventOverlap: false,
+        slotMinTime: '06:00:00',
+        slotMaxTime: '24:00:00',
         events: [
             <?php foreach ($lessons as $lesson): ?>
                 {
                 title: 'Lesson with <?= $lesson->student_name ?>',
-                start: '<?= $lesson->lesson_start_time->format('c') ?>',
-                end: '<?= $lesson->lesson_end_time->format('c') ?>',
-                url: '<?= $this->Url->build(['controller'=>'bookings', 
-                    'action'=> 'view', $lesson->booking->booking_id ]) ?>'
+                start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
+                end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
+                url: '<?= $this->Url->build(['controller'=>'lessons', 
+                    'action'=> 'edit', $lesson->lesson_id ]) ?>'
                 },
             <?php endforeach; ?>
         ]

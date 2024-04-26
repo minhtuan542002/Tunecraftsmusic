@@ -29,7 +29,7 @@ $this->loadHelper('Form', [
                                         'required' => "required",
                                         'class'=>'form-control col-md-4',
                                         'min' => date('Y-m-d', strtotime("+6 days")) . 'T07:00',
-                                        'minuteStep' => '15',
+                                        'step' => 900,
                                     ]);?>
                                 Note that you reschedule all the lessons starting a week from now
                             </td>

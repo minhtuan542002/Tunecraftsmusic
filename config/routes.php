@@ -56,9 +56,7 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-        $builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
-        $builder->connect('/pricing', ['controller' => 'Pages', 'action' => 'display', 'pricing']);
-        $builder->connect('/learning_resources', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
+        $builder->connect('/services', ['controller' => 'Pages', 'action' => 'display', 'services']);
         $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
@@ -94,10 +92,14 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/packages/add', ['controller' => 'Packages', 'action' => 'add']);
         $builder->connect('/packages/edit/*', ['controller' => 'Packages', 'action' => 'edit']);
         $builder->connect('/packages/view/*', ['controller' => 'Packages', 'action' => 'view']);
+        $builder->connect('/testimonials', ['controller' => 'Testimonials', 'action' => 'index']);
+        $builder->connect('/testimonials/edit/*', ['controller' => 'Testimonials', 'action' => 'edit']);
+        $builder->connect('/testimonials/view/*', ['controller' => 'Testimonials', 'action' => 'view']);
         $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
         $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
+        $builder->connect('/lessons', ['controller' => 'Lessons', 'action' => 'index']);
     });
 
     /*

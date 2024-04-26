@@ -4,7 +4,7 @@
  * @var iterable<\ContentBlocks\Model\Entity\ContentBlock> $contentBlocksGrouped
  */
 
-$this->assign('title', 'Content Blocks');
+$this->assign('title', 'Customisation');
 
 $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
 
@@ -13,7 +13,10 @@ $slugify = function($text) {
 }
 
 ?>
-<div class="contentBlocks index content">
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+<div class="contentBlocks index content mt-3">
 
     <?php
     /*
@@ -25,7 +28,7 @@ $slugify = function($text) {
     */
     ?>
 
-    <h3><?= __('Content Blocks') ?></h3>
+    <h3><?= __('Customisation') ?></h3>
 
     <div>
         Quick links
@@ -54,8 +57,8 @@ $slugify = function($text) {
                         </div>
                     </div>
                     <div class="content-blocks--actions">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $contentBlock->id]) ?>
-                        <?php if (!empty($contentBlock->previous_value)) echo " :: " . $this->Form->postLink(__('Restore'), ['action' => 'restore', $contentBlock->id], ['confirm' => __("Are you sure you want to restore the previous version for this item?\n{0}/{1}\nNote: You cannot cancel this action!", $contentBlock->parent, $contentBlock->slug)]) ?>
+                        <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i> Edit', ['action' => 'edit', $contentBlock->id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-success btn-sm']) ?>
+                        <?php if (!empty($contentBlock->previous_value)) echo " :: " . $this->Form->postlink('<i class="fas fa-history fa-fw"></i> Restore', ['action' => 'restore', $contentBlock->id], ['escape' => false, 'title' => __('Restore'), 'class' => 'btn btn-warning btn-sm', 'confirm' => __("Are you sure you want to restore the previous version for this item?\n{0}/{1}\nNote: You cannot cancel this action!", $contentBlock->parent, $contentBlock->slug)]) ?>
                     </div>
                 </li>
             <?php } ?>

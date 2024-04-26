@@ -111,18 +111,18 @@ $cakeDescription = $this->ContentBlock->text('website-title');
         <ul>
           
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/services') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/services') ?>">Services</a></li>
         <li>
           <?php if ($loggedIn): ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
           <?php else: ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
           <?php endif; ?>  
         </li>
+        <!-- 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
-
+        -->
 
           <!-- <li><a href="#home">Home</a></li>
           <li><a href="#about">About Us</a></li>
@@ -164,22 +164,23 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   </header><!-- End Header -->
 
   <main id="main">
-    <?= $this->Flash->render() ?>
-    <?= $this->fetch('content') ?>
+    <div class="pb-5">
+      <?= $this->Flash->render() ?>
+      <?= $this->fetch('content') ?>
+    </div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
     <div class="container">
-      <div class="row gy-3">
+      <div class="row">
         <div class="col-lg-3 col-md-6 d-flex">
           <i class="bi bi-geo-alt icon"></i>
           <div>
             <h4>Address</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
+            <?= $this->ContentBlock->html('address'); ?>
             </p>
           </div>
 
@@ -190,8 +191,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Contact</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <?= $this->ContentBlock->html('contact'); ?>
             </p>
           </div>
         </div>
@@ -201,8 +201,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+              <?= $this->ContentBlock->html('open-hours'); ?>
             </p>
           </div>
         </div>
@@ -234,7 +233,6 @@ $cakeDescription = $this->ContentBlock->text('website-title');
     </div>
 
   </footer><!-- End Footer -->
-  <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

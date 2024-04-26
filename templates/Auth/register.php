@@ -138,7 +138,7 @@ $this->assign('title', 'Register new user');
                             <li>Must be at least 8 characters long.</li>
                             <li>Contain at least one uppercase letter.</li>
                             <li>Contain at least one lowercase letter.</li>
-                            <li>Contain at least one digit and one special character.</li>
+                            <!-- <li>Contain at least one digit and one special character.</li> -->
                         </ul>
                         <div class="form-group mb-3">
                             <?= $this->Form->label('password_confirm', 'Password Confirm', ['class' => 'required-asterisk']) ?>
@@ -262,8 +262,8 @@ $this->assign('title', 'Register new user');
             }
 
             // Check for digit and special character
-            if (!/\d/.test(password) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-                errors.push('Must contain at least one digit and one special character.');
+            if (!/\d/.test(password) || !/[^0-9]/.test(password)) {
+                errors.push('Must contain at least one digit');
             }
 
             return errors;

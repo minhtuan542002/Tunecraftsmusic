@@ -92,12 +92,14 @@ class UsersTable extends Table
                     },
                     'message' => 'Password must contain at least one digit',
                 ],
+                /**
                 'special' => [
                     'rule' => function ($value, $context) {
                         return (bool)preg_match('/[^A-Za-z0-9]/', $value);
                     },
                     'message' => 'Password must contain at least one special character',
                 ],
+                 */
                 ])
             ->notEmptyString('password_confirm', 'Please confirm your password')
                 ->add('password_confirm', [

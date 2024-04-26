@@ -290,23 +290,20 @@ class BookingsController extends AppController
             $booking->booking_datetime=$booking->lessons[0]->lesson_start_time;
             
             if ($this->Bookings->save($booking, ['associated' => []])) {
-                //$this->Flash->success(__('The booking has been saved.'));                
-            }
-
-            $booking = $this->Bookings->get($booking->booking_id, [
-                'contain' => ['Packages', 'Lessons'],
-            ]);
-            $start_date=$booking->booking_datetime;
-            for($i = 0; $i<$booking->package->number_of_lessons; $i++) {
-                $new_lesson = $this->Lessons->newEmptyEntity();
-                $new_lesson->teacher_id = 1;
-                $new_lesson->booking_id = $booking->booking_id;
-                $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
-                //debug($new_lesson);
-                $this->Lessons->save($new_lesson);
-                
-            }
-            
+                $booking = $this->Bookings->get($booking->booking_id, [
+                    'contain' => ['Packages', 'Lessons'],
+                ]);
+                $start_date=$booking->booking_datetime;
+                for($i = 0; $i < $booking->package->number_of_lessons; $i++) {
+                    $new_lesson = $this->Lessons->newEmptyEntity();
+                    $new_lesson->teacher_id = 1;
+                    $new_lesson->booking_id = $booking->booking_id;
+                    $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
+                    //debug($new_lesson);
+                    $this->Lessons->save($new_lesson);
+                    
+                }            
+            }            
             //debug($booking);
 
             if($booking->student_id==null){
@@ -344,6 +341,7 @@ class BookingsController extends AppController
         $booking = $this->Bookings->get($id, [
             'contain' => ['Lessons'],
         ]);
+        //debug($booking);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
             
@@ -370,14 +368,63 @@ class BookingsController extends AppController
                 }
                 
                 $this->Flash->success(__('The booking has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view_one', $booking->booking_id]);
             }
             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
 
             
         }
         $Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('booking', 'user'));
+        $this->set(compact('booking'));
+    }
+
+    /**
+     * Edit admin method
+     *
+     * @param string|null $id Booking id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function editAdmin($id = null)
+    {
+        $this->Lessons = $this->fetchTable('Lessons');
+        $booking = $this->Bookings->get($id, [
+            'contain' => ['Lessons'],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
+            
+            if ($this->Bookings->save($booking)) {
+                $count =0;
+                $start_date=$booking->booking_datetime;
+                $lessons = $this->Lessons->find('all', [
+                    'conditions'=> [
+                        'booking_id' => $booking->booking_id,
+                    ],
+                ]);
+                foreach($lessons as $new_lesson) {
+                    $date= FrozenTime::now()->modify("+6 day");
+                    if($new_lesson->lesson_start_time >= $date){
+                        $lesson = $this->Lessons->get($new_lesson->lesson_id);
+                        $lesson->lesson_start_time = $start_date->modify("+". $count*7 ." day");
+                        if(!$this->Lessons->save($lesson)){
+                            $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                        }
+                        $count++;
+                        
+                    }
+                    //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                }
+                
+                $this->Flash->success(__('The booking has been saved.'));
+                return $this->redirect(['action' => 'view', $booking->booking_id]);
+            }
+            $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+
+            
+        }
+        $Students = $this->Bookings->Students->find('list', ['limit' => 200])->all();
+        $this->set(compact('booking'));
     }
 
     /**

@@ -1578,6 +1578,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
+  margin-top: -45px;
   font-size: 14px;
   background-color: #1f1f24;
   padding: 50px 0;
@@ -1674,5 +1675,12 @@ section {
   background-size: cover;
   position: relative;
   min-height: 67vh;
-  padding: 160px 0 60px 0;
+  padding: 20px 0 20px 0;
+}
+.my-bookings {
+  width: 100%;
+  background-size: cover;
+  position: relative;
+  min-height: 33vh;
+  padding: 20px 0 20px 0;
 }

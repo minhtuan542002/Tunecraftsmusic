@@ -58,7 +58,8 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
         $builder->connect('/pricing', ['controller' => 'Pages', 'action' => 'display', 'pricing']);
-        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+        $builder->connect('/learning_resources', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
+        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
 

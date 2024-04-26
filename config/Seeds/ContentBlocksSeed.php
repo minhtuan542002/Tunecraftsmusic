@@ -222,6 +222,77 @@ class ContentBlocksSeed extends AbstractSeed
                 "slug" => "pricing-image-3",
                 "type" => "image",
             ],
+            // Learning resources data
+            [
+                "parent" => "learning_resources",
+                "label" => "Learning Resource 1",
+                "description" => "Learning resource for 1st section.",
+                "slug" => "learning-resource-1",
+                "type" => "text",
+                "value" => "https://www.youtube.com/embed/wGu_zQBa2z4"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Resource 2",
+                "description" => "Learning resource for 2st section.",
+                "slug" => "learning-resource-2",
+                "type" => "text",
+                "value" => "https://www.youtube.com/embed/dYfMQF0-pHU"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Resource 3",
+                "description" => "Learning resource for 3rd section.",
+                "slug" => "learning-resource-3",
+                "type" => "text",
+                "value" => "https://www.youtube.com/embed/JUwGpoXO0tc"
+            ],
+            // Learning resource Headings
+            [
+                "parent" => "learning_resources",
+                "label" => "Learning Heading 1",
+                "description" => "Learning heading for 1st section.",
+                "slug" => "learning-heading-1",
+                "type" => "text",
+                "value" => "Heading 1"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Heading 2",
+                "description" => "Learning heading for 2nd section.",
+                "slug" => "learning-heading-2",
+                "type" => "text",
+                "value" => "Heading 2"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Heading 3",
+                "description" => "Learning heading for 3rd section.",
+                "slug" => "learning-heading-3",
+                "type" => "text",
+                "value" => "Heading 3"
+            ],
+
+            // Learning resource descriptions
+            [
+                "parent" => "learning_resources",
+                "label" => "Learning Description 1",
+                "description" => "Learning description for 1st section.",
+                "slug" => "learning-description-1",
+                "type" => "text",
+                "value" => "Description 1"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Description 2",
+                "description" => "Learning description for 2nd section.",
+                "slug" => "learning-description-2",
+                "type" => "text",
+                "value" => "Description 2"
+            ], [
+                "parent" => "learning_resources",
+                "label" => "Learning Description 3",
+                "description" => "Learning description for 3rd section.",
+                "slug" => "learning-description-3",
+                "type" => "text",
+                "value" => "Description 3"
+            ],
+
         ];
 
         $table = $this->table("content_blocks");

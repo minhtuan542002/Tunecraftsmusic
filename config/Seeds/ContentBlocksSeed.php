@@ -252,21 +252,21 @@ class ContentBlocksSeed extends AbstractSeed
                 "description" => "Learning heading for 1st section.",
                 "slug" => "learning-heading-1",
                 "type" => "text",
-                "value" => "Heading 1"
+                "value" => "What is the Suzuki Method?"
             ], [
                 "parent" => "learning_resources",
                 "label" => "Learning Heading 2",
                 "description" => "Learning heading for 2nd section.",
                 "slug" => "learning-heading-2",
                 "type" => "text",
-                "value" => "Heading 2"
+                "value" => "Good Beginner Songs"
             ], [
                 "parent" => "learning_resources",
                 "label" => "Learning Heading 3",
                 "description" => "Learning heading for 3rd section.",
                 "slug" => "learning-heading-3",
                 "type" => "text",
-                "value" => "Heading 3"
+                "value" => "Open String Blues play along"
             ],
 
             // Learning resource descriptions
@@ -276,21 +276,21 @@ class ContentBlocksSeed extends AbstractSeed
                 "description" => "Learning description for 1st section.",
                 "slug" => "learning-description-1",
                 "type" => "text",
-                "value" => "Description 1"
+                "value" => "What the Suzuki Method is and how it differs from other traditional methods of learning an instrument including (a) proven success over the years (b) early start and parental involvement (c) emphasis on listening first as opposed to reading, (d) technique is naturally developed in the repertoire."
             ], [
                 "parent" => "learning_resources",
                 "label" => "Learning Description 2",
                 "description" => "Learning description for 2nd section.",
                 "slug" => "learning-description-2",
                 "type" => "text",
-                "value" => "Description 2"
+                "value" => "So let's talk about good violin songs for beginners. The way I was started when I was a little girl; I started on the Suzuki method which is a very popular method to begin children on playing the violin. What it is is specific songs in books. And there's book one, book two, book three, book four, book five. And there's certain pieces that you have to play in order. "
             ], [
                 "parent" => "learning_resources",
                 "label" => "Learning Description 3",
                 "description" => "Learning description for 3rd section.",
                 "slug" => "learning-description-3",
                 "type" => "text",
-                "value" => "Description 3"
+                "value" => "'Open String Blues' refers to a style of playing the blues guitar that emphasizes the use of open strings. In this technique, guitarists utilize the strings that are not fretted with the left hand, typically the strings tuned to the tonic chord of the song (commonly E, A, or D in standard tuning)."
             ],
 
         ];

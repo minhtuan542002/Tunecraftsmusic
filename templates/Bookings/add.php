@@ -126,6 +126,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     'required' => "required",
                                     'class'=>'form-control',
                                     'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
+                                    'step' => 900,
                                 ]);
                                 echo $this->Form->control('note', [
                                     'label' => [

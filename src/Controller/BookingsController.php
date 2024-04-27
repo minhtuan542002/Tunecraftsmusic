@@ -211,7 +211,8 @@ class BookingsController extends AppController
     }
 
     /**
-     * Add method
+     * Add method 
+     * Only serve one teacher, need to reconfigure to do otherwise
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */

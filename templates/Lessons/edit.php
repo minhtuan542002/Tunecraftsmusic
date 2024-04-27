@@ -29,7 +29,7 @@ $this->loadHelper('Form', [
             <div id='calendar-wrap' class= 'mb-3'>
                 <div id='calendar'></div>
             </div>
-            <button id="completed" type="button" class="btn btn-outline-danger">
+            <button id="completed" type="button" class="btn btn-outline-warning">
                 Mark as Completed
             </button>
             <?= $this->Form->create($lesson) ?>
@@ -49,6 +49,10 @@ $this->loadHelper('Form', [
                                 //'value'=> $lesson->lesson_start_time->format('c'),
                             ]) ?>
                         </td>
+                    </tr>
+                    <tr>
+                        <th><?= __("Is completed") ?></th>
+                        <td><?= $lesson->lesson_end_time < date('d-m-Y')? 'Completed':'Incomplete'?></td>
                     </tr>
                     <tr>
                         <th><?= __("Student Full Name") ?></th>
@@ -109,6 +113,23 @@ $this->loadHelper('Form', [
         ],
         initialDate: "<?= $lesson->lesson_start_time->format('Y-m-d') ?>",
         eventOverlap: false,
+        slotDuration: '00:15:00',
+        eventDrop: function(arg) {
+            // Perform your action here
+            //console.log('Event dropped:', arg);
+            //console.log('Delta:', arg.event.start); 
+            var startDate = arg.event.start;
+            var formattedStartDate = startDate.getFullYear() + '-' +
+                ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + startDate.getDate()).slice(-2) + 'T' +
+                ('0' + startDate.getHours()).slice(-2) + ':' +
+                ('0' + startDate.getMinutes()).slice(-2);
+            console.log('HH:', formattedStartDate); 
+            $('#lesson-start-time').val(formattedStartDate);
+        },
+        eventConstraint: {
+            start:new Date().toISOString().split('T')[0], // Prevent events from being moved to dates before today
+        },
     });
     calendar.render();
 
@@ -117,6 +138,7 @@ $this->loadHelper('Form', [
     $('#completed').click(function(){
         if($('#completed').hasClass('is-active')){
             $('#completed').removeClass('is-active');
+            $('#completed').text('Mark as Completed');
             $('#time-date-name').text("Lesson Start Time and Date");
             $('#lesson-start-time').attr('min', $('#lesson-start-time').attr('max'));
             $('#lesson-start-time').removeAttr('max');
@@ -125,8 +147,9 @@ $this->loadHelper('Form', [
             $('#time-date-name').text("Lesson Started At");
             $('#lesson-start-time').attr('max', $('#lesson-start-time').attr('min'));
             $('#lesson-start-time').removeAttr('min');
-            $('#completed').css({"background-color": "red", "color": 'white'});
+            $('#completed').css({"background-color": "orange", "color": 'black'});
             $('#completed').addClass('is-active');
+            $('#completed').text('Reschedule');
         }
     });
 </script>

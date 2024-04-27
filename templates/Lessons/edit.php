@@ -104,7 +104,8 @@ $this->loadHelper('Form', [
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 
                         'action'=> 'edit', $line->lesson_id ]) ?>',
-                    <?= $line->lesson_id === $lesson->lesson_id ? "color: 'purple'," : "" ?>
+                    <?= $line->lesson_id === $lesson->lesson_id ? "color: 'purple'," : 
+                        ($line->booking->is_paid? "" : "color: 'orange',") ?>
                     editable: <?= $line->lesson_id === $lesson->lesson_id ? "true" : "false" ?>,
                     durationEditable: false,
                     },

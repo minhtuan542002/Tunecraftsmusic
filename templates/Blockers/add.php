@@ -64,7 +64,7 @@ $this->loadHelper('Form', [
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 
                         'action'=> 'edit', $line->lesson_id ]) ?>',
-                    
+                    <?= $line->booking->is_paid? "" : "color: 'orange',"  ?>
                     durationEditable: false,
                     },
                 <?php endforeach; ?>

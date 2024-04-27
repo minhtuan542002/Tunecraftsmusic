@@ -10,6 +10,35 @@ namespace App\Controller;
  */
 class BlockersController extends AppController
 {
+    public function initialize():void {
+        parent::initialize();
+        
+        // Load Authentication component
+        $this->loadComponent('Authentication.Authentication');
+
+        // Get Users Table
+        $this->Users = $this->fetchTable('Users');
+
+        // Load other components or configurations as needed
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
+        }
+
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        $this->Users = $this->fetchTable('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
+        $this->Lessons = $this->fetchTable('Lessons');
+    }
+
     /**
      * Index method
      *
@@ -44,18 +73,53 @@ class BlockersController extends AppController
      */
     public function add()
     {
-        $blocker = $this->Blockers->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
-            if ($this->Blockers->save($blocker)) {
-                $this->Flash->success(__('The blocker has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        $lessons = [];
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
             }
-            $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+
+            $query = $this->Lessons->find('all', [
+                'conditions'=> [
+                    'teacher_id IS NOT NULL',
+                    'teacher_id' => $user->teachers[0]->teacher_id,
+                ],
+                'contain' => ['Bookings'],
+            ]);
+            $lessons = $this->paginate($query);
+            //debug($lessons);
+            foreach ($lessons as $line) {
+                $package = $this->Packages->get($line->booking->package_id);
+                $student_user = $this->Students->get($line->booking->student_id);
+                $student = $this->Users->get($student_user->student_id);
+                //debug($student);
+                //debug($student_user);
+                $line->student_full_name = $student->first_name." ".$student->last_name;
+                $line->duration = $package->lesson_duration_minutes;
+                $line->student_name = $student->first_name;
+                $end_datetime = $line -> lesson_start_time;
+                $line->lesson_end_time = $end_datetime->modify(
+                    "+". $package->lesson_duration_minutes ." minutes");
+            }
+            $blocker = $this->Blockers->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
+                $blocker->recurring = false;
+                $blocker->teacher_id = 1;
+                if ($this->Blockers->save($blocker)) {
+                    $this->Flash->success(__('The blocker has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+            }
+            $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
         }
-        $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('blocker', 'teachers'));
+        $this->set(compact('blocker', 'teachers', 'lessons'));
     }
 
     /**

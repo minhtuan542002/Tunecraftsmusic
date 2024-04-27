@@ -10,17 +10,13 @@ $this->Html->script('ContentBlocks.ckeditor/ckeditor', ['block' => true]);
 
 $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
 ?>
-
-<style>
-    .ck-editor__editable_inline {
-        min-height: 25rem; /* CKEditor field minimal height */
-    }
-</style>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
 <div class="row">
     <div class="column-responsive">
 
-        <div class="contentBlocks form content">
+        <div class="contentBlocks form content mt-3">
 
             <h3 class="content-blocks--form-heading"><?= $contentBlock->label ?></h3>
 
@@ -33,15 +29,17 @@ $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
             <?php
             if ($contentBlock->type === 'text') {
                 echo $this->Form->control('value', [
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'value' => html_entity_decode($contentBlock->value),
                     'label' => false,
+                    'style' => 'width: 80%; resize: both;'
                 ]);
             } else if ($contentBlock->type === 'html') {
                 echo $this->Form->control('value', [
                     'type' => 'textarea',
                     'label' => false,
-                    'id' => 'content-value-input'
+                    'id' => 'content-value-input',
+                    'style' => 'width: 80%; resize: both;'
                 ]);
 
                 ?>
@@ -95,12 +93,13 @@ $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
             }
 
             ?>
-            <div class="content-blocks--form-actions">
-                <?= $this->Form->button(__('Save'), ['class' => 'button btn']) ?>
-                <?= $this->Html->link('Cancel', ['action' => 'index']) ?>
+
+            <div class="d-flex gap-3 mt-3">
+                <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Back', ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
             </div>
+
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
-

@@ -11,52 +11,35 @@ namespace App\Controller;
 class LessonsController extends AppController
 {
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
+     * Initialize method
+     * Authenticates permissions access
+     * 
+     * @return void
      */
-    public function index()
+    public function initialize(): void
     {
-        $query = $this->Lessons->find()
-            ->contain(['Bookings', 'Teachers']);
-        $lessons = $this->paginate($query);
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
 
-        $this->set(compact('lessons'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Lesson id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $lesson = $this->Lessons->get($id, contain: ['Bookings', 'Teachers']);
-        $this->set(compact('lesson'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $lesson = $this->Lessons->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
-            if ($this->Lessons->save($lesson)) {
-                $this->Flash->success(__('The lesson has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
         }
-        $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teachers'));
+        $this->set('loggedIn', $loggedIn);
+        $this->Users = $this->fetchTable('Users');
+
+       
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
     }
 
     /**
@@ -68,38 +51,113 @@ class LessonsController extends AppController
      */
     public function edit($id = null)
     {
-        $lesson = $this->Lessons->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
-            if ($this->Lessons->save($lesson)) {
-                $this->Flash->success(__('The lesson has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        $this->Users = $this->fetchTable('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
+        $lessons = [];
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
             }
-            $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+
+            $query = $this->Lessons->find('all', [
+                'conditions'=> [
+                    'teacher_id IS NOT NULL',
+                    'teacher_id' => $user->teachers[0]->teacher_id,
+                ],
+                'contain' => ['Bookings'],
+            ]);
+            $lessons = $this->paginate($query);
+            //debug($lessons);
+            foreach ($lessons as $line) {
+                $package = $this->Packages->get($line->booking->package_id);
+                $student_user = $this->Students->get($line->booking->student_id);
+                $student = $this->Users->get($student_user->student_id);
+                //debug($student);
+                //debug($student_user);
+                $line->student_full_name = $student->first_name." ".$student->last_name;
+                $line->duration = $package->lesson_duration_minutes;
+                $line->student_name = $student->first_name;
+                $end_datetime = $line -> lesson_start_time;
+                $line->lesson_end_time = $end_datetime->modify(
+                    "+". $package->lesson_duration_minutes ." minutes");
+                if($line->lesson_id == $id){
+                    $lesson = $line;
+                }
+            }
+            //debug($lesson);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                //debug($lesson);
+                $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
+                if ($this->Lessons->save($lesson)) {
+                    $this->Flash->success(__('The lesson has been saved.'));
+
+                    return $this->redirect(['action'=>'edit', $id]);
+                    //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
+                }
+                //debug($lesson);
+                else $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+            }
+            $this->set(compact('lesson', 'lessons'));
         }
-        $bookings = $this->Lessons->Bookings->find('list', limit: 200)->all();
-        $teachers = $this->Lessons->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('lesson', 'bookings', 'teachers'));
     }
 
     /**
-     * Delete method
+     * Index method
      *
-     * @param string|null $id Lesson id.
-     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function index()
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $lesson = $this->Lessons->get($id);
-        if ($this->Lessons->delete($lesson)) {
-            $this->Flash->success(__('The lesson has been deleted.'));
-        } else {
-            $this->Flash->error(__('The lesson could not be deleted. Please, try again.'));
-        }
+        $this->Users = $this->fetchTable('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
+            //debug($user);
 
-        return $this->redirect(['action' => 'index']);
+            $query = $this->Lessons->find('all', [
+                'conditions'=> [
+                    'teacher_id IS NOT NULL',
+                    'teacher_id' => $user->teachers[0]->teacher_id,
+                ],
+                'contain' => ['Bookings'],
+            ]);
+            $lessons = $this->paginate($query);
+            foreach ($lessons as $lesson) {
+                $package = $this->Packages->get($lesson->booking->package_id);
+                $student_user = $this->Students->get($lesson->booking->student_id);
+                $student = $this->Users->get($student_user->student_id);
+                //debug($student);
+                //debug($student_user);
+                $lesson->student_name = $student->first_name;
+                $end_datetime = $lesson -> lesson_start_time;
+                $lesson->lesson_end_time = $end_datetime->modify(
+                    "+". $package->lesson_duration_minutes ." minutes");
+            }
+            //debug($lessons);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                //debug($lesson);
+                $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
+                if ($this->Lessons->save($lesson)) {
+                    $this->Flash->success(__('The lesson has been saved.'));
+
+                    return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
+                }
+                //debug($lesson);
+                $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
+            }
+            $this->set(compact('lessons'));
+        }        
     }
 }

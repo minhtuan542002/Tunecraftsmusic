@@ -24,19 +24,24 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>
-        <?= $this->fetch('title') ?>
+        Dashboard: <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <?= $this->Html->css('dashboard') ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="<?= $this->Url->build('/') ?>">To Customer Website</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <div class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0"></div>
+        <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -52,22 +57,30 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Views</div>
-                        <!-- <a class="nav-link" href="<?= $this->Url->build('/dashboard/customisation') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Customisation -->
-                        </a> 
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/users') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Users
-                        </a>                
-                        <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Bookings', 'action' => 'index']) ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Bookings
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                            My Schedule
                         </a>     
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/bookings') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Bookings
+                        </a>    
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/users') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Users
+                        </a>   
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Packages
-                        </a>                         
+                        </a>       
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/testimonials') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
+                            Testimonials
+                        </a>   
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/customisation') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                            Customisation
+                        </a>                                       
                     </div>
                 </div>
             </nav>
@@ -88,7 +101,6 @@
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
-    <?= $this->Html->script('datatables-simple-demo.js') ?>
+    <?= $this->Html->script('dashboard.js') ?>
 </body>
 </html>

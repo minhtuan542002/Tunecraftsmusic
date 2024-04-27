@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = $this->ContentBlock->text('website-title');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <style>
-    
+    body {
+      margin-top: 90px;
+      min-height: 100%;
+    }
+    html {
+      min-height: 100%;
+    }
+    @media (max-width: 575px) {
+      body {
+      margin-top: 70px;
+      }
+    }
   </style>
 </head>
 
@@ -80,28 +91,38 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
+    <?php if ($loggedIn && $role_id == 3): ?>
+
+      <a href="<?= $this->Url->build('/dashboard/users') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <!-- <img src="assets/img/logo.png" alt=""> -->
+      <h1>Admin Dashboard<span>.</span></h1>
+
+      <?php else: ?>
       <a href="<?= $this->Url->build('/') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>TuneCraft Studio<span>.</span></h1>
+        <h1><?= $this->ContentBlock->text('website-title'); ?><span>.</span></h1>
       </a>
+
+    <?php endif; ?>
 
       <nav id="navbar" class="navbar">
         <ul>
           
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/about') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/about') ?>">About Us</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/pricing') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/pricing') ?>">Pricing</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/services') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/services') ?>">Services</a></li>
         <li>
           <?php if ($loggedIn): ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
           <?php else: ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
           <?php endif; ?>  
         </li>
+        <!-- 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
-
+        -->
 
           <!-- <li><a href="#home">Home</a></li>
           <li><a href="#about">About Us</a></li>
@@ -131,9 +152,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       </nav><!-- .navbar -->
 
       <?php if ($loggedIn): ?>
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Log Out</a>
+      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Logout</a>
       <?php else: ?>
-        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Log In</a>
+        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Login</a>
       <?php endif; ?>
     
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -143,22 +164,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   </header><!-- End Header -->
 
   <main id="main">
-    <?= $this->Flash->render() ?>
-    <?= $this->fetch('content') ?>
+    <div class="pb-5">
+      <?= $this->Flash->render() ?>
+      <?= $this->fetch('content') ?>
+    </div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
     <div class="container">
-      <div class="row gy-3">
+      <div class="row">
         <div class="col-lg-3 col-md-6 d-flex">
           <i class="bi bi-geo-alt icon"></i>
           <div>
             <h4>Address</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
+            <?= $this->ContentBlock->html('address'); ?>
             </p>
           </div>
 
@@ -167,10 +189,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="col-lg-3 col-md-6 footer-links d-flex">
           <i class="bi bi-telephone icon"></i>
           <div>
-            <h4>Reservations</h4>
+            <h4>Contact</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <?= $this->ContentBlock->html('contact'); ?>
             </p>
           </div>
         </div>
@@ -180,8 +201,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+              <?= $this->ContentBlock->html('open-hours'); ?>
             </p>
           </div>
         </div>
@@ -201,7 +221,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>TuneCraft Studio</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span><?= $this->ContentBlock->text('website-title'); ?></span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
@@ -213,7 +233,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
 
   </footer><!-- End Footer -->
-  <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

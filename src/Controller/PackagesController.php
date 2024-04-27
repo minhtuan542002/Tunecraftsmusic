@@ -10,7 +10,7 @@ namespace App\Controller;
  */
 class PackagesController extends AppController
 {
-        /**
+    /**
      * Initialize method
      * Authenticates permissions access
      * 
@@ -27,7 +27,7 @@ class PackagesController extends AppController
             $loggedIn = true;
         }
         $this->set('loggedIn', $loggedIn);
-        $this->Users = $this->getTableLocator()->get('Users');
+        $this->Users = $this->fetchTable('Users');
 
        
         if($this->viewBuilder()->getVar('loggedIn')){
@@ -41,6 +41,7 @@ class PackagesController extends AppController
             $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
     }
+    
     /**
      * Index method
      *

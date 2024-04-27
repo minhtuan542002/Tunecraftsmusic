@@ -293,6 +293,18 @@ section {
   transition: 0.3s;
 }
 
+
+.btn-primary-2,
+.btn-primary-2:focus {
+    font-size: 14px;
+    color: #fff;
+    background: var(--color-primary);
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
 .header .btn-book-a-table:hover,
 .header .btn-book-a-table:focus:hover {
   color: #fff;
@@ -1487,7 +1499,7 @@ section {
   width: 100%;
   background-size: cover;
   position: relative;
-  min-height: 60vh;
+  min-height: 67vh;
   padding: 160px 0 60px 0;
 }
 
@@ -1566,6 +1578,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
+  margin-top: -45px;
   font-size: 14px;
   background-color: #1f1f24;
   padding: 50px 0;
@@ -1650,4 +1663,24 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+
+/*
+# Booking page styling
+*/
+
+.book-a-lesson {
+  width: 100%;
+  background-size: cover;
+  position: relative;
+  min-height: 67vh;
+  padding: 20px 0 20px 0;
+}
+.my-bookings {
+  width: 100%;
+  background-size: cover;
+  position: relative;
+  min-height: 33vh;
+  padding: 20px 0 20px 0;
 }

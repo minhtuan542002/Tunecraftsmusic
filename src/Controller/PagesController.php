@@ -49,16 +49,27 @@ class PagesController extends AppController
         // Allow unauthenticated access to specific actions
         $this->Authentication->allowUnauthenticated(['display']);
 
+        // Get Users Table
+        $this->Users = $this->fetchTable('Users');
+
         // Load other components or configurations as needed
         $loggedIn = false;
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {
             $loggedIn = true;
         }
+
         $this->set('loggedIn', $loggedIn);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
         }
+        
+        // Get Packages Table
+        $this->Packages = $this->fetchTable('Packages');
+        // Get Testimonials Table
+        $this->Packages = $this->fetchTable('Testimonials');
     }
 
     /**
@@ -90,7 +101,16 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        $this->set(compact('page', 'subpage'));
+        // Load Packages
+        $this->packages = $this->fetchTable('packages');
+        $query = $this->Packages->find();
+        $packages = $this->paginate($query);
+        // Load Testimonials
+        $this->testimonials = $this->fetchTable('Testimonials');
+        $query = $this->testimonials->find();
+        $testimonials = $this->paginate($query);
+
+        $this->set(compact('page', 'subpage', 'packages', 'testimonials'));
 
         try {
             return $this->render(implode('/', $path));

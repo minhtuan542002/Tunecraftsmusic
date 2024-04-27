@@ -15,6 +15,18 @@ use Psr\Http\Message\UploadedFileInterface;
  * @method \ContentBlocks\Model\Entity\ContentBlock[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ContentBlocksController extends AppController {
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Http\Response|null|void sets layout
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
+    }
+
     /**
      * Index method
      *

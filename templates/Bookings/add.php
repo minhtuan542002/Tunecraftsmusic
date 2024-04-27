@@ -117,6 +117,9 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <p>Tell us about your prefered start date</p>
                             <p>(We may contact you to change due to schedule conflicts)</p>
                             <br>
+                            <div id='calendar-wrap' class= ''>
+                                <div id='calendar'></div>
+                            </div>   
                             <?php
                                 echo $this->Form->control('lessons.0.lesson_start_time', [
                                     'label' => [
@@ -416,3 +419,47 @@ tbody tr.highlight td {
     });
 </script>
 <?= $this->Html->script('process-steps.js') ?>
+<?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+            initialView: 'timeGridWeek',
+        },
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        eventOverlap: false,
+        slotMinTime: '06:00:00',
+        slotMaxTime: '24:00:00',
+        events: [
+            <?php foreach ($lessons as $lesson): ?>
+                {
+                title: 'Lesson with <?= $lesson->student_name ?>',
+                start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
+                end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
+                url: '<?= $this->Url->build(['controller'=>'lessons', 
+                    'action'=> 'edit', $lesson->lesson_id ]) ?>',
+                <?= $lesson->booking->is_paid? "" : "color: 'orange'," ?>
+                },
+            <?php endforeach; ?>
+            <?php foreach ($blockers as $blocker): ?>
+                {
+                title: '<?= $blocker->note ?>',
+                start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                url: '<?= $this->Url->build(['controller'=>'blockers', 
+                    'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                color: 'gray',
+                },
+            <?php endforeach; ?>
+        ]
+        });
+    calendar.render();
+    });
+
+</script>

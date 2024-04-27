@@ -110,6 +110,16 @@ $this->loadHelper('Form', [
                     durationEditable: false,
                     },
                 <?php endforeach; ?>
+                <?php foreach ($blockers as $blocker): ?>
+                    {
+                    title: '<?= $blocker->note ?>',
+                    start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                    end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                    url: '<?= $this->Url->build(['controller'=>'blockers', 
+                        'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                    color: 'gray',
+                    },
+                <?php endforeach; ?>
             ],
             initialDate: "<?= $lesson->lesson_start_time->format('Y-m-d') ?>",
             eventOverlap: false,

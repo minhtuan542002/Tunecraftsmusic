@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Blocker $blocker
  * @var \Cake\Collection\CollectionInterface|string[] $teachers
  */
-$this->setLayout('dashboard');
 $this->loadHelper('Form', [
     'templates' => 'app_form',
 ]);
@@ -37,7 +36,9 @@ $this->loadHelper('Form', [
                     ]);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', 
+                ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 
+                'class' => 'btn btn-success', 'type' => 'submit']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
@@ -68,27 +69,31 @@ $this->loadHelper('Form', [
                     durationEditable: false,
                     },
                 <?php endforeach; ?>
+                <?php foreach ($blockers as $line): ?>
+                    {
+                    title: '<?= $line->note ?>',
+                    start: '<?= $line->start_time->format('Y-m-d H:i:s') ?>',
+                    end: '<?= $line->end_time->format('Y-m-d H:i:s') ?>',
+                    url: '<?= $this->Url->build(['controller'=>'blockers', 
+                        'action'=> 'edit', $line->blocker_id ]) ?>',
+                    color: 'gray',
+                    },
+                <?php endforeach; ?>
             ],
             
             eventOverlap: false,
             slotDuration: '00:15:00',
-            eventDrop: function(arg) {
-                // Perform your action here
-                //console.log('Event dropped:', arg);
-                //console.log('Delta:', arg.event.start); 
-                var startDate = arg.event.start;
-                var formattedStartDate = startDate.getFullYear() + '-' +
-                    ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
-                    ('0' + startDate.getDate()).slice(-2) + 'T' +
-                    ('0' + startDate.getHours()).slice(-2) + ':' +
-                    ('0' + startDate.getMinutes()).slice(-2);
-                console.log('HH:', formattedStartDate); 
-                $('#lesson-start-time').val(formattedStartDate);
-            },
             eventConstraint: {
                 start:new Date().toISOString().split('T')[0], // Prevent events from being moved to dates before today
             },
         });
         calendar.render();
+    });
+
+    $('#start-time').on('input', function() {
+        $('#end-time').attr('min', $('#start-time').val());
+    });
+    $('#end-time').on('input', function() {
+        $('#start-time').attr('max', $('#end-time').val());
     });
 </script>

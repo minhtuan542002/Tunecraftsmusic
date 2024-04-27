@@ -12,6 +12,7 @@ class BlockersController extends AppController
 {
     public function initialize():void {
         parent::initialize();
+        $this->viewBuilder()->setLayout('dashboard');
         
         // Load Authentication component
         $this->loadComponent('Authentication.Authentication');
@@ -37,51 +38,12 @@ class BlockersController extends AppController
         $this->Packages = $this->fetchTable('Packages');
         $this->Students = $this->fetchTable('Students');
         $this->Lessons = $this->fetchTable('Lessons');
-    }
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
-    {
-        $query = $this->Blockers->find()
-            ->contain(['Teachers']);
-        $blockers = $this->paginate($query);
-
-        $this->set(compact('blockers'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Blocker id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $blocker = $this->Blockers->get($id, contain: ['Teachers']);
-        $this->set(compact('blocker'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
         $lessons = [];
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
                 'contain' => ['Teachers'],
             ]);
-            if($user->role_id==1){
-                return $this->redirect("/");
-            }
 
             $query = $this->Lessons->find('all', [
                 'conditions'=> [
@@ -105,6 +67,61 @@ class BlockersController extends AppController
                 $line->lesson_end_time = $end_datetime->modify(
                     "+". $package->lesson_duration_minutes ." minutes");
             }
+        }
+        $this->set('lessons', $lessons);
+        $query = $this->Blockers->find('all', [
+            'conditions'=> [
+                'teacher_id IS NOT NULL',
+                'teacher_id' => $user->teachers[0]->teacher_id,
+            ],
+            'recurring' => false,
+        ]);
+        $blockers = $this->paginate($query);
+        $this->set('blockers', $blockers);
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    // public function index()
+    // {
+    //     $query = $this->Blockers->find()
+    //         ->contain(['Teachers']);
+    //     $blockers = $this->paginate($query);
+
+    //     $this->set(compact('blockers'));
+    // }
+
+    /**
+     * View method
+     *
+     * @param string|null $id Blocker id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    // public function view($id = null)
+    // {
+    //     $blocker = $this->Blockers->get($id, contain: ['Teachers']);
+    //     $this->set(compact('blocker'));
+    // }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
             $blocker = $this->Blockers->newEmptyEntity();
             if ($this->request->is('post')) {
                 $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
@@ -113,7 +130,7 @@ class BlockersController extends AppController
                 if ($this->Blockers->save($blocker)) {
                     $this->Flash->success(__('The blocker has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'edit', $blocker->blocker_id]);
                 }
                 $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
             }
@@ -131,18 +148,28 @@ class BlockersController extends AppController
      */
     public function edit($id = null)
     {
-        $blocker = $this->Blockers->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
-            if ($this->Blockers->save($blocker)) {
-                $this->Flash->success(__('The blocker has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
             }
-            $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+            $blocker = $this->Blockers->get($id, contain: []);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
+                //debug($blocker);
+                if ($this->Blockers->save($blocker)) {
+                    $this->Flash->success(__('The blocker has been saved.'));
+                    //debug($blocker);
+                    return $this->redirect(['action' => 'edit', $blocker->blocker_id]);
+                }
+                $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+            }
+            $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
+            $this->set(compact('blocker', 'teachers'));
         }
-        $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
-        $this->set(compact('blocker', 'teachers'));
     }
 
     /**
@@ -162,6 +189,6 @@ class BlockersController extends AppController
             $this->Flash->error(__('The blocker could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'lessons', 'action' => 'index']);
     }
 }

@@ -44,6 +44,15 @@ class LessonsController extends AppController
         $this->Packages = $this->fetchTable('Packages');
         $this->Students = $this->fetchTable('Students');
         $this->Blockers = $this->fetchTable('Blockers');
+        $query = $this->Blockers->find('all', [
+            'conditions'=> [
+                'teacher_id IS NOT NULL',
+                'teacher_id' => $user->teachers[0]->teacher_id,
+            ],
+            'recurring' => false,
+        ]);
+        $blockers = $this->paginate($query);
+        $this->set('blockers', $blockers);
     }
 
     /**
@@ -133,15 +142,7 @@ class LessonsController extends AppController
                 'contain' => ['Bookings'],
             ]);
             $lessons = $this->paginate($query);
-            $query = $this->Blockers->find('all', [
-                'conditions'=> [
-                    'teacher_id IS NOT NULL',
-                    'teacher_id' => $user->teachers[0]->teacher_id,
-                ],
-                'recurring' => false,
-            ]);
-            $blockers = $this->paginate($query);
-            debug($blockers);
+            //debug($blockers);
             foreach ($lessons as $lesson) {
                 $package = $this->Packages->get($lesson->booking->package_id);
                 $student_user = $this->Students->get($lesson->booking->student_id);

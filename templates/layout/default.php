@@ -115,14 +115,13 @@ $cakeDescription = $this->ContentBlock->text('website-title');
         <li>
           <?php if ($loggedIn): ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
+            <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
           <?php else: ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
           <?php endif; ?>
         </li>
-            <li>
-                <a <?= ($this->getRequest()->getRequestTarget() === '/learning-resources') ? 'class="active"' : '' ?>
-                    href="<?= $this->Url->build('/learning-resources') ?>">Learning Resources</a></li>
-        <!--
+        
+        <!-- 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
         -->

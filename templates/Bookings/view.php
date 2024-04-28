@@ -18,13 +18,6 @@ $this->layout = 'dashboard';
 </style>
 
 <div class="row mb-5 mt-2">
-    <!-- <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('') ?></h4>
-            <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i>', ['action' => 'index'], ['escape' => false, 'title' => __('Back')]) ?>
-            <?= $this->Html->link('<i class="fas fa-edit fa-fw"></i>', ['action' => 'edit', $package->package_id], ['escape' => false, 'title' => __('Edit')]) ?>
-            <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i>', ['action' => 'delete', $package->package_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $package->package_id)]) ?>
-    </aside> -->
     <div class="column-responsive column-80">
         <div class="bookings view content">
             <div class="d-flex gap-5 mt-3">
@@ -95,12 +88,14 @@ $this->layout = 'dashboard';
                             <tbody>
                                 <?php foreach ($lessons as $lesson) : ?>
                                 <tr>
-                                    <td><?= h($lesson->lesson_start_time) ?></td>
+                                    <td><?= h($lesson->lesson_start_time->format('d/m/Y  H:i')) ?></td>
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
                                         <div class="">
-                                            <?= $this->Html->link('Reschedule', ['controller'=> 'lessons', 'action' => 'edit', $lesson->lesson_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
+                                            <?= $this->Html->link('Reschedule', 
+                                                ['controller'=> 'lessons', 'action' => 'edit_admin', $lesson->lesson_id], 
+                                                ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
                                             <!-- <?= $this->Form->postLink('Mark as completed', ['action' => 'delete', $booking->booking_id], ['escape' => false, 'title' => __('Delete'), 'class' => 'btn btn-danger', 
                                                 'confirm' => __('Are you sure you want to cancel booking # {0}?', $booking->booking_id)]) ?> -->
                                         </div>

@@ -53,10 +53,13 @@ $this->loadHelper('Form', [
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             },
+            locale: 'au',
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
             slotMinTime: '06:00:00',
             slotMaxTime: '24:00:00',
+            aspectRatio: 2, // Adjust aspect ratio based on screen size
+            height: 'auto',
             events: [
                 <?php foreach ($lessons as $line): ?>
                     {
@@ -64,7 +67,7 @@ $this->loadHelper('Form', [
                     start: '<?= $line->lesson_start_time->format('Y-m-d H:i:s') ?>',
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 
-                        'action'=> 'edit', $line->lesson_id ]) ?>',
+                        'action'=> 'edit_admin', $line->lesson_id ]) ?>',
                     <?= $line->booking->is_paid? "" : "color: 'orange',"  ?>
                     durationEditable: false,
                     },

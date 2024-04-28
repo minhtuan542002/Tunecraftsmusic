@@ -70,7 +70,7 @@ $this->loadHelper('Form', [
                     start: '<?= $line->lesson_start_time->format('Y-m-d H:i:s') ?>',
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 
-                        'action'=> 'edit', $line->lesson_id ]) ?>',
+                        'action'=> 'edit_admin', $line->lesson_id ]) ?>',
                     <?= $line->booking->is_paid? "" : "color: 'orange',"  ?>
                     durationEditable: false,
                     },

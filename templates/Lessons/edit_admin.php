@@ -5,7 +5,6 @@
  * @var string[]|\Cake\Collection\CollectionInterface $bookings
  * @var string[]|\Cake\Collection\CollectionInterface $teachers
  */
-$this->layout = "default";
 $this->loadHelper('Form', [
     'templates' => 'app_form',
 ]);
@@ -30,14 +29,18 @@ $this->loadHelper('Form', [
             <div id='calendar-wrap' class= 'mb-3'>
                 <div id='calendar'></div>
             </div>
+            <button id="completed" type="button" class="btn btn-outline-warning">
+                Mark as Completed
+            </button>
             <?= $this->Form->create($lesson) ?>
             <fieldset>
+                Please notify the students of changes in case they do not check in the website in time
                 <table class = "table">
                     <tr>
                         <th id="time-date-name"><?= __('Lesson Start Time and Date') ?></th>
                         <td>
                             <b id="write-time-start">
-                                <?= $lesson->lesson_start_time->format('d/m/Y  H:i') ?>
+                            <?= $lesson->lesson_start_time->format('d/m/Y  H:i') ?>
                             </b>
                             <div style = "display: None;">
                             <?php
@@ -45,7 +48,7 @@ $this->loadHelper('Form', [
                                 'label' => false,
                                 'required' => "required",
                                 'class'=>'form-control',
-                                'min'=> date('Y-m-d H', strtotime("+7 days")).":00:00",
+                                'min'=> date('Y-m-d H').":00:00",
                                 'step' => 900,
                                 //'format'=> 'dd-MM-YYYY hh:mm',
                                 //'value'=> $lesson->lesson_start_time->format('c'),
@@ -58,18 +61,27 @@ $this->loadHelper('Form', [
                         <td><?= $lesson->lesson_end_time < date('d-m-Y')? 'Completed':'Incomplete'?></td>
                     </tr>
                     <tr>
+                        <th><?= __("Student Full Name") ?></th>
+                        <td><?= $lesson ->student_full_name ?></td>
+                    </tr>
+                    <tr>
                         <th><?= __("Lesson Duration") ?></th>
                         <td><?= $lesson ->duration . " minutes" ?></td>
                     </tr>
                     <tr>
                         <th><?= __("Teacher's Note") ?></th>
-                        <td><?= $lesson ->note? $lesson ->note:"None" ?></td>
+                        <td><?= $this->Form->control('note', [
+                            'label' => false,
+                            'type' => 'textarea',
+                            'rows' => '4',
+                            'class'=>'form-control',
+                        ]) ?></td>
                     </tr>
                     
                 </table>
             </fieldset>
             <div class="d-flex gap-3 mt-3">
-                <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Go to Booking', ['controller'=>'bookings','action' => 'view_one',  $lesson->booking_id], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                <?= $this->Html->link('<i class="fas fa-chevron-left fa-fw"></i> Go to Booking', ['controller'=>'bookings','action' => 'view',  $lesson->booking_id], ['escape' => false, 'class' => 'btn btn-primary']) ?>
                 <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
             </div>
             <?= $this->Form->end() ?>
@@ -77,15 +89,6 @@ $this->loadHelper('Form', [
     </div>
 </div>
 <script>
-    function getMinDate(){
-        var minDate = new Date();
-        minDate.setDate(new Date().getDate() + 7);
-        minDate.setHours(6);
-        minDate.setMinutes(0);
-        minDate.setSeconds(0);
-        //console.log("-----"+minDate.toISOString());
-        return minDate;
-    }
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -103,12 +106,6 @@ $this->loadHelper('Form', [
             aspectRatio: 2, // Adjust aspect ratio based on screen size
             height: 'auto',
             events: [
-                {
-                    start: "2023-01-29T20:00:00",
-                    end: getMinDate().toISOString().split('T')[0],
-                    display: 'background',
-                    color: 'gray',
-                },
                 <?php foreach ($lessons as $line): ?>
                     {
                     title: 'Lesson with <?= $line->student_name ?>',
@@ -124,20 +121,12 @@ $this->loadHelper('Form', [
                 <?php endforeach; ?>
                 <?php foreach ($blockers as $blocker): ?>
                     {
+                    title: '<?= $blocker->note ?>',
                     start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
                     end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                    url: '<?= $this->Url->build(['controller'=>'blockers', 
+                        'action'=> 'edit', $blocker->blocker_id ]) ?>',
                     color: 'gray',
-                    overlap: false,
-                    display: 'background',
-                    },
-                <?php endforeach; ?>
-                <?php foreach ($block_lessons as $line): ?>
-                    {
-                    start: '<?= $line->lesson_start_time->format('Y-m-d H:i:s') ?>',
-                    end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
-                    color: 'gray',
-                    overlap: false,
-                    display: 'background',
                     },
                 <?php endforeach; ?>
             ],
@@ -154,15 +143,30 @@ $this->loadHelper('Form', [
                     ('0' + startDate.getDate()).slice(-2) + 'T' +
                     ('0' + startDate.getHours()).slice(-2) + ':' +
                     ('0' + startDate.getMinutes()).slice(-2);
-                console.log('HH:', formattedStartDate); 
+                //console.log('HH:', formattedStartDate); 
                 $('#lesson-start-time').val(formattedStartDate);
                 $('#write-time-start').text(startDate.toLocaleString('en-AU', {
                     hour12: true,}));
             },
-            eventConstraint: {
-                start:getMinDate().toISOString().split('T')[0], 
-            },
         });
         calendar.render();
+    });
+
+    $('#completed').click(function(){
+        if($('#completed').hasClass('is-active')){
+            $('#completed').removeClass('is-active');
+            $('#completed').text('Mark as Completed');
+            $('#time-date-name').text("Lesson Start Time and Date");
+            $('#lesson-start-time').attr('min', $('#lesson-start-time').attr('max'));
+            $('#lesson-start-time').removeAttr('max');
+            $('#completed').css({"background-color": "", "color":''});
+        } else {
+            $('#time-date-name').text("Lesson Started At");
+            $('#lesson-start-time').attr('max', $('#lesson-start-time').attr('min'));
+            $('#lesson-start-time').removeAttr('min');
+            $('#completed').css({"background-color": "orange", "color": 'black'});
+            $('#completed').addClass('is-active');
+            $('#completed').text('Reschedule');
+        }
     });
 </script>

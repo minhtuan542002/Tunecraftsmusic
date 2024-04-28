@@ -459,8 +459,6 @@ tbody tr.highlight td {
                         {
                         start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
                         end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
-                        url: '<?= $this->Url->build(['controller'=>'lessons', 
-                            'action'=> 'edit', $lesson->lesson_id ]) ?>',
                         color: 'gray',
                         overlap: false,
                         display: 'background',
@@ -470,8 +468,6 @@ tbody tr.highlight td {
                         {
                         start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
                         end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
-                        url: '<?= $this->Url->build(['controller'=>'blockers', 
-                            'action'=> 'edit', $blocker->blocker_id ]) ?>',
                         color: 'gray',
                         overlap: false,
                         display: 'background',
@@ -502,6 +498,10 @@ tbody tr.highlight td {
                 editable: true,
                 durationEditable: false,
             };
+            if($('#lessons-0-lesson-start-time').val()){
+                newEvent.start = $('#lessons-0-lesson-start-time').val();
+                newEvent.start = getEndTime(getDateFromString($('#lessons-0-lesson-start-time').val())).toISOString();
+            }
             var calendarEvents = calendar.getEvents(); // Get all events currently on the calendar
             var firstAvailableSlot = findFirstAvailableSlot(calendarEvents, newEvent);
             newEvent.start = firstAvailableSlot;

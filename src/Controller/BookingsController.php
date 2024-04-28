@@ -228,7 +228,7 @@ class BookingsController extends AppController
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
-                'bookings.student_id IS NOT NULL',
+                'Bookings.student_id IS NOT NULL',
             ],
             'contain' => ['Bookings'],
         ]);
@@ -351,7 +351,7 @@ class BookingsController extends AppController
                                 'conditions'=> [
                                     'teacher_id IS NOT NULL',
                                     'teacher_id' => '1',
-                                    'booking.student_id IS NOT NULL',
+                                    'Bookings.student_id IS NOT NULL',
                                     'lesson_start_time <=' => $end_date,
                                 ],
                                 'contain' => ['Bookings'],

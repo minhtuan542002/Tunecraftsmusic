@@ -68,6 +68,8 @@ class PagesController extends AppController
         
         // Get Packages Table
         $this->Packages = $this->fetchTable('Packages');
+        // Get Testimonials Table
+        $this->Packages = $this->fetchTable('Testimonials');
     }
 
     /**
@@ -103,9 +105,12 @@ class PagesController extends AppController
         $this->packages = $this->fetchTable('packages');
         $query = $this->Packages->find();
         $packages = $this->paginate($query);
+        // Load Testimonials
+        $this->testimonials = $this->fetchTable('Testimonials');
+        $query = $this->testimonials->find();
+        $testimonials = $this->paginate($query);
 
-
-        $this->set(compact('page', 'subpage', 'packages'));
+        $this->set(compact('page', 'subpage', 'packages', 'testimonials'));
 
         try {
             return $this->render(implode('/', $path));

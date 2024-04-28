@@ -117,7 +117,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
             <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
           <?php else: ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Booking</a>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
           <?php endif; ?>  
         </li>
         
@@ -176,14 +176,13 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <footer id="footer" class="footer">
 
     <div class="container">
-      <div class="row gy-3">
+      <div class="row">
         <div class="col-lg-3 col-md-6 d-flex">
           <i class="bi bi-geo-alt icon"></i>
           <div>
             <h4>Address</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
+            <?= $this->ContentBlock->html('address'); ?>
             </p>
           </div>
 
@@ -194,8 +193,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Contact</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <?= $this->ContentBlock->html('contact'); ?>
             </p>
           </div>
         </div>
@@ -205,8 +203,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+              <?= $this->ContentBlock->html('open-hours'); ?>
             </p>
           </div>
         </div>

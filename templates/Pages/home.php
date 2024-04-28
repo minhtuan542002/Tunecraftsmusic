@@ -25,15 +25,8 @@ $this->assign('title', 'Home');
                 <p style="margin-top: 20px;">
                     <?= $this->ContentBlock->text('about-text-1'); ?>
                     <!--
-                    <h4>
-                        <b>8</b> Years of teaching experience,
-                        </h4>
-                        Specialized in the Suzuki teaching approach and AMEB violin exam syllabus.
-                        I assure to provide a comprehensive learning experience for my students
-                        on their musical journey here at Tunecraftstudio.
-                    -->
                     <a class="btn-book-a-table <?= ($this->getRequest()->getRequestTarget() === '/auth/register') ? 'active' : '' ?>" href="<?= $this->Url->build(['controller'=>'auth', 'action'=> 'register']) ?>" style="font-size: 20px; margin-top: 30px;">Sign Up</a>
-
+                    -->
                 </p>
             </div>
             <div class="col-md-4">
@@ -56,54 +49,102 @@ $this->assign('title', 'Home');
 
             <!-- Sub-sections with icons -->
             <div class="col-md-6 m-auto d-flex flex-column justify-content-center">
-                <div class="mb-3">
+                <div>
                     <h4 class="d-flex align-items-center">
                         <span class="icon me-2">🎵</span>
                         Suzuki Method
                     </h4>
                 </div>
                 <hr>
-                <div class="d-flex align-items-center">
-                    <h4 class="me-2">
+                <div>
+                    <h4 class="d-flex align-items-center">
                         <span class="icon me-2">🏅</span>
-                        AMEB certified
+                        AMEB Syllabus
                     </h4>
                 </div>
+                <hr>
+                <div>
+                    <h4 class="d-flex align-items-center">
+                        <span class="icon me-2">🎵</span>
+                        AMEB Theory
+                    </h4>
+                </div>    
             </div>
 
         </div>
 
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials section-bg">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <p>Check <span>Testimonials</span></p>
+                </div>
 
-        <h2><?= $this->ContentBlock->text('about-heading-3'); ?></h2>
-        <div class="row">
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-1', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
-            </div>
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-2', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
-            </div>
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-image-3', [
-                    'alt' => 'CakePHP',
-                    'class' => "img-fluid",
-                    'data-aos' => "zoom-out",
-                    'data-aos-delay' => "300",
-                    'style' => 'height: 250px; width: 400px; object-fit: cover;'
-                ]); ?>
+                <!-- Testimonials pulled from the controller -->
+                <div class="slides-1 swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        <?php if (empty($testimonials)): ?>
+                            <div class="col-md-12 text-center" data-aos="fade-up">
+                                <p>No Testimonials Found.</p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($testimonials as $testimonial): ?>
+                                <div class="swiper-slide">
+                                    <div class="testimonial-item">
+                                        <div class="row gy-4 justify-content-center">
+                                            <div class="col-lg-6">
+                                                <div class="testimonial-content">
+                                                    <p>
+                                                        <i class="bi bi-quote quote-icon-left"></i>
+                                                        <?= h($testimonial->testimonial_text); ?>
+                                                        <i class="bi bi-quote quote-icon-right"></i>
+                                                    </p>
+                                                    <h3><?= h($testimonial->student_name); ?></h3>
+                                                    <h4><?= h($testimonial->testimonial_title); ?></h4>
+                                                    <div class="stars">
+                                                        <?php for ($i = 0; $i < $testimonial->rating; $i++): ?>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        <?php endfor; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 text-center">
+                                                <img src="<?= h($testimonial->image_url); ?>" class="img-fluid testimonial-img" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End testimonial item -->
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <div class="swiper-pagination"></div>
 
             </div>
-        </div>
+        </section><!-- End Testimonials Section -->
+
+
+        <!-- ======= Gallery Section ======= -->
+        <section id="gallery" class="gallery section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
+                </div>
+
+                <div class="gallery-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <?php
+                        $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
+                        foreach ($images as $img) {
+                            echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
+                        }
+                        ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Gallery Section -->
+       
     </div>
 </div>

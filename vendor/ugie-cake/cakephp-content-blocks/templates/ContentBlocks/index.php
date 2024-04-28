@@ -4,7 +4,7 @@
  * @var iterable<\ContentBlocks\Model\Entity\ContentBlock> $contentBlocksGrouped
  */
 
-$this->assign('title', 'Content Blocks');
+$this->assign('title', 'Customisation');
 
 $this->Html->css('ContentBlocks.content-blocks', ['block' => true]);
 
@@ -28,7 +28,7 @@ $slugify = function($text) {
     */
     ?>
 
-    <h3><?= __('Content Blocks') ?></h3>
+    <h3><?= __('Customisation') ?></h3>
 
     <div>
         Quick links

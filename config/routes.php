@@ -92,6 +92,9 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/packages/add', ['controller' => 'Packages', 'action' => 'add']);
         $builder->connect('/packages/edit/*', ['controller' => 'Packages', 'action' => 'edit']);
         $builder->connect('/packages/view/*', ['controller' => 'Packages', 'action' => 'view']);
+        $builder->connect('/testimonials', ['controller' => 'Testimonials', 'action' => 'index']);
+        $builder->connect('/testimonials/edit/*', ['controller' => 'Testimonials', 'action' => 'edit']);
+        $builder->connect('/testimonials/view/*', ['controller' => 'Testimonials', 'action' => 'view']);
         $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);

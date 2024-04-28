@@ -24,7 +24,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>
-        <?= $this->fetch('title') ?>
+        Dashboard: <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.css" rel="stylesheet" />
@@ -57,26 +57,30 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Views</div>
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/customisation') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div>
-                            Customisation
-                        </a> 
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/users') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user fa-fw"></i></div>
-                            Users
-                        </a>                
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                            My Schedule
+                        </a>     
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/bookings') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Bookings
-                        </a>     
+                        </a>    
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/users') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Users
+                        </a>   
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Packages
-                        </a>                         
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            My Schedule
-                        </a>                         
+                        </a>       
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/testimonials') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
+                            Testimonials
+                        </a>   
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/customisation') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                            Customisation
+                        </a>                                       
                     </div>
                 </div>
             </nav>

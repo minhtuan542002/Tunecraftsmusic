@@ -512,7 +512,7 @@ tbody tr.highlight td {
                 events.sort(function(a,b){
                     return a >= b;
                 });
-                console.log(events);
+                //console.log(events);
 
                 // Find the first available slot
                 var firstSlotStart = getDateFromString(newEvent.start);

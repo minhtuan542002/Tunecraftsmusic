@@ -334,37 +334,63 @@ class BookingsController extends AppController
                 $booking = $this->Bookings->get($booking->booking_id, [
                     'contain' => ['Packages', 'Lessons'],
                 ]);
-                $start_date=$booking->booking_datetime;
-                for($i = 0; $i < $booking->package->number_of_lessons; $i++) {
-                    $new_lesson = $this->Lessons->newEmptyEntity();
-                    $new_lesson->teacher_id = 1;
-                    $new_lesson->booking_id = $booking->booking_id;
-                    $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
-                    $not_saved = false;
-                    while($not_saved){
-                        $buffered_start = $start_date;
-                        $buffered_start->modify("+". $i ." numutes");
-                        $query = $this->Lessons->find('all', [
-                            'conditions'=> [
-                                'teacher_id IS NOT NULL',
-                                'teacher_id' => '1',
-                                'lesson_start_time >=' => $buffered_start,
-                            ],
-                        ]);
-                        $block_lesson = $this->paginate($query);
-                        
-                        $query = $this->Blockers->find('all', [
-                            'conditions'=> [
-                                'teacher_id IS NOT NULL',
-                                'teacher_id' => '1',
-                            ],
-                            'recurring' => false,
-                        ]);
-                        $block_blockers = $this->paginate($query);
+                if(sizeof($booking->lessons) != $booking->package->number_of_lessons){
+                    $start_date=$booking->booking_datetime;
+                    for($i = 0; $i < $booking->package->number_of_lessons; $i++) {
+                        $new_lesson = $this->Lessons->newEmptyEntity();
+                        $new_lesson->teacher_id = 1;
+                        $new_lesson->booking_id = $booking->booking_id;
+
+                        //Check if this week time is blocked and skip to next week
+                        $is_blocked = true;
+                        while($is_blocked){
+                            $end_date = $start_date;
+                            $end_date->modify("+". 
+                                $booking->package->lesson_duration_minutes ." minutes");
+                            $query = $this->Lessons->find('all', [
+                                'conditions'=> [
+                                    'teacher_id IS NOT NULL',
+                                    'teacher_id' => '1',
+                                    'booking.student_id IS NOT NULL',
+                                    'lesson_start_time <=' => $end_date,
+                                ],
+                                'contain' => ['Bookings'],
+                            ]);
+                            $block_lesson = $this->paginate($query);
+                            $is_blocked = false;
+                            foreach($block_lesson as $line) {
+                                $package_line = $this->Packages->get(
+                                    $line->booking->package_id);
+                                $line_end = $line->lesson_start_time;
+                                $line_end->modify("+". 
+                                    $package_line->lesson_duration_minutes ." minutes");
+                                if($line_end >= $start_date) {
+                                    $is_blocked = true;
+                                    break;
+                                }
+                            }
+                            
+                            $query = $this->Blockers->find('all', [
+                                'conditions'=> [
+                                    'teacher_id IS NOT NULL',
+                                    'teacher_id' => '1',
+                                    'recurring' => false,
+                                    'start_time <' => $end_date,
+                                    'end_time >' => $start_date,
+                                ],
+                            ]);
+                            $block_blockers = $this->paginate($query);
+                            if(sizeof($block_blockers) != 0){
+                                $is_blocked = true;
+                            }
+                            if($is_blocked){
+                                $start_date = $start_date->modify("+". 1 ." week");
+                            }
+                        }
+                        $new_lesson->lesson_start_time = $start_date;
+                        $this->Lessons->save($new_lesson);
+                        $start_date = $start_date->modify("+". 1 ." week");
                     }
-                    
-                    $this->Lessons->save($new_lesson);
-                    
                 }            
             }            
             //debug($booking);

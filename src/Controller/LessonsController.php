@@ -44,12 +44,15 @@ class LessonsController extends AppController
         $this->Packages = $this->fetchTable('Packages');
         $this->Students = $this->fetchTable('Students');
         $this->Blockers = $this->fetchTable('Blockers');
+        $user = $this->Users->get($user->user_id, [
+            'contain' => ['Teachers'],
+        ]);
         $query = $this->Blockers->find('all', [
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => $user->teachers[0]->teacher_id,
+                'recurring' => false,
             ],
-            'recurring' => false,
         ]);
         $blockers = $this->paginate($query);
         $this->set('blockers', $blockers);
@@ -168,7 +171,7 @@ class LessonsController extends AppController
                 //debug($lesson);
                 $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
             }
-            $this->set(compact('lessons', 'blockers'));
+            $this->set(compact('lessons'));
         }        
     }
 }

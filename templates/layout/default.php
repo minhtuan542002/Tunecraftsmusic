@@ -31,7 +31,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <meta content="" name="keywords">
 
   <!-- <?= $this->Html->charset() ?> -->
-    
+
     <?= $this->Html->meta('icon') ?>
 
     <!-- <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?> -->
@@ -43,7 +43,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,7 +59,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
 
   <!-- Template Main CSS File -->
   <?= $this->Html->css('main.css') ?>
-  
+
   <?= $this->Html->script('/vendor/jquery/jquery.min.1.3.2.js') ?>
 
   <!-- =======================================================
@@ -109,7 +109,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
 
       <nav id="navbar" class="navbar">
         <ul>
-          
+
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/services') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/services') ?>">Services</a></li>
         <li>
@@ -117,9 +117,12 @@ $cakeDescription = $this->ContentBlock->text('website-title');
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
           <?php else: ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
-          <?php endif; ?>  
+          <?php endif; ?>
         </li>
-        <!-- 
+            <li>
+                <a <?= ($this->getRequest()->getRequestTarget() === '/learning-resources') ? 'class="active"' : '' ?>
+                    href="<?= $this->Url->build('/learning-resources') ?>">Learning Resources</a></li>
+        <!--
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
         -->
@@ -130,7 +133,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <li><a href="#booking">Booking</a></li>
           <li><a href="#contact">Contact Us</a></li>
           <li><a href="#gallery">Gallery</a></li> -->
-          
+
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -156,7 +159,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
       <?php else: ?>
         <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Login</a>
       <?php endif; ?>
-    
+
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

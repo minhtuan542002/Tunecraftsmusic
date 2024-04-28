@@ -283,7 +283,7 @@ class ContentBlocksSeed extends AbstractSeed
                 "description" => "Learning description for 2nd section.",
                 "slug" => "learning-description-2",
                 "type" => "text",
-                "value" => "So let's talk about good violin songs for beginners. The way I was started when I was a little girl; I started on the Suzuki method which is a very popular method to begin children on playing the violin. What it is is specific songs in books. And there's book one, book two, book three, book four, book five. And there's certain pieces that you have to play in order. "
+                "value" => "So let's talk about good violin songs for beginners. The way I was started when I was a little girl; I started on the Suzuki method which is a very popular method to begin children on playing the violin."
             ], [
                 "parent" => "learning_resources",
                 "label" => "Learning Description 3",

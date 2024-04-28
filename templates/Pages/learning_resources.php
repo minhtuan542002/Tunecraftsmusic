@@ -21,7 +21,7 @@ $this->assign('title', 'Learning Resources')
     <div class="container">
         <div class="row justify-content-between gy-5">
             <div class="col-lg-12 text-center text-lg-start">
-                <h2 data-aos="fade-up">Learning Resources</h2>
+                <h2 data-aos="fade-up" style="margin-bottom: 50px">Learning Resources</h2>
             </div>
             <?php for ($i = 1; $i <= 3; $i++): ?>
                 <div class="row pt-3">

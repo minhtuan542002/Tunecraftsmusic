@@ -8,6 +8,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
 
 ?>
 <?= $this->Html->script('process-steps.js') ?>
+<?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
 <section id="book-a-lesson" class="book-a-lesson section-bg">
     <div class="container" data-aos="fade-up">
 
@@ -24,7 +25,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <p>Choose your Packages</p>
                     </div>
                     <div class="stepwizard-step">
-                        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                        <a id= "step-2-btn" href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
                         <p>Schedule </p>
                     </div>
                     <div class="stepwizard-step">
@@ -64,7 +65,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                             <?php
                                                 //This is to fool cakePHP into accepting package_id as a form field
                                                 echo $this->Form->control('package_id', ['options' => $packages, 'empty' => true,
-                                                'id'=>'dummy',
+                                                'class'=>'dummy',
                                                 'label'=>false,
                                                 ]);
 
@@ -114,20 +115,24 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                             <h3> Step 2</h3>
                             <h3>Schedule your first lesson</h3>
-                            <p>Tell us about your prefered start date</p>
+                            <p> Move the lesson around to input your prefered start date</p>
                             <p>(We may contact you to change due to schedule conflicts)</p>
                             <br>
-                            <div id='calendar-wrap' class= ''>
+                            <div id='calendar-wrap'>
                                 <div id='calendar'></div>
+                            </div>   
+                            <div class = 'mt-2'>
+                                Your Chosen Date and Time: 
+                                <b id="write-time-start"></b>
                             </div>   
                             <?php
                                 echo $this->Form->control('lessons.0.lesson_start_time', [
                                     'label' => [
-                                        'text' => 'Your prefered date'
+                                        'text' => ''
                                     ],
                                     'type' => 'datetime-local',
                                     'required' => "required",
-                                    'class'=>'form-control',
+                                    'class'=>'form-control dummy',
                                     'min' => date('Y-m-d', strtotime("+3 days")) . 'T09:00',
                                     'step' => 900,
                                 ]);
@@ -369,6 +374,10 @@ tbody tr.highlight td {
 .actions {
     min-width: 110px;
 }
+
+.dummy {
+    display: none;
+}
 </style>
 
 <?php if($stage==2): ?>
@@ -388,8 +397,129 @@ tbody tr.highlight td {
     </script>
 <?php endif; ?>
 <script>
+    function getMinDate(){
+        var minDate = new Date();
+        minDate.setDate(new Date().getDate() + 7);
+        minDate.setHours(8);
+        minDate.setMinutes(0);
+        minDate.setSeconds(0);
+        //console.log("-----"+minDate.toISOString());
+        return minDate;
+    }
+
+    function getEndTime(date){
+        var checkboxes= $("input.btn-check");
+        duration = 15;
+        for(var i=0; i<checkboxes.length; i++){
+            if (checkboxes.eq(i).is(':checked')) {
+                duration = parseInt(checkboxes.eq(i).attr("time-duration") );
+                //console.log(duration);
+            }
+        }
+        date = new Date(date.getTime() + duration*60*1000);
+        
+        return date;
+    }
+
+    function getDateFromString(string){
+        return new Date(string);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var mut = new MutationObserver(function(mutations, mut){
+            if($("#step-2-btn").hasClass("btn-primary")) {
+                //console.log("Eureka");
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                initialDate: getMinDate().toISOString().split('T')[0],
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+                },
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                eventOverlap: false,
+                slotMinTime: '06:00:00',
+                slotMaxTime: '24:00:00',
+                events: [
+                    {
+                        start: "2023-01-29T20:00:00",
+                        end: getMinDate().toISOString().split('T')[0],
+                        display: 'background',
+                        color: 'gray',
+                    },
+                    <?php foreach ($lessons as $lesson): ?>
+                        {
+                        start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
+                        end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
+                        url: '<?= $this->Url->build(['controller'=>'lessons', 
+                            'action'=> 'edit', $lesson->lesson_id ]) ?>',
+                        color: 'gray',
+                        overlap: false,
+                        display: 'background',
+                        },
+                    <?php endforeach; ?>
+                    <?php foreach ($blockers as $blocker): ?>
+                        {
+                        start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                        end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                        url: '<?= $this->Url->build(['controller'=>'blockers', 
+                            'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                        color: 'gray',
+                        overlap: false,
+                        display: 'background',
+                        },
+                    <?php endforeach; ?>
+                    {
+                        title: "My First Lesson",
+                        start: getDateFromString(getMinDate().toISOString().split('T')[0]).toISOString(),
+                        end: getEndTime(getDateFromString(getMinDate().toISOString().split('T')[0])).toISOString(),
+                        overlap: false,
+                        editable: true,
+                        durationEditable: false,
+                    },
+                ],
+                eventDrop: function(arg) {
+                    var startDate = arg.event.start;
+                    var formattedStartDate = startDate.getFullYear() + '-' +
+                        ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + startDate.getDate()).slice(-2) + 'T' +
+                        ('0' + startDate.getHours()).slice(-2) + ':' +
+                        ('0' + startDate.getMinutes()).slice(-2);
+                    $('#lessons-0-lesson-start-time').val(formattedStartDate);
+                    $('#write-time-start').text(startDate.toLocaleString('en-AU', {
+                    hour12: true,}));
+                },
+                eventConstraint: {
+                    
+                    start:getMinDate().toISOString().split('T')[0], // Prevent events from being moved to dates before today
+                },
+            });
+            calendar.render();
+            }
+        });
+        mut.observe(document.querySelector("#step-2-btn"),{
+        'attributes': true
+        });
+    
+    });
+
+</script>
+<script>
     $(document).ready(function () {
-        $('#dummy').hide();
+        var startDate = getDateFromString(getMinDate().toISOString().split('T')[0]);
+        var formattedStartDate = startDate.getFullYear() + '-' +
+            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + startDate.getDate()).slice(-2) + 'T' +
+            ('0' + startDate.getHours()).slice(-2) + ':' +
+            ('0' + startDate.getMinutes()).slice(-2);
+        console.log('HH:', formattedStartDate); 
+        $('#lessons-0-lesson-start-time').val(formattedStartDate);
+        $('#write-time-start').text(startDate.toLocaleString('en-AU', {
+                    hour12: true,}));
+
         $('#step-1').trigger('click');
         $('select option:eq(1)').attr('selected', 'selected');
         $('input.btn-check').click(function(){
@@ -402,7 +532,7 @@ tbody tr.highlight td {
                     checkbox.eq(i).attr( 'checked', false );
                     //console.log(i);
                 }
-                if (checkbox.eq(i).is(':checked'))console.log(i);
+                //if (checkbox.eq(i).is(':checked'))console.log(i);
             }
             if($(this).is(':checked')){
                 $('#btn-check-label'+$(this).attr("packageId")).text("Selected");
@@ -418,48 +548,4 @@ tbody tr.highlight td {
         });
     });
 </script>
-<?= $this->Html->script('process-steps.js') ?>
-<?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
-            initialView: 'timeGridWeek',
-        },
-        navLinks: true, // can click day/week names to navigate views
-        selectable: true,
-        eventOverlap: false,
-        slotMinTime: '06:00:00',
-        slotMaxTime: '24:00:00',
-        events: [
-            <?php foreach ($lessons as $lesson): ?>
-                {
-                title: 'Lesson with <?= $lesson->student_name ?>',
-                start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
-                end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
-                url: '<?= $this->Url->build(['controller'=>'lessons', 
-                    'action'=> 'edit', $lesson->lesson_id ]) ?>',
-                <?= $lesson->booking->is_paid? "" : "color: 'orange'," ?>
-                },
-            <?php endforeach; ?>
-            <?php foreach ($blockers as $blocker): ?>
-                {
-                title: '<?= $blocker->note ?>',
-                start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
-                end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
-                url: '<?= $this->Url->build(['controller'=>'blockers', 
-                    'action'=> 'edit', $blocker->blocker_id ]) ?>',
-                color: 'gray',
-                },
-            <?php endforeach; ?>
-        ]
-        });
-    calendar.render();
-    });
 
-</script>

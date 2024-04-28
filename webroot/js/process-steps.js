@@ -8,7 +8,7 @@ $(document).ready(function () {
   
     navListItems.click(function (e) {
         e.preventDefault();
-        console.log("navListItems");
+        //console.log("navListItems");
         var $target = $($(this).attr('href')),
                 $item = $(this);
   
@@ -73,8 +73,8 @@ $(document).ready(function () {
             curInputs = curStep.find("input"),
             isValid = true;
   
-        console.log(curStep);
-        console.log(curInputs);
+        //console.log(curStep);
+        //console.log(curInputs);
         $(".input").removeClass("has-error");
         for(var i=0; i<curInputs.length; i++){
             if (!curInputs[i].validity.valid){

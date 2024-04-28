@@ -211,14 +211,53 @@ class BookingsController extends AppController
     }
 
     /**
-     * Add method
+     * Add method 
+     * Only serve one teacher, need to reconfigure to do otherwise
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
         $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
+        $this->Blockers = $this->fetchTable('Blockers');
         $this->Lessons = $this->fetchTable('Lessons');
+        //Get all blocker elements ------------------------------------------------
+        $lessons = [];
+        $query = $this->Lessons->find('all', [
+            'conditions'=> [
+                'teacher_id IS NOT NULL',
+                'teacher_id' => '1',
+            ],
+            'contain' => ['Bookings'],
+        ]);
+        $lessons = $this->paginate($query);
+        //debug($lessons);
+        foreach ($lessons as $line) {
+            $package = $this->Packages->get($line->booking->package_id);
+            $student_user = $this->Students->get($line->booking->student_id);
+            $student = $this->Users->get($student_user->student_id);
+            //debug($student);
+            //debug($student_user);
+            $line->student_full_name = $student->first_name." ".$student->last_name;
+            $line->duration = $package->lesson_duration_minutes;
+            $line->student_name = $student->first_name;
+            $end_datetime = $line -> lesson_start_time;
+            $line->lesson_end_time = $end_datetime->modify(
+                "+". $package->lesson_duration_minutes ." minutes");
+        }
+        $this->set('lessons', $lessons);
+        $query = $this->Blockers->find('all', [
+            'conditions'=> [
+                'teacher_id IS NOT NULL',
+                'teacher_id' => '1',
+            ],
+            'recurring' => false,
+        ]);
+        $blockers = $this->paginate($query);
+        $this->set('blockers', $blockers);
+
+        //Actual booking logic start--------------------------------------------------
         $this->Users = $this->fetchTable('Users');
         $query = $this->Packages->find();
         $packages = $this->paginate($query);

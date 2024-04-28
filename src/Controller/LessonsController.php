@@ -119,7 +119,6 @@ class LessonsController extends AppController
             $blockers = $this->paginate($query);
             $this->set('blockers', $blockers);
             
-            
             foreach ($lessons as $line) {
                 $package = $this->Packages->get($line->booking->package_id);
                 $student_user = $this->Students->get($line->booking->student_id);

@@ -10,6 +10,21 @@
             
     </div>
     <div id='calendar'></div>
+    <div class = 'mt-3 d-flex justify-content-between gap-2 border border-dark rounded p-3'>
+        <div class="badge text-bg-primary">
+            Paid Lesson
+        </div>
+        <div class="badge text-bg-warning">
+            Unpaid Lesson
+        </div>
+        <div class="badge text-bg-secondary">
+            Blocked 
+        </div>
+    </div>
+    <div class = 'mt-3'>
+    <?= $this->Html->link(__('Add new temporary blockers'), 
+        ['controller'=>'blockers', 'action' => 'add'], ['class' => 'btn btn-primary']) ?>
+    </div>
 </div>
 <?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
 <script>
@@ -35,7 +50,18 @@
                 start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
                 end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
                 url: '<?= $this->Url->build(['controller'=>'lessons', 
-                    'action'=> 'edit', $lesson->lesson_id ]) ?>'
+                    'action'=> 'edit', $lesson->lesson_id ]) ?>',
+                <?= $lesson->booking->is_paid? "" : "color: 'orange'," ?>
+                },
+            <?php endforeach; ?>
+            <?php foreach ($blockers as $blocker): ?>
+                {
+                title: '<?= $blocker->note ?>',
+                start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                url: '<?= $this->Url->build(['controller'=>'blockers', 
+                    'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                color: 'gray',
                 },
             <?php endforeach; ?>
         ]

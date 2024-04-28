@@ -40,6 +40,19 @@ class LessonsController extends AppController
         if ($this->viewBuilder()->getVar('role_id') !== 3) {
             $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
+        $this->Users = $this->fetchTable('Users');
+        $this->Packages = $this->fetchTable('Packages');
+        $this->Students = $this->fetchTable('Students');
+        $this->Blockers = $this->fetchTable('Blockers');
+        $query = $this->Blockers->find('all', [
+            'conditions'=> [
+                'teacher_id IS NOT NULL',
+                'teacher_id' => $user->teachers[0]->teacher_id,
+            ],
+            'recurring' => false,
+        ]);
+        $blockers = $this->paginate($query);
+        $this->set('blockers', $blockers);
     }
 
     /**
@@ -51,9 +64,7 @@ class LessonsController extends AppController
      */
     public function edit($id = null)
     {
-        $this->Users = $this->fetchTable('Users');
-        $this->Packages = $this->fetchTable('Packages');
-        $this->Students = $this->fetchTable('Students');
+        
         $lessons = [];
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
@@ -113,9 +124,6 @@ class LessonsController extends AppController
      */
     public function index()
     {
-        $this->Users = $this->fetchTable('Users');
-        $this->Packages = $this->fetchTable('Packages');
-        $this->Students = $this->fetchTable('Students');
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [
@@ -134,6 +142,7 @@ class LessonsController extends AppController
                 'contain' => ['Bookings'],
             ]);
             $lessons = $this->paginate($query);
+            //debug($blockers);
             foreach ($lessons as $lesson) {
                 $package = $this->Packages->get($lesson->booking->package_id);
                 $student_user = $this->Students->get($lesson->booking->student_id);
@@ -157,7 +166,7 @@ class LessonsController extends AppController
                 //debug($lesson);
                 $this->Flash->error(__('The lesson could not be saved. Please, try again.'));
             }
-            $this->set(compact('lessons'));
+            $this->set(compact('lessons', 'blockers'));
         }        
     }
 }

@@ -38,11 +38,14 @@
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             initialView: 'timeGridWeek',
         },
+        locale: 'au',
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         eventOverlap: false,
         slotMinTime: '06:00:00',
         slotMaxTime: '24:00:00',
+        aspectRatio: 2, // Adjust aspect ratio based on screen size
+        height: 'auto',
         events: [
             <?php foreach ($lessons as $lesson): ?>
                 {

@@ -400,25 +400,28 @@ tbody tr.highlight td {
     function getMinDate(){
         var minDate = new Date();
         minDate.setDate(new Date().getDate() + 7);
-        minDate.setHours(8);
+        minDate.setHours(6);
         minDate.setMinutes(0);
         minDate.setSeconds(0);
         //console.log("-----"+minDate.toISOString());
         return minDate;
     }
 
-    function getEndTime(date){
+    function getDurationTime(){
         var checkboxes= $("input.btn-check");
         duration = 15;
         for(var i=0; i<checkboxes.length; i++){
             if (checkboxes.eq(i).is(':checked')) {
                 duration = parseInt(checkboxes.eq(i).attr("time-duration") );
                 //console.log(duration);
+                return duration
             }
         }
-        date = new Date(date.getTime() + duration*60*1000);
-        
-        return date;
+        return null;
+    }
+
+    function getEndTime(date){
+        return new Date(date.getTime() + (getDurationTime() * 60 * 1000));
     }
 
     function getDateFromString(string){
@@ -428,21 +431,23 @@ tbody tr.highlight td {
     document.addEventListener('DOMContentLoaded', function() {
         var mut = new MutationObserver(function(mutations, mut){
             if($("#step-2-btn").hasClass("btn-primary")) {
-                //console.log("Eureka");
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',
+                initialView: 'dayGridMonth',
                 initialDate: getMinDate().toISOString().split('T')[0],
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
                 },
+                locale: 'au',
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
                 eventOverlap: false,
                 slotMinTime: '06:00:00',
                 slotMaxTime: '24:00:00',
+                aspectRatio: 2, // Adjust aspect ratio based on screen size
+                height: 'auto',
                 events: [
                     {
                         start: "2023-01-29T20:00:00",
@@ -472,14 +477,6 @@ tbody tr.highlight td {
                         display: 'background',
                         },
                     <?php endforeach; ?>
-                    {
-                        title: "My First Lesson",
-                        start: getDateFromString(getMinDate().toISOString().split('T')[0]).toISOString(),
-                        end: getEndTime(getDateFromString(getMinDate().toISOString().split('T')[0])).toISOString(),
-                        overlap: false,
-                        editable: true,
-                        durationEditable: false,
-                    },
                 ],
                 eventDrop: function(arg) {
                     var startDate = arg.event.start;
@@ -497,6 +494,44 @@ tbody tr.highlight td {
                     start:getMinDate().toISOString().split('T')[0], // Prevent events from being moved to dates before today
                 },
             });
+            var newEvent = {
+                title: "First Lesson",
+                start: getDateFromString(getMinDate().toISOString().split('T')[0]).toISOString(),
+                end: getEndTime(getDateFromString(getMinDate().toISOString().split('T')[0])).toISOString(),
+                overlap: false,
+                editable: true,
+                durationEditable: false,
+            };
+            var calendarEvents = calendar.getEvents(); // Get all events currently on the calendar
+            var firstAvailableSlot = findFirstAvailableSlot(calendarEvents, newEvent);
+            newEvent.start = firstAvailableSlot;
+            //console.log(firstAvailableSlot);
+            calendar.addEvent(newEvent);
+            function findFirstAvailableSlot(events, newEvent) {
+                // Sort events by start time
+                events.sort(function(a,b){
+                    return a >= b;
+                });
+                console.log(events);
+
+                // Find the first available slot
+                var firstSlotStart = getDateFromString(newEvent.start);
+                var endSlot = getDateFromString(newEvent.end);
+                for(i =0; i<events.length; i++) {
+                    event = events[i]
+                    if (event.start <= endSlot && event.end >= firstSlotStart) {
+                        firstSlotStart = event.end;
+                        endSlot = getEndTime(firstSlotStart);
+                        // console.log("SSSS"+event.start);
+                        // console.log("EEEE"+event.end);
+                        // console.log("LL"+firstSlotStart);
+                        break;
+                    }
+                };
+
+                return firstSlotStart;
+            }
+
             calendar.render();
             }
         });
@@ -515,7 +550,7 @@ tbody tr.highlight td {
             ('0' + startDate.getDate()).slice(-2) + 'T' +
             ('0' + startDate.getHours()).slice(-2) + ':' +
             ('0' + startDate.getMinutes()).slice(-2);
-        console.log('HH:', formattedStartDate); 
+        //console.log('HH:', formattedStartDate); 
         $('#lessons-0-lesson-start-time').val(formattedStartDate);
         $('#write-time-start').text(startDate.toLocaleString('en-AU', {
                     hour12: true,}));

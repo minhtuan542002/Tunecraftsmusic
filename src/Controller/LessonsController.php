@@ -79,6 +79,7 @@ class LessonsController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => $user->teachers[0]->teacher_id,
+                    'bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],
             ]);
@@ -138,6 +139,7 @@ class LessonsController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => $user->teachers[0]->teacher_id,
+                    'bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],
             ]);

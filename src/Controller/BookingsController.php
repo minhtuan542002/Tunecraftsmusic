@@ -228,6 +228,7 @@ class BookingsController extends AppController
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
+                'bookings.student_id IS NOT NULL',
             ],
             'contain' => ['Bookings'],
         ]);
@@ -300,18 +301,19 @@ class BookingsController extends AppController
             }
         }
         
-        //After logging in and post booking
+        //When request method is POST or form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($stage==0) $stage=2;
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
-            //debug($booking);
-            //debug($booking->student);
 
-            if($this->viewBuilder()->getVar('loggedIn')){      
+            //After logging in and post booking
+            if($this->viewBuilder()->getVar('loggedIn')){
                 $user = $this->Authentication->getIdentity();
                 $user = $this->Users->get($user->user_id, [
                     'contain' => ['Students'],
                 ]);
+
+                //Get the booking instance temporary data saved
                 $booking->student_id = $user->students[0]->student_id;
                 //if($booking->student_id == NULL)$booking->student_id = 1;
                 //debug($booking);
@@ -338,7 +340,29 @@ class BookingsController extends AppController
                     $new_lesson->teacher_id = 1;
                     $new_lesson->booking_id = $booking->booking_id;
                     $new_lesson->lesson_start_time = $start_date->modify("+". $i ." week");
-                    //debug($new_lesson);
+                    $not_saved = false;
+                    while($not_saved){
+                        $buffered_start = $start_date;
+                        $buffered_start->modify("+". $i ." numutes");
+                        $query = $this->Lessons->find('all', [
+                            'conditions'=> [
+                                'teacher_id IS NOT NULL',
+                                'teacher_id' => '1',
+                                'lesson_start_time >=' => $buffered_start,
+                            ],
+                        ]);
+                        $block_lesson = $this->paginate($query);
+                        
+                        $query = $this->Blockers->find('all', [
+                            'conditions'=> [
+                                'teacher_id IS NOT NULL',
+                                'teacher_id' => '1',
+                            ],
+                            'recurring' => false,
+                        ]);
+                        $block_blockers = $this->paginate($query);
+                    }
+                    
                     $this->Lessons->save($new_lesson);
                     
                 }            

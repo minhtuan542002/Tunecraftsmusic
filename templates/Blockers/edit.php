@@ -58,6 +58,7 @@ $this->loadHelper('Form', [
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             },
+            locale: 'au',
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
             slotMinTime: '06:00:00',
@@ -89,6 +90,8 @@ $this->loadHelper('Form', [
             initialDate: "<?= $blocker->start_time->format('Y-m-d') ?>",
             eventOverlap: false,
             slotDuration: '00:15:00',
+            aspectRatio: 2, // Adjust aspect ratio based on screen size
+            height: 'auto',
             eventDrop: function(arg) {
                 // Perform your action here
                 //console.log('Event dropped:', arg);

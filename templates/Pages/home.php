@@ -18,7 +18,6 @@ use Cake\Routing\Router;
 
 $this->assign('title', 'Home');
 ?>
-<!--<div class="section-bg">-->
 <div id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
         <div class="row justify-content-between gy-5">
@@ -31,8 +30,9 @@ $this->assign('title', 'Home');
                     -->
                 </p>
                 <a class="btn-book-a-table"
-                   href="<?= $this->Url->build(['controller' => 'auth', 'action' => 'login']) ?>">Book an
-                    appointment</a>
+                   href="<?= $this->Url->build(['controller' => 'auth', 'action' => 'login']) ?>">
+                   Book an Appointment
+                </a>
 
             </div>
             <div class="col-md-4">
@@ -69,31 +69,14 @@ $this->assign('title', 'Home');
                      style="margin: auto">
                     <div class="content ps-0 ps-lg-5">
                         <div class="section-header">
-
-                            <p><?= $this->ContentBlock->text('about-heading-2') ?></p>
+                            <p>
+                                <?= $this->ContentBlock->text('about-heading-2') ?>
+                            </p>
                         </div>
 
                         <p class="fst-italic" style="font-size: 20px">
                             <?= $this->ContentBlock->text('about-text-2') ?>
                         </p>
-                        <!--                        <ul>-->
-                        <!--                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo-->
-                        <!--                                consequat.-->
-                        <!--                            </li>-->
-                        <!--                            <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate-->
-                        <!--                                velit.-->
-                        <!--                            </li>-->
-                        <!--                            <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo-->
-                        <!--                                consequat. Duis aute irure dolor in reprehenderit in voluptate trideta-->
-                        <!--                                storacalaperda mastiro dolore eu fugiat nulla pariatur.-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
-                        <!--                        <p>-->
-                        <!--                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in-->
-                        <!--                            reprehenderit in voluptate-->
-                        <!--                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non-->
-                        <!--                            proident-->
-                        <!--                        </p>-->
 
                         <div class="position-relative mt-4">
                             <div class=" m-auto d-flex flex-column justify-content-center">
@@ -118,8 +101,6 @@ $this->assign('title', 'Home');
                                     </h4>
                                 </div>
                             </div>
-                            <!--                                <img src="assets/img/about-2.jpg" class="img-fluid" alt="">-->
-                            <!--                                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>-->
                         </div>
                     </div>
                 </div>
@@ -188,28 +169,24 @@ $this->assign('title', 'Home');
     </section><!-- End Testimonials Section -->
 
 
-    <!--    <!-- ======= Gallery Section ======= -->
-    <!--    <section id="gallery" class="gallery section-bg">-->
-    <!--        <div class="container" data-aos="fade-up">-->
-    <!---->
-    <!--            <div class="section-header">-->
-    <!--                <p>Check <span>--><?php //= $this->ContentBlock->text('about-heading-3'); ?><!--</span></p>-->
-    <!--            </div>-->
-    <!---->
-    <!--            <div class="gallery-slider swiper">-->
-    <!--                <div class="swiper-wrapper align-items-center">-->
-    <!--                    --><?php
-    //                    $images = glob('./img/studio/*.{jpg,png,gif}', GLOB_BRACE);
-    //                    foreach ($images as $img) {
-    //                        echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
-    //                    }
-    //                    ?>
-    <!--                </div>-->
-    <!--                <div class="swiper-pagination"></div>-->
-    <!--            </div>-->
-    <!---->
-    <!--        </div>-->
-    <!--    </section><!-- End Gallery Section -->
-</main>
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+            <div class="container" data-aos="fade-up">
 
-<!--</div>-->
+                <div class="section-header">
+                    <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
+                </div>
+
+                <div class="gallery-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <?php
+                        $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
+                        foreach ($images as $img) {
+                            echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
+                        }
+                        ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+</main>

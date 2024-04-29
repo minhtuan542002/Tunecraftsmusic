@@ -20,7 +20,7 @@ $this->loadHelper('Form', [
                 <legend><?= __('Edit Booking') ?></legend>
                 <div class="table-responsive">
                     <table class="table">
-                        <tr>
+                        <!-- <tr>
                             <th>Weekly date time:</th>
                             <td>
                                     <?php
@@ -33,7 +33,7 @@ $this->loadHelper('Form', [
                                     ]);?>
                                 Note that you reschedule all the lessons starting a week from now
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <th>Note:</th>
                             <td>

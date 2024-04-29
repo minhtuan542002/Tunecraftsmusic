@@ -233,7 +233,7 @@ class BookingsController extends AppController
             'contain' => ['Bookings'],
         ]);
         $lessons = $this->paginate($query);
-        debug($lessons);
+        //debug($lessons);
         foreach ($lessons as $line) {
             $package = $this->Packages->get($line->booking->package_id);
             $student_user = $this->Students->get($line->booking->student_id);

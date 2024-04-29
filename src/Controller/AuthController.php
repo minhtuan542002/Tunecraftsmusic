@@ -196,7 +196,7 @@ class AuthController extends AppController {
         // if user passes authentication, grant access to the system
         if ($result && $result->isValid()) {
             // set a fallback location in case user logged in without triggering 'unauthenticatedRedirect'
-            $fallbackLocation = ['controller' => 'Users', 'action' => 'index'];
+            $fallbackLocation = ['controller' => 'Lessons', 'action' => 'index'];
             if($this->request->getSession()->read('booking.in_progress')=='true'){
                 $fallbackLocation = ['controller' => 'Bookings', 'action' => 'add'];
             }

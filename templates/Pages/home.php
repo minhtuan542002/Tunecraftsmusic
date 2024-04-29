@@ -118,7 +118,7 @@ $this->assign('title', 'Home');
     <section id="testimonials" class="testimonials section-bg">
         <div class="container" data-aos="fade-up">
             <div class="section-header">
-                <p>Check <span><?= $this->ContentBlock->text('about-heading-4'); ?></span></p>
+                <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
             </div>
 
             <!-- Testimonials pulled from the controller -->

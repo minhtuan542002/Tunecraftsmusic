@@ -126,7 +126,7 @@ $this->assign('title', 'Home');
                 <div class="swiper-wrapper">
                     <?php if (empty($testimonials)) : ?>
                         <div class="col-md-12 text-center" data-aos="fade-up">
-                            <p>No <?= $this->ContentBlock->text('about-heading-4'); ?> Found.</p>
+                            <p>No <?= $this->ContentBlock->text('about-heading-3'); ?> Found.</p>
                         </div>
                     <?php else : ?>
                         <?php foreach ($testimonials as $index => $testimonial) : ?>

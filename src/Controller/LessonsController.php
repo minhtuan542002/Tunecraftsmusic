@@ -240,7 +240,7 @@ class LessonsController extends AppController
             $query = $this->Lessons->find('all', [
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
-                    'teacher_id' => $user->teachers[0]->teacher_id,
+                    'teacher_id' => '0',
                     'Bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],

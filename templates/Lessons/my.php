@@ -53,16 +53,11 @@ $this->layout = 'default';
         slotMaxTime: '24:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
         height: 'auto',
+        slotDuration: '00:15:00',
         events: [
-            {
-                start: "2023-01-29T20:00:00",
-                end: getMinDate().toISOString().split('T')[0],
-                display: 'background',
-                color: 'gray',
-            },
             <?php foreach ($lessons as $lesson): ?>
                 {
-                title: 'Lesson with <?= $lesson->student_name ?>',
+                title: 'Violin Lesson',
                 start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
                 end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
                 <?= (strtotime($lesson->lesson_end_time) >= strtotime("+7 days"))?

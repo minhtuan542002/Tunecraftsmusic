@@ -220,6 +220,7 @@ class BookingsController extends AppController
     {
         $this->Packages = $this->fetchTable('Packages');
         $this->Students = $this->fetchTable('Students');
+        $this->Users = $this->fetchTable('Users');
         $this->Blockers = $this->fetchTable('Blockers');
         $this->Lessons = $this->fetchTable('Lessons');
         //Get all blocker elements ------------------------------------------------

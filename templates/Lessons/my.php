@@ -62,7 +62,7 @@ $this->layout = 'default';
             },
             <?php foreach ($lessons as $lesson): ?>
                 {
-                title: 'Lesson with <?= $lesson->student_name ?>',
+                title: 'Violin Lesson',
                 start: '<?= $lesson->lesson_start_time->format('Y-m-d H:i:s') ?>',
                 end: '<?= $lesson->lesson_end_time->format('Y-m-d H:i:s') ?>',
                 <?= (strtotime($lesson->lesson_end_time) >= strtotime("+7 days"))?

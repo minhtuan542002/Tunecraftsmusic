@@ -111,7 +111,7 @@ $this->loadHelper('Form', [
                 },
                 <?php foreach ($lessons as $line): ?>
                     {
-                    title: 'Lesson with <?= $line->student_name ?>',
+                    title: 'Violin Lesson',
                     start: '<?= $line->lesson_start_time->format('Y-m-d H:i:s') ?>',
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 

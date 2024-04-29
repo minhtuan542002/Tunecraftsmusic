@@ -184,9 +184,14 @@ $this->assign('title', 'Home');
             <div class="gallery-slider swiper">
                 <div class="swiper-wrapper align-items-center">
                     <?php
-                    $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
+                    $arrImages = array();
+                    $dirPath = "img" . DS . "studio";
+                    $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dirPath));
                     foreach ($images as $img) {
-                        echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
+                        $imgPath = $dirPath . DS .$img;
+                        if (is_file($imgPath)) {
+                            echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$imgPath\"><img src=\"$imgPath\" class='img-fluid' alt='''></a></div>";
+                        }
                     }
                     ?>
                 </div>

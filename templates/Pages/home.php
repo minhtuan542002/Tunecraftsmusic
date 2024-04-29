@@ -53,16 +53,20 @@ $this->assign('title', 'Home');
         <div class="container" data-aos="fade-up">
 
             <div class="section-header">
-                <!--                <h2>About Us</h2>-->
                 <p>Learn More <span>About Us</span></p>
             </div>
 
             <div class="row gy-4">
 
-                <img
-                    src="<?php echo Router::url('/', true) ?>img/about.jpeg"
-                    class="col-lg-7 position-relative about-img img-fluid testimonial-img" alt=""
-                >
+            <div class="col-md-4">
+                <?= $this->ContentBlock->image('about-learn-more-image', [
+                    'alt' => 'CakePHP',
+                    'class' => 'img-fluid',
+                    'data-aos' => 'zoom-out',
+                    'data-aos-delay' => '300',
+                    'style' => 'height: 500px; width: 500px; object-fit: contain; margin: 0px',
+                ]); ?>
+            </div>
 
 
                 <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300"
@@ -114,7 +118,7 @@ $this->assign('title', 'Home');
     <section id="testimonials" class="testimonials section-bg">
         <div class="container" data-aos="fade-up">
             <div class="section-header">
-                <p>Check <span>Testimonials</span></p>
+                <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
             </div>
 
             <!-- Testimonials pulled from the controller -->
@@ -122,7 +126,7 @@ $this->assign('title', 'Home');
                 <div class="swiper-wrapper">
                     <?php if (empty($testimonials)) : ?>
                         <div class="col-md-12 text-center" data-aos="fade-up">
-                            <p>No Testimonials Found.</p>
+                            <p>No <?= $this->ContentBlock->text('about-heading-3'); ?> Found.</p>
                         </div>
                     <?php else : ?>
                         <?php foreach ($testimonials as $index => $testimonial) : ?>
@@ -171,22 +175,23 @@ $this->assign('title', 'Home');
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
-            <div class="container" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
 
-                <div class="section-header">
-                    <p>Check <span><?= $this->ContentBlock->text('about-heading-3'); ?></span></p>
+            <div class="section-header">
+                <p>Check <span><?= $this->ContentBlock->text('about-heading-4'); ?></span></p>
+            </div>
+
+            <div class="gallery-slider swiper">
+                <div class="swiper-wrapper align-items-center">
+                    <?php
+                    $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
+                    foreach ($images as $img) {
+                        echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
+                    }
+                    ?>
                 </div>
-
-                <div class="gallery-slider swiper">
-                    <div class="swiper-wrapper align-items-center">
-                        <?php
-                        $images = glob("./img/studio/*.{jpg,png,gif}", GLOB_BRACE);
-                        foreach ($images as $img) {
-                            echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$img\"><img src=\"$img\" class='img-fluid' alt='''></a></div>";
-                        }
-                        ?>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>    
+    </section>
 </main>

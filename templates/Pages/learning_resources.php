@@ -17,7 +17,7 @@ $this->assign('title', 'Learning Resources')
 ?>
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg" >
+<section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
         <div class="row justify-content-between gy-5">
             <div class="col-lg-12 text-center text-lg-start">
@@ -34,19 +34,19 @@ $this->assign('title', 'Learning Resources')
                                             frameborder="0"
                                             allowfullscreen></iframe>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="margin: auto">
                                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('learning-heading-' . $i); ?></h2>
                                     <p data-aos="fade-up"
                                        data-aos-delay="100"><?= $this->ContentBlock->text('learning-description-' . $i); ?></p>
                                 </div>
                             <?php } else { ?>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="margin: auto">
                                     <h2 data-aos="fade-up"><?= $this->ContentBlock->text('learning-heading-' . $i); ?></h2>
                                     <p data-aos="fade-up"
                                        data-aos-delay="100"><?= $this->ContentBlock->text('learning-description-' . $i); ?></p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" >
                                     <iframe width="100%" height="315"
                                             src="<?= $this->ContentBlock->text('learning-resource-' . $i); ?>"
                                             frameborder="0"

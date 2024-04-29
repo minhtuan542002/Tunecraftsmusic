@@ -49,7 +49,7 @@ class BlockersController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => $user->teachers[0]->teacher_id,
-                    'bookings.student_id IS NOT NULL',
+                    'Bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],
             ]);
@@ -137,7 +137,7 @@ class BlockersController extends AppController
             }
             $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
         }
-        $this->set(compact('blocker', 'teachers', 'lessons'));
+        $this->set(compact('blocker', 'teachers'));
     }
 
     /**

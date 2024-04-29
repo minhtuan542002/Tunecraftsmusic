@@ -29,6 +29,7 @@ $this->loadHelper('Form', [
             <div id='calendar-wrap' class= 'mb-3'>
                 <div id='calendar'></div>
             </div>
+            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
             <button id="completed" type="button" class="btn btn-outline-warning">
                 Mark as Completed
             </button>

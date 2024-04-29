@@ -18,7 +18,7 @@ use Cake\Routing\Router;
 $this->assign('title', 'Services');
 ?>
 
-<!-- ======= Chefs Section ======= -->
+<!-- ======= Packages Section ======= -->
 <section id="chefs" class="chefs section-bg">
     <div class="container" data-aos="fade-up">
 

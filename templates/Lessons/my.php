@@ -53,6 +53,7 @@ $this->layout = 'default';
         slotMaxTime: '24:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
         height: 'auto',
+        slotDuration: '00:15:00',
         events: [
             {
                 start: "2023-01-29T20:00:00",

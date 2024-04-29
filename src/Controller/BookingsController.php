@@ -220,7 +220,6 @@ class BookingsController extends AppController
     {
         $this->Packages = $this->fetchTable('Packages');
         $this->Students = $this->fetchTable('Students');
-        $this->Users = $this->fetchTable('Users');
         $this->Blockers = $this->fetchTable('Blockers');
         $this->Lessons = $this->fetchTable('Lessons');
         //Get all blocker elements ------------------------------------------------
@@ -234,11 +233,11 @@ class BookingsController extends AppController
             'contain' => ['Bookings'],
         ]);
         $lessons = $this->paginate($query);
-        //debug($lessons);
+        debug($lessons);
         foreach ($lessons as $line) {
             $package = $this->Packages->get($line->booking->package_id);
             $student_user = $this->Students->get($line->booking->student_id);
-            $student = $this->Users->get($student_user->student_id);
+            $student = $this->Users->get($student_user->user_id);
             //debug($student);
             //debug($student_user);
             $line->student_full_name = $student->first_name." ".$student->last_name;

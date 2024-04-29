@@ -41,12 +41,6 @@ $this->assign('title', 'Services');
                                      src="<?php echo Router::url("/", true) ?>img/service-<?php echo ($index % 3) + 1 ?>.jpeg"
                                      class="img-fluid"
                                      alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
                             </div>
                             <div class="member-info">
                                 <h4><?php echo h($package->package_name); ?></h4>

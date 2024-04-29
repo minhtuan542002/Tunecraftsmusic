@@ -55,12 +55,6 @@ $this->layout = 'default';
         height: 'auto',
         slotDuration: '00:15:00',
         events: [
-            {
-                start: "2023-01-29T20:00:00",
-                end: getMinDate().toISOString().split('T')[0],
-                display: 'background',
-                color: 'gray',
-            },
             <?php foreach ($lessons as $lesson): ?>
                 {
                 title: 'Violin Lesson',

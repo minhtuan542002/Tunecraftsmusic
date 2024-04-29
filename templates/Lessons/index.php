@@ -17,9 +17,6 @@
         <div class="badge text-bg-warning">
             Unpaid Lesson
         </div>
-        <div class="badge text-bg-secondary">
-            Blocked 
-        </div>
     </div>
     <div class = 'mt-3'>
     <?= $this->Html->link(__('Add new temporary blockers'), 

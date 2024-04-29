@@ -115,7 +115,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                             <h3> Step 2</h3>
                             <h3>Schedule your first lesson</h3>
-                            <p> Move the lesson around to input your prefered start date</p>
+                            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
                             <p>(We may contact you to change due to schedule conflicts)</p>
                             <br>
                             <div id='calendar-wrap'>

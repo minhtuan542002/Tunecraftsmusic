@@ -30,7 +30,7 @@ $this->assign('title', 'Home');
                     -->
                 </p>
                 <a class="btn-book-a-table"
-                   href="<?= $this->Url->build(['controller' => 'auth', 'action' => 'login']) ?>">
+                   href="<?= $this->Url->build(['controller' => 'bookings', 'action' => 'add']) ?>">
                    Book an Appointment
                 </a>
 

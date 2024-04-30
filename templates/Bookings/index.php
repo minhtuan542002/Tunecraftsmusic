@@ -34,7 +34,7 @@ $this->layout = 'dashboard';
                         <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
                         <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                         <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
-                            ['class' => 'btn btn-outline-success btn-sm', 
+                            ['class' => __('btn '. ($booking->is_paid?'btn-success':'btn-outline-success') .' btn-sm paid-button'),
                                 'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
                         <td><?= $booking->booking_id ?></td>
                         <td class="d-flex gap-2">
@@ -58,6 +58,17 @@ $this->layout = 'dashboard';
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
+    // var mut = new MutationObserver(function(mutations, mut){
+    //     $(".paid-button:contains('Yes')").addClass('btn-success');
+    //     $(".paid-button:contains('Yes')").removeClass('btn-outline-success');
+    //     $(".paid-button:contains('No')").addClass('btn-outline-success');
+    //     $(".paid-button:contains('No')").removeClass('btn-success');
+    //     console.log()
+    // });
+    // mut.observe(document.querySelector(".paid-button"),{
+    // 'text': true
+    // });
+
     $(document).ready(function() {
         $('#dataTable').DataTable({
             "paging": true,

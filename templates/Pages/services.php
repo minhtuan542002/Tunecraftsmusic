@@ -12,104 +12,53 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
+
+use Cake\Routing\Router;
+
 $this->assign('title', 'Services');
 ?>
 
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
-    <style>
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            background-color: #fff;
-            border: 1px solid #e1e1e1;
-        }
+<!-- ======= Packages Section ======= -->
+<section id="chefs" class="chefs section-bg">
+    <div class="container" data-aos="fade-up">
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+        <div class="section-header">
+            <h2>Services</h2>
+            <p>Our <span>Services</span></p>
+        </div>
 
-        .card-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .card-text {
-            margin-bottom: 5px;
-            color: #666;
-        }
-
-        .card-button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card-button:hover {
-            background-color: #0056b3;
-        }
-
-        .lesson-label {
-            color: #007bff; /* Blue */
-            font-weight: bold;
-        }
-
-        .duration-label {
-            color: #8e44ad; /* Purple */
-            font-weight: bold;
-        }
-
-        .price-label {
-            color: #dc3545; /* Red */
-            font-weight: bold;
-        }
-
-        #hero {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-        }
-
-        .section-bg {
-            background-color: #f8f9fa;
-        }
-    </style>
-    
-    <div class="container">
-        <!-- Add the heading here -->
-        <h2 class="section-title text-center mb-4">Our Services</h2>
-        
-        <div class="row justify-content-center">
+        <div class="row gy-4">
             <?php if (empty($packages)): ?>
                 <div class="col-md-12 text-center" data-aos="fade-up">
                     <p>No Packages found.</p>
                 </div>
             <?php else: ?>
-                <?php foreach ($packages as $package): ?>
-                    <div class="col-md-4 mb-4" data-aos="fade-up">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo h($package->package_name); ?></h5>
-                                <p class="card-text"><span class="lesson-label">Lessons:</span> <?php echo h($package->number_of_lessons); ?></p>
-                                <p class="card-text"><span class="duration-label">Duration:</span> <?php echo h($package->lesson_duration_minutes); ?> minutes</p>
-                                <p class="card-text"><span class="price-label">Price:</span> $<?php echo h($package->cost_dollars); ?></p>
-                                <p class="card-text"><?php echo h($package->description); ?></p>
+                <?php foreach ($packages as $index => $package): ?>
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div class="chef-member">
+                            <div class="member-img">
+                                <img style="height: 416px; width: 416px"
+                                     src="<?php echo Router::url("/", true) ?>img/service-<?php echo ($index % 3) + 1 ?>.jpeg"
+                                     class="img-fluid"
+                                     alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4><?php echo h($package->package_name); ?></h4>
+                                <span>Lessons: <?php echo h($package->number_of_lessons); ?></span>
+                                <span>Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes </span>
+                                <span>Cost: $<?php echo h($package->cost_dollars); ?></span>
+                                <p><?php echo h($package->description); ?></p>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
+
         </div>
+
     </div>
-</section><!-- End Hero Section -->
+</section>
 
 <script>
-  AOS.init();
+    AOS.init();
 </script>

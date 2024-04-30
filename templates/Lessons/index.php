@@ -17,9 +17,6 @@
         <div class="badge text-bg-warning">
             Unpaid Lesson
         </div>
-        <div class="badge text-bg-secondary">
-            Blocked 
-        </div>
     </div>
     <div class = 'mt-3'>
     <?= $this->Html->link(__('Add new temporary blockers'), 
@@ -46,6 +43,7 @@
         slotMaxTime: '24:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
         height: 'auto',
+        slotDuration: '00:15:00',
         events: [
             <?php foreach ($lessons as $lesson): ?>
                 {

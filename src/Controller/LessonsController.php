@@ -122,7 +122,7 @@ class LessonsController extends AppController
             foreach ($lessons as $line) {
                 $package = $this->Packages->get($line->booking->package_id);
                 $student_user = $this->Students->get($line->booking->student_id);
-                $student = $this->Users->get($student_user->student_id);
+                $student = $this->Users->get($student_user->user_id);
                 //debug($student);
                 //debug($student_user);
                 $line->student_full_name = $student->first_name." ".$student->last_name;
@@ -190,7 +190,7 @@ class LessonsController extends AppController
             foreach ($lessons as $line) {
                 $package = $this->Packages->get($line->booking->package_id);
                 $student_user = $this->Students->get($line->booking->student_id);
-                $student = $this->Users->get($student_user->student_id);
+                $student = $this->Users->get($student_user->user_id);
                 //debug($student);
                 //debug($student_user);
                 $line->student_full_name = $student->first_name." ".$student->last_name;
@@ -240,7 +240,7 @@ class LessonsController extends AppController
             $query = $this->Lessons->find('all', [
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
-                    'teacher_id' => $user->teachers[0]->teacher_id,
+                    'teacher_id' => '0',
                     'Bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],
@@ -250,7 +250,7 @@ class LessonsController extends AppController
             foreach ($lessons as $lesson) {
                 $package = $this->Packages->get($lesson->booking->package_id);
                 $student_user = $this->Students->get($lesson->booking->student_id);
-                $student = $this->Users->get($student_user->student_id);
+                $student = $this->Users->get($student_user->user_id);
                 //debug($student);
                 //debug($student_user);
                 $lesson->student_name = $student->first_name;
@@ -304,7 +304,7 @@ class LessonsController extends AppController
             foreach ($lessons as $lesson) {
                 $package = $this->Packages->get($lesson->booking->package_id);
                 $student_user = $this->Students->get($lesson->booking->student_id);
-                $student = $this->Users->get($student_user->student_id);
+                $student = $this->Users->get($student_user->user_id);
                 //debug($student);
                 //debug($student_user);
                 $lesson->student_name = $student->first_name;

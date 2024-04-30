@@ -30,6 +30,7 @@ $this->loadHelper('Form', [
             <div id='calendar-wrap' class= 'mb-3'>
                 <div id='calendar'></div>
             </div>
+            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
             <?= $this->Form->create($lesson) ?>
             <fieldset>
                 <table class = "table">
@@ -111,7 +112,7 @@ $this->loadHelper('Form', [
                 },
                 <?php foreach ($lessons as $line): ?>
                     {
-                    title: 'Lesson with <?= $line->student_name ?>',
+                    title: 'Violin Lesson',
                     start: '<?= $line->lesson_start_time->format('Y-m-d H:i:s') ?>',
                     end: '<?= $line->lesson_end_time->format('Y-m-d H:i:s') ?>',
                     url: '<?= $this->Url->build(['controller'=>'lessons', 

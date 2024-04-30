@@ -65,7 +65,7 @@ class PagesController extends AppController
             $user = $this->Users->get($user->user_id);
             $this->set('role_id', $user->role_id);
         }
-        
+
         // Get Packages Table
         $this->Packages = $this->fetchTable('Packages');
         // Get Testimonials Table
@@ -102,9 +102,10 @@ class PagesController extends AppController
         }
 
         // Load Packages
-        $this->packages = $this->fetchTable('packages');
-        $query = $this->Packages->find();
-        $packages = $this->paginate($query);
+        $this->Packages = $this->fetchTable('Packages');
+        $packages_query = $this->Packages->find();
+        $packages = $this->paginate($packages_query);
+//        dd($packages);
         // Load Testimonials
         $this->testimonials = $this->fetchTable('Testimonials');
         $query = $this->testimonials->find();

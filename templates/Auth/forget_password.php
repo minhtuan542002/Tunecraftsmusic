@@ -66,7 +66,7 @@ $this->assign('title', 'Forget Password');
                                 'type' => 'text',
                                 'required' => true,
                                 'autofocus' => true,
-                                'value' => $debug ? "test@example.com" : "",
+                                'value' => $debug ? "" : "",
                                 'class' => 'form-control',
                             ]);
                             ?>

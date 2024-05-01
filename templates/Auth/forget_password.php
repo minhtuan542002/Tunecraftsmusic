@@ -45,7 +45,7 @@ $this->assign('title', 'Forget Password');
                     <div class="login-wrap p-4 p-md-5">
                         <div class="d-flex">
                             <div class="w-100">
-                                <h3 class="mb-4">Forgot Password</h3>
+                                <h4 class="mb-4">Forgot Password</h4>
                             </div>
 
                             <div class="w-100">
@@ -63,7 +63,7 @@ $this->assign('title', 'Forget Password');
 
                         <div class="form-group mb-3">
                             <?php echo $this->Form->control('email', [
-                                'type' => 'text',
+                                'type' => 'email',
                                 'required' => true,
                                 'autofocus' => true,
                                 'value' => $debug ? "" : "",

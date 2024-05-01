@@ -10,7 +10,10 @@
 
 <div class="card shadow mt-4">
     <div class="card-header py-3">
-        <h2 class="m-0 font-weight-bold text-primary">Manage <em>Testimonials</em></h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="m-0 font-weight-bold text-primary">Manage <em>Testimonials</em></h2>
+            <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Testimonial', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-warning']) ?>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">

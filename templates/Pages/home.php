@@ -31,7 +31,7 @@ $this->assign('title', 'Home');
                 </p>
                 <a class="btn-book-a-table"
                    href="<?= $this->Url->build(['controller' => 'bookings', 'action' => 'add']) ?>">
-                   Book an Appointment
+                    Book an Appointment
                 </a>
 
             </div>
@@ -58,15 +58,15 @@ $this->assign('title', 'Home');
 
             <div class="row gy-4">
 
-            <div class="col-md-4">
-                <?= $this->ContentBlock->image('about-learn-more-image', [
-                    'alt' => 'CakePHP',
-                    'class' => 'img-fluid',
-                    'data-aos' => 'zoom-out',
-                    'data-aos-delay' => '300',
-                    'style' => 'height: 500px; width: 500px; object-fit: contain; margin: 0px',
-                ]); ?>
-            </div>
+                <div class="col-md-4">
+                    <?= $this->ContentBlock->image('about-learn-more-image', [
+                        'alt' => 'CakePHP',
+                        'class' => 'img-fluid',
+                        'data-aos' => 'zoom-out',
+                        'data-aos-delay' => '300',
+                        'style' => 'height: 500px; width: 500px; object-fit: contain; margin: 0px',
+                    ]); ?>
+                </div>
 
 
                 <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300"
@@ -86,26 +86,34 @@ $this->assign('title', 'Home');
                             <div class=" m-auto d-flex flex-column justify-content-center">
                                 <div>
                                     <h4 class="d-flex align-items-center">
-                                        <span class="icon me-2">🎵</span>
+                                        <img
+                                            src="<?php echo Router::url("/", true) ?>img/icons/suzuki_icon.jpg"
+                                            class="me-2" alt="Music Icon" style="height: 40px">
                                         Suzuki Method
                                     </h4>
                                 </div>
                                 <hr>
                                 <div>
                                     <h4 class="d-flex align-items-center">
-                                        <span class="icon me-2">🏅</span>
+                                        <img
+                                            src="<?php echo Router::url("/", true) ?>img/icons/violin_icon.jpg"
+                                            class="me-2" alt="Medal Icon"
+                                            style="height: 40px">
                                         AMEB Syllabus
                                     </h4>
                                 </div>
                                 <hr>
                                 <div>
                                     <h4 class="d-flex align-items-center">
-                                        <span class="icon me-2">🎵</span>
+                                        <img
+                                            src="<?php echo Router::url("/", true) ?>img/icons/ameb.jpg"
+                                            class="me-2" alt="Music Icon" style="height: 40px">
                                         AMEB Theory
                                     </h4>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -181,28 +189,27 @@ $this->assign('title', 'Home');
                 <p>Check <span><?= $this->ContentBlock->text('about-heading-4'); ?></span></p>
             </div>
 
-            <div class="gallery-slider swiper">
-                <div class="swiper-wrapper align-items-center">
-                    <?php
-                    $dirPath = "img" . DS . "studio";
-                    $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dirPath));
-                    if (empty($images)) {
-                        echo    "<div class='col-md-12 text-center' data-aos='fade-up'>
-                                <p> No Images Found.</p>
-                                </div>";
-                    }
-                    else {
-                        foreach ($images as $img) {
-                            $imgPath = $dirPath . DS .$img;
-                            if (is_file($imgPath)) {
-                                echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$imgPath\"><img src=\"$imgPath\" class='img-fluid' alt='''></a></div>";
-                            }
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>    
+            <!--            <div class="gallery-slider swiper">-->
+            <!--                <div class="swiper-wrapper align-items-center">-->
+            <!--                    --><?php
+            //                    $dirPath = "img" . DS . "studio";
+            //                    $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dirPath));
+            //                    if (empty($images)) {
+            //                        echo "<div class='col-md-12 text-center' data-aos='fade-up'>
+            //                                <p> No Images Found.</p>
+            //                                </div>";
+            //                    } else {
+            //                        foreach ($images as $img) {
+            //                            $imgPath = $dirPath . DS . $img;
+            //                            if (is_file($imgPath)) {
+            //                                echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$imgPath\"><img src=\"$imgPath\" class='img-fluid' alt='''></a></div>";
+            //                            }
+            //                        }
+            //                    }
+            //                    ?>
+            <!--                </div>-->
+            <!--                <div class="swiper-pagination"></div>-->
+            <!--            </div>-->
+        </div>
     </section>
 </main>

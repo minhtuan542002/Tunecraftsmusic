@@ -167,3 +167,16 @@ $this->loadHelper('Form', [
         calendar.render();
     });
 </script>
+<style>
+    @media (max-width: 768px) {
+
+        .fc-col-header-cell-cushion {
+            font-size: 0.8em;
+        }
+
+        .fc .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+</style>

@@ -211,6 +211,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           </div>
         </div>
 
+        <!--
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Follow Us</h4>
           <div class="social-links d-flex">
@@ -220,6 +221,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
             <a href="<?= $this->Url->build('/comingsoon') ?>" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
+        -->
 
       </div>
     </div>

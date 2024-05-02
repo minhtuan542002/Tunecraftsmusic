@@ -435,26 +435,26 @@ class BookingsController extends AppController
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
             
             if ($this->Bookings->save($booking)) {
-                // $count =0;
-                // $start_date=$booking->booking_datetime;
-                // $lessons = $this->Lessons->find('all', [
-                //     'conditions'=> [
-                //         'booking_id' => $booking->booking_id,
-                //     ],
-                // ]);
-                // foreach($lessons as $new_lesson) {
-                //     $date= FrozenTime::now()->modify("+6 day");
-                //     if($new_lesson->lesson_start_time >= $date){
-                //         $lesson = $this->Lessons->get($new_lesson->lesson_id);
-                //         $lesson->lesson_start_time = $start_date->modify("+". $count*7 ." day");
-                //         if(!$this->Lessons->save($lesson)){
-                //             $this->Flash->error(__('The booking could not be saved. Please, try again.'));
-                //         }
-                //         $count++;
+                $count =0;
+                $start_date=$booking->booking_datetime;
+                $lessons = $this->Lessons->find('all', [
+                    'conditions'=> [
+                        'booking_id' => $booking->booking_id,
+                    ],
+                ]);
+                foreach($lessons as $new_lesson) {
+                    $date= FrozenTime::now()->modify("+6 day");
+                    if($new_lesson->lesson_start_time >= $date){
+                        $lesson = $this->Lessons->get($new_lesson->lesson_id);
+                        $lesson->lesson_start_time = $start_date->modify("+". $count*7 ." day");
+                        if(!$this->Lessons->save($lesson)){
+                            $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                        }
+                        $count++;
                         
-                //     }
-                //     //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
-                // }
+                    }
+                    //$this->Flash->error(__('The booking could not be saved. Please, try again.'));
+                }
                 
                 $this->Flash->success(__('The booking has been saved.'));
                 return $this->redirect(['action' => 'view_one', $booking->booking_id]);

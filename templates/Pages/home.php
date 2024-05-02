@@ -187,29 +187,27 @@ $this->assign('title', 'Home');
 
             <div class="section-header">
                 <p>Check <span><?= $this->ContentBlock->text('about-heading-4'); ?></span></p>
+            </div>                
+                <div class="gallery-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <?php
+                            $dirPath = "img" . DS . "studio";
+                            $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dirPath));
+                            if (empty($images)) {
+                                echo "<div class='col-md-12 text-center' data-aos='fade-up'><p> No Images Found.</p></div>";
+                            } 
+                            else {
+                                foreach ($images as $img) {
+                                    $imgPath = $dirPath . DS . $img;
+                                    if (is_file($imgPath)) {
+                                        echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$imgPath\"><img src=\"$imgPath\" class='img-fluid' alt='''></a></div>";
+                                    }
+                                }
+                            }
+                        ?>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-
-            <!--            <div class="gallery-slider swiper">-->
-            <!--                <div class="swiper-wrapper align-items-center">-->
-            <!--                    --><?php
-            //                    $dirPath = "img" . DS . "studio";
-            //                    $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dirPath));
-            //                    if (empty($images)) {
-            //                        echo "<div class='col-md-12 text-center' data-aos='fade-up'>
-            //                                <p> No Images Found.</p>
-            //                                </div>";
-            //                    } else {
-            //                        foreach ($images as $img) {
-            //                            $imgPath = $dirPath . DS . $img;
-            //                            if (is_file($imgPath)) {
-            //                                echo "<div class='swiper-slide'><a class='glightbox' data-gallery='images-gallery' href=\"$imgPath\"><img src=\"$imgPath\" class='img-fluid' alt='''></a></div>";
-            //                            }
-            //                        }
-            //                    }
-            //                    ?>
-            <!--                </div>-->
-            <!--                <div class="swiper-pagination"></div>-->
-            <!--            </div>-->
         </div>
     </section>
 </main>

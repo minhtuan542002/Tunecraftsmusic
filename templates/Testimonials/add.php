@@ -11,10 +11,9 @@ $this->loadHelper('Form', [
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
 <div class="mt-3">
-    <h3><?= __('Edit Testimonial') ?></h3>
+    <h3><?= __('Add Testimonial') ?></h3>
     <div class="testimonial-details">
         <?= $this->Form->create($testimonial) ?>
-        <h4><?= __('Testimonial ID: {0}', $testimonial->testimonial_id) ?></h4>
         <fieldset>
             <div class="mb-3">
                 <?= $this->Form->control('student_name') ?>

@@ -65,14 +65,25 @@
                                     <th><?= __('Lesson Schedule') ?></th>
                                     <th><?= __('Is completed') ?></th>
                                     <th><?= __("Teacher's Note") ?></th>
+                                    <th><?= __("") ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($lessons as $lesson) : ?>
                                 <tr>
-                                    <td><?= h($lesson->lesson_start_time) ?></td>
+                                    <td><?= h($lesson->lesson_start_time->format('d/m/Y  H:i')) ?></td>
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
+                                    <td class="actions">
+                                        <?php if ($lesson->lesson_start_time  >= date('Y-m-d H:i:s', strtotime("+7 days"))): ?> 
+                                        <div class="">
+                                            <?= $this->Html->link('Reschedule', 
+                                                ['controller'=> 'lessons', 'action' => 'edit', $lesson->lesson_id], 
+                                                ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-warning']) ?>
+                                            
+                                        </div>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -95,7 +106,7 @@
             "searching": true,
             "columnDefs": [
                 {
-                    "targets": [2],
+                    "targets": [3],
                     "orderable": false
                 }
             ],

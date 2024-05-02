@@ -57,9 +57,11 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/services', ['controller' => 'Pages', 'action' => 'display', 'services']);
-        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+//        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
+        $builder->connect('/learning-resources', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
+//        $builder->connect('/contentblock', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -100,6 +102,11 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
         $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
         $builder->connect('/lessons', ['controller' => 'Lessons', 'action' => 'index']);
+        $builder->connect('/resources', ['controller' => 'Resources', 'action' => 'index']);
+        $builder->connect('/resources/add', ['controller' => 'Resources', 'action' => 'add']);
+        $builder->connect('/resources/edit/*', ['controller' => 'Resources', 'action' => 'edit']);
+        $builder->connect('/resources/view/*', ['controller' => 'Resources', 'action' => 'view']);
+        $builder->redirect('/', ['controller' => 'Lessons', 'action' => 'index']);
     });
 
     /*

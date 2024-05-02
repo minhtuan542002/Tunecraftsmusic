@@ -12,7 +12,8 @@ use Cake\Utility\Security;
  *
  * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
  */
-class AuthController extends AppController {
+class AuthController extends AppController
+{
 
     /**
      * @var \App\Model\Table\UsersTable $Users
@@ -24,13 +25,14 @@ class AuthController extends AppController {
      *
      * @return void
      */
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('default');
 
         // By default, CakePHP will (sensibly) default to preventing users from accessing any actions on a controller.
         // These actions, however, are typically required for users who have not yet logged in.
-        $this->Authentication->allowUnauthenticated(['login', 'register', 'forgetPassword', 'resetPassword']);
+        $this->Authentication->allowUnauthenticated(['resetPassword', 'login', 'register', 'forgetPassword']);
 
         // CakePHP loads the model with the same name as the controller by default.
         // Since we don't have an Auth model, we'll need to load "Users" model when starting the controller manually.
@@ -43,17 +45,18 @@ class AuthController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function register() {
-        $user = $this->Users->newEmptyEntity( ['associated' => ['Students']]);
+    public function register()
+    {
+        $user = $this->Users->newEmptyEntity(['associated' => ['Students']]);
         $student = $this->Students->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData(), ['associated' => ['Students']]);
             // set default role on register to student (role_id = 1)
-            $user->role_id= 1;
+            $user->role_id = 1;
             //debug($user);
-            
+
             if ($this->Users->save($user, ['associated' => ['Students']])) {
-                $student->user_id= $user->user_id;
+                $student->user_id = $user->user_id;
                 $this->Students->save($student);
                 $this->Flash->success('You have been registered. Please log in. ');
 
@@ -69,7 +72,8 @@ class AuthController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful email send, renders view otherwise.
      */
-    public function forgetPassword() {
+    public function forgetPassword()
+    {
         if ($this->request->is('post')) {
             // Retrieve the user entity by provided email address
             $user = $this->Users->findByEmail($this->request->getData('email'))->first();
@@ -132,7 +136,8 @@ class AuthController extends AppController {
      * @param string|null $nonce Reset password nonce
      * @return \Cake\Http\Response|null|void Redirects on successful password reset, renders view otherwise.
      */
-    public function resetPassword($nonce = null) {
+    public function resetPassword($nonce = null)
+    {
         $user = $this->Users->findByNonce($nonce)->first();
 
         // If nonce cannot find the user, or nonce is expired, prompt for re-reset password
@@ -143,15 +148,15 @@ class AuthController extends AppController {
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             // Used a different validation set in Model/Table file to ensure both fields are filled
-            $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'resetPassword']);
-
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+//            dd($this->request->getData());
             // Also clear the nonce-related fields on successful password resets.
             // This ensures that the reset link can't be used a second time.
             $user->nonce = null;
             $user->nonce_expiry = null;
 
             if ($this->Users->save($user)) {
-                $this->Flash->success('Your password has been successfully reset. Please login with new password. ');
+//                $this->Flash->success('Your password has been successfully reset. Please login with new password. ');
                 return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error('The password cannot be reset. Please try again.');
@@ -167,7 +172,8 @@ class AuthController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function changePassword($id = null) {
+    public function changePassword($id = null)
+    {
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -189,15 +195,16 @@ class AuthController extends AppController {
      *
      * @return \Cake\Http\Response|void|null Redirect to location before authentication
      */
-    public function login() {
+    public function login()
+    {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
 
         // if user passes authentication, grant access to the system
         if ($result && $result->isValid()) {
             // set a fallback location in case user logged in without triggering 'unauthenticatedRedirect'
-            $fallbackLocation = ['controller' => 'Users', 'action' => 'index'];
-            if($this->request->getSession()->read('booking.in_progress')=='true'){
+            $fallbackLocation = ['controller' => 'Lessons', 'action' => 'index'];
+            if ($this->request->getSession()->read('booking.in_progress') == 'true') {
                 $fallbackLocation = ['controller' => 'Bookings', 'action' => 'add'];
             }
 
@@ -216,7 +223,8 @@ class AuthController extends AppController {
      *
      * @return \Cake\Http\Response|void|null
      */
-    public function logout() {
+    public function logout()
+    {
         // We only need to log out a user when they're logged in
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {

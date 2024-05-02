@@ -49,6 +49,7 @@ class BlockersController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => $user->teachers[0]->teacher_id,
+                    'Bookings.student_id IS NOT NULL',
                 ],
                 'contain' => ['Bookings'],
             ]);
@@ -57,7 +58,7 @@ class BlockersController extends AppController
             foreach ($lessons as $line) {
                 $package = $this->Packages->get($line->booking->package_id);
                 $student_user = $this->Students->get($line->booking->student_id);
-                $student = $this->Users->get($student_user->student_id);
+                $student = $this->Users->get($student_user->user_id);
                 //debug($student);
                 //debug($student_user);
                 $line->student_full_name = $student->first_name." ".$student->last_name;
@@ -73,8 +74,8 @@ class BlockersController extends AppController
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => $user->teachers[0]->teacher_id,
+                'recurring' => false,
             ],
-            'recurring' => false,
         ]);
         $blockers = $this->paginate($query);
         $this->set('blockers', $blockers);
@@ -136,7 +137,7 @@ class BlockersController extends AppController
             }
             $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
         }
-        $this->set(compact('blocker', 'teachers', 'lessons'));
+        $this->set(compact('blocker', 'teachers'));
     }
 
     /**

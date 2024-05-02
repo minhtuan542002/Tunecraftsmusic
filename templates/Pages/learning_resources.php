@@ -23,40 +23,58 @@ $this->assign('title', 'Learning Resources')
             <div class="col-lg-12 text-center text-lg-start">
                 <h2 data-aos="fade-up" style="margin-bottom: 50px">Learning Resources</h2>
             </div>
-            <?php for ($i = 1; $i <= 3; $i++): ?>
+            <?php foreach ($resources as $index => $resource) : ?>
                 <div class="row pt-3">
-                    <div class="lesson">
-                        <div class="row">
-                            <?php if ($i % 2 == 1) { ?>
+                    <?php if ($index % 2 === 0) : ?>
+                        <div class="lesson">
+                            <div class="row">
                                 <div class="col-lg-6">
-                                    <iframe width="100%" height="315"
-                                            src="<?= $this->ContentBlock->text('learning-resource-' . $i); ?>"
-                                            frameborder="0"
-                                            allowfullscreen></iframe>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item"
+                                                width="100%" 
+                                                height="360"
+                                                src="<?= 'https://www.youtube.com/embed/' . getYoutubeVideoId($resource->resource); ?>"
+                                                allowfullscreen></iframe>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6" style="margin: auto">
-                                    <h2 data-aos="fade-up"><?= $this->ContentBlock->text('learning-heading-' . $i); ?></h2>
+                                <div class="col-lg-6">
+                                    <h2 data-aos="fade-up"><?= h($resource->heading); ?></h2>
                                     <p data-aos="fade-up"
-                                       data-aos-delay="100"><?= $this->ContentBlock->text('learning-description-' . $i); ?></p>
+                                    data-aos-delay="100"><?= h($resource->description); ?></p>
                                 </div>
-                            <?php } else { ?>
-
-                                <div class="col-lg-6" style="margin: auto">
-                                    <h2 data-aos="fade-up"><?= $this->ContentBlock->text('learning-heading-' . $i); ?></h2>
-                                    <p data-aos="fade-up"
-                                       data-aos-delay="100"><?= $this->ContentBlock->text('learning-description-' . $i); ?></p>
-                                </div>
-                                <div class="col-lg-6" >
-                                    <iframe width="100%" height="315"
-                                            src="<?= $this->ContentBlock->text('learning-resource-' . $i); ?>"
-                                            frameborder="0"
-                                            allowfullscreen></iframe>
-                                </div>
-                            <?php } ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <div class="lesson">
+                            <div class="row">
+                                <div class="col-lg-6 order-lg-last">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item"
+                                                width="100%" 
+                                                height="360"
+                                                src="<?= 'https://www.youtube.com/embed/' . getYoutubeVideoId($resource->resource); ?>"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 order-lg-first">
+                                    <h2 data-aos="fade-up"><?= h($resource->heading); ?></h2>
+                                    <p data-aos="fade-up"
+                                    data-aos-delay="100"><?= h($resource->description); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
+
+            <?php
+            // Function to extract YouTube video ID from shortened URL
+            function getYoutubeVideoId($url) {
+                $urlParts = explode('/', $url);
+                $videoId = end($urlParts);
+                return $videoId;
+            }
+            ?>
         </div>
     </div>
 </section><!-- End Hero Section -->

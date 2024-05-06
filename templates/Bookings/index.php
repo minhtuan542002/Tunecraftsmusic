@@ -75,17 +75,9 @@ $this->layout = 'dashboard';
             "columnDefs": [
                 {
                 "targets": [3],
-                "type": "date",
-                "render": function (data, type, row) {
-                    // Format is 'd/m/Y H:i' (as specifid) above)
-                    var parts = data.split(' ');
-                    var dateParts = parts[0].split('/');
-                    var timeParts = parts[1].split(':');
-                    // Format as 'YYYY-MM-DD HH:ii:ss' for proper sorting
-                    return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' ' + timeParts[0] + ':' + timeParts[1] + ':00';
-                },
+                "type": "date", // Specify data type to sort dates properly
                 "orderable": true
-            },
+                },
                 { "targets": 7, 
                     "sortable": false, 
                     "searchable": false } // Disable sorting and searching for the Actions column (0-based index)

@@ -5,6 +5,7 @@
 /logs/*
 /tmp/*
 /vendor/*
+/webroot/img/Studio/*
 !/vendor/ugie-cake
 
 # OS generated files #

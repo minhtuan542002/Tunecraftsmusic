@@ -129,7 +129,7 @@ $this->layout = 'dashboard';
                         return new Date(data).toLocaleDateString('en-AU') + ' ' + 
                             new Date(data).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     },
-                    "targets": 3 // Apply to the second column (Date)
+                    "targets": 0 // Apply to the second column (Date)
                 }
             ],
             "language": {

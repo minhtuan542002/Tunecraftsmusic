@@ -77,7 +77,8 @@ $this->layout = 'dashboard';
                 {
                     "render": function ( data, type, row ) {
                         // Format date as desired (e.g., DD/MM/YYYY)
-                        return new Date(data).toLocaleDateString('en-AU') + ' ' + new Date(data).toLocaleTimeString('en-AU');
+                        return new Date(data).toLocaleDateString('en-AU') + ' ' + 
+                            new Date(data).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     },
                     "targets": 3 // Apply to the second column (Date)
                 }

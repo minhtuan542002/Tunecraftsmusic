@@ -64,11 +64,6 @@
             "searching": true,
             "columnDefs": [
                 {
-                "targets": [3],
-                "type": "date", // Specify data type to sort dates properly
-                "orderable": true
-                },
-                {
                     "targets": [6],
                     "orderable": false
                 }

@@ -21,7 +21,6 @@
                 <thead>
                     <tr>
                         <th>Heading</th>
-                        <th>Description</th>
                         <th>Resource</th>
                         <th>ID</th>
                         <th><?= __('Actions') ?></th>
@@ -31,7 +30,6 @@
                     <?php foreach ($resources as $resource): ?>
                         <tr>
                             <td><?= h($resource->heading) ?></td>
-                            <td><?= h($resource->description) ?></td>
                             <td><?= h($resource->resource) ?></td>
                             <td><?= h($resource->resource_id) ?></td>
                             <td class="d-flex gap-2">
@@ -63,7 +61,7 @@
                 "searchPlaceholder": "Search...",
             },
             "columnDefs": [
-                { "targets": 4, "sortable": false, "searchable": false }
+                { "targets": 3, "sortable": false, "searchable": false }
             ],
             "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
                    '<"table-responsive"t>' +

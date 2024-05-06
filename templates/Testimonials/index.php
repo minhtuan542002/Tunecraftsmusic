@@ -12,7 +12,7 @@
     <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="m-0 font-weight-bold text-primary">Manage <em>Testimonials</em></h2>
-            <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Testimonial', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-warning']) ?>
+            <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Testimonial', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-success']) ?>
         </div>
     </div>
     <div class="card-body">

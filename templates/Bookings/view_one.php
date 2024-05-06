@@ -59,11 +59,11 @@
                 <?php if (!($booking->remain_count == 0)) : ?>
                     <h4><?= __('Included Lessons') ?></h4>                
                     <div class="table-responsive">
-                        <table id="dataTable" class="table">
+                        <table id="dataTable" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th><?= __('Lesson Schedule') ?></th>
-                                    <th><?= __('Is completed') ?></th>
+                                    <th><?= __('Completed') ?></th>
                                     <th><?= __("Teacher's Note") ?></th>
                                     <th><?= __("") ?></th>
                                 </tr>
@@ -71,7 +71,9 @@
                             <tbody>
                                 <?php foreach ($lessons as $lesson) : ?>
                                 <tr>
-                                    <td><?= h($lesson->lesson_start_time) ?></td>
+                                    <td data-sort = "<?= h($lesson->lesson_start_time->format('Y-m-d H:i')) ?>">
+                                        <?= h($lesson->lesson_start_time->format('H:ia l, d M Y')) ?>
+                                    </td>
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
@@ -102,20 +104,13 @@
     $(document).ready(function() {
         $('#dataTable').DataTable({
             "paging": true,
+            "autoWidth": true,
             "ordering": true,
             "searching": true,
             "columnDefs": [
                 {
                     "targets": [3],
                     "orderable": false
-                },
-                {
-                    "render": function ( data, type, row ) {
-                        // Format date as desired (e.g., DD/MM/YYYY)
-                        return new Date(data).toLocaleDateString('en-AU') + ' ' + 
-                            new Date(data).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    },
-                    "targets": 0 // Apply to the second column (Date)
                 }
             ],
             "language": {

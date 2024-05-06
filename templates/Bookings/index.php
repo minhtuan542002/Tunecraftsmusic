@@ -19,10 +19,10 @@ $this->layout = 'dashboard';
                     <tr>
                         <th>Customer Name</th>
                         <th>Weekly Date & Time</th>
-                        <th>Remaining Lessons</th>
+                        <th>Lessons Left</th>
                         <th>Upcoming Lesson</th>
-                        <th>Each Lesson Duration</th>
-                        <th>Is Paid for</th>
+                        <th>Duration</th>
+                        <th>Paid</th>
                         <th>Booking ID</th>
                         <th><?= __('Actions') ?></th>
                     </tr>
@@ -33,9 +33,11 @@ $this->layout = 'dashboard';
                             <td><?= $booking->student->user->first_name . " " . $booking->student->user->last_name ?></td>
                             <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                             <td><?= $booking->remain_count ?></td>
-                            <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time : 'None' ?></td>
+                            <td  data-sort = "<?= h($booking->upcoming->lesson_start_time->format('Y-m-d H:i')) ?>">
+                                <?= $booking->upcoming != null ? h($booking->upcoming->lesson_start_time->format('H:ia l, d M Y')) : 'None' ?>
+                            </td>
                             <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
-                            <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
+                            <td><?= $this->Form->postLink(__($booking->is_paid? "Paid":"Unpaid" ), ['action' => 'togglePaid', $booking->booking_id], 
                                     ['class' => __('btn '. ($booking->is_paid?'btn-success':'btn-outline-success') .' btn-sm paid-button'),
                                         'confirm' => __('Are you sure you want confirm the payment status as '. ($booking->is_paid? "UNPAID":"PAID" ))]) ?></td>
                             <td><?= $booking->booking_id ?></td>

@@ -73,7 +73,14 @@ $this->layout = 'dashboard';
                 "searchPlaceholder": "Search...", // Placeholder text for search input
             },
             "columnDefs": [
-                { "targets": 7, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
+                {
+                "targets": [3],
+                "type": "date", // Specify data type to sort dates properly
+                "orderable": true
+                },
+                { "targets": 7, 
+                    "sortable": false, 
+                    "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
             ],
             "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
                    '<"table-responsive"t>' +

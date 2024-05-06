@@ -71,7 +71,7 @@
                             <tbody>
                                 <?php foreach ($lessons as $lesson) : ?>
                                 <tr>
-                                    <td><?= h($lesson->lesson_start_time->format('d/m/Y  H:i')) ?></td>
+                                    <td><?= h($lesson->lesson_start_time) ?></td>
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
@@ -108,6 +108,14 @@
                 {
                     "targets": [3],
                     "orderable": false
+                },
+                {
+                    "render": function ( data, type, row ) {
+                        // Format date as desired (e.g., DD/MM/YYYY)
+                        return new Date(data).toLocaleDateString('en-AU') + ' ' + 
+                            new Date(data).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    },
+                    "targets": 0 // Apply to the second column (Date)
                 }
             ],
             "language": {

@@ -33,7 +33,7 @@
                                 <td><?= $booking->booking_id ?></td>
                                 <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                                 <td><?= $booking->remain_count ?></td>
-                                <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
+                                <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time : 'None' ?></td>
                                 <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                                 <td><?= $booking->is_paid? "Yes":"No" ?></td>
                                 <td class="actions">
@@ -66,6 +66,14 @@
                 {
                     "targets": [6],
                     "orderable": false
+                },
+                {
+                    "render": function ( data, type, row ) {
+                        // Format date as desired (e.g., DD/MM/YYYY)
+                        return new Date(data).toLocaleDateString('en-AU') + ' ' + 
+                            new Date(data).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    },
+                    "targets": 3 // Apply to the second column (Date)
                 }
             ],
             "language": {

@@ -26,7 +26,7 @@ $this->loadHelper('Form', [
                     <?= $this->Form->label('rating', 'Rating', ['class' => 'col-sm-2 col-form-label']) ?>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <?= $this->Form->select('rating', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5], ['empty' => 'Choose Rating', 'class' => 'form-select']) ?>
+                            <?= $this->Form->select('rating', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5], ['empty' => 'Choose star rating out of 5', 'class' => 'form-select']) ?>
                             <div class="input-group-append"></div>
                         </div>
                     </div>

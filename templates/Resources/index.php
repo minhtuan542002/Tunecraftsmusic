@@ -32,7 +32,7 @@
                         <tr>
                             <td><?= h($resource->heading) ?></td>
                             <td><?= h($resource->description) ?></td>
-                            <td><?= h($resource->resource) ?></td>as
+                            <td><?= h($resource->resource) ?></td>
                             <td><?= h($resource->resource_id) ?></td>
                             <td class="d-flex gap-2">
                                 <?= $this->Html->link('<i class="fas fa-eye fa-fw" aria-hidden="true"></i> View', ['action' => 'view', $resource->id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary btn-sm']) ?>

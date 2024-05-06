@@ -33,7 +33,7 @@ $this->layout = 'dashboard';
                             <td><?= $booking->student->user->first_name . " " . $booking->student->user->last_name ?></td>
                             <td><?= $booking->booking_datetime->format('l H:i') ?></td>
                             <td><?= $booking->remain_count ?></td>
-                            <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time->format('d/m/Y  H:i') : 'None' ?></td>
+                            <td><?= $booking->upcoming != null ? $booking->upcoming->lesson_start_time : 'None' ?></td>
                             <td><?= $booking->package->lesson_duration_minutes . " mins" ?></td>
                             <td><?= $this->Form->postLink(__($booking->is_paid? "Yes":"No" ), ['action' => 'togglePaid', $booking->booking_id], 
                                     ['class' => __('btn '. ($booking->is_paid?'btn-success':'btn-outline-success') .' btn-sm paid-button'),
@@ -73,7 +73,14 @@ $this->layout = 'dashboard';
                 "searchPlaceholder": "Search...", // Placeholder text for search input
             },
             "columnDefs": [
-                { "targets": 7, "sortable": false, "searchable": false } // Disable sorting and searching for the Actions column (0-based index)
+                { "targets": 7, "sortable": false, "searchable": false }, // Disable sorting and searching for the Actions column (0-based index)
+                {
+                    "render": function ( data, type, row ) {
+                        // Format date as desired (e.g., DD/MM/YYYY)
+                        return new Date(data).toLocaleDateString('en-US');
+                    },
+                    "targets": 3 // Apply to the second column (Date)
+                }
             ],
             "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
                    '<"table-responsive"t>' +

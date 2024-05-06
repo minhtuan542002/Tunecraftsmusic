@@ -27,7 +27,7 @@ $this->assign('title', 'Services');
             <p>Our <span>Services</span></p>
         </div>
 
-        <div class="row gy-4">
+        <div class="row gy-4 mt-1">
             <?php if (empty($packages)): ?>
                 <div class="col-md-12 text-center" data-aos="fade-up">
                     <p>No Packages found.</p>

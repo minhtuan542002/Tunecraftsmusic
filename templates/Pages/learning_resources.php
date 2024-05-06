@@ -16,13 +16,17 @@
 $this->assign('title', 'Learning Resources')
 ?>
 
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
+<!-- ======= Learning Resources Section ======= -->
+<section id="chefs" class="chefs d-flex align-items-center section-bg">
     <div class="container">
-        <div class="row justify-content-between gy-5">
-            <div class="col-lg-12 text-center text-lg-start">
-                <h2 data-aos="fade-up" style="margin-bottom: 50px">Learning Resources</h2>
-            </div>
+
+        <div class="section-header">
+            <h2>Learning Resources</h2>
+            <p>Our <span>Learning Resources</span></p>
+        </div>
+
+        <div class="row justify-content-between gy-5 mt-1">
+
             <?php foreach ($resources as $index => $resource) : ?>
                 <div class="row pt-3">
                     <?php if ($index % 2 === 0) : ?>

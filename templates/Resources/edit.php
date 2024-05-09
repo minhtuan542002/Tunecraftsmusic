@@ -20,10 +20,10 @@ $this->loadHelper('Form', [
                 <?= $this->Form->control('heading') ?>
             </div>
             <div class="mb-3">
-                <?= $this->Form->control('description', ['rows' => '3', 'type' => 'textarea']) ?>
+                <?= $this->Form->control('resource', ['label' => 'Resource link']) ?>
             </div>
             <div class="mb-3">
-                <?= $this->Form->control('resource', ['label' => 'Resource']) ?>
+                <?= $this->Form->control('description', ['rows' => '3', 'type' => 'textarea']) ?>
             </div>
         </fieldset>
         <div class="d-flex gap-3 mt-3">

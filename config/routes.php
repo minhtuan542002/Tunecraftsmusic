@@ -101,7 +101,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
         $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
-        $builder->connect('/lessons', ['controller' => 'Lessons', 'action' => 'index']);
+        $builder->connect('/my-schedule', ['controller' => 'Lessons', 'action' => 'index']);
         $builder->connect('/resources', ['controller' => 'Resources', 'action' => 'index']);
         $builder->connect('/resources/add', ['controller' => 'Resources', 'action' => 'add']);
         $builder->connect('/resources/edit/*', ['controller' => 'Resources', 'action' => 'edit']);

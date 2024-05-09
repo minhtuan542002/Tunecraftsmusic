@@ -57,7 +57,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Views</div>
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/my-schedule') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
                             My Schedule
                         </a>     

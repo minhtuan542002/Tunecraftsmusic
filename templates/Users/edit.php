@@ -38,7 +38,7 @@ $this->loadHelper('Form', [
     <h3><?= __('Edit User') ?></h3>
     <div class="user-details">
         <?= $this->Form->create($user) ?>
-        <h4> $user->user_id ?> </h4>
+        <h4><?= __('User ID: {0}', $user->user_id) ?></h4>
         <fieldset>
             <?= $this->Form->control('first_name'), [
                 'required' => true,

@@ -28,6 +28,7 @@ $this->loadHelper('Form', [
     <h3><?= __('Edit Package') ?></h3>
     <div class="package-details">
         <?= $this->Form->create($package) ?>
+        <h4><?= __('Package ID: {0}', $package->package_id) ?></h4>
         <fieldset>
             <?= $this->Form->control('package_name', [
                 'required' => 'required',

@@ -23,7 +23,7 @@ $this->assign('title', 'Services');
     <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-            <h2>Services</h2>
+            <h2> </h2>
             <p>Our <span>Services</span></p>
         </div>
 

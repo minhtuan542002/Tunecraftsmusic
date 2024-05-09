@@ -21,7 +21,7 @@ $this->assign('title', 'Learning Resources')
     <div class="container">
 
         <div class="section-header">
-            <h2>Learning Resources</h2>
+            <h2> </h2>
             <p>Our <span>Learning Resources</span></p>
         </div>
 

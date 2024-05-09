@@ -93,7 +93,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
 
     <?php if ($loggedIn && $role_id == 3): ?>
 
-      <a href="<?= $this->Url->build('/dashboard/lessons') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="<?= $this->Url->build('/dashboard/my-schedule') ?>" class="logo d-flex align-items-center me-auto me-lg-0">
       <!-- Uncomment the line below if you also wish to use an image logo -->
       <!-- <img src="assets/img/logo.png" alt=""> -->
       <h1>Admin Dashboard<span>.</span></h1>
@@ -111,11 +111,11 @@ $cakeDescription = $this->ContentBlock->text('website-title');
         <ul>
 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
-        <li><a <?= ($this->getRequest()->getRequestTarget() === '/services') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/services') ?>">Services</a></li>
+        <li><a <?= ($this->getRequest()->getRequestTarget() === '/packages') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/packages') ?>">Packages</a></li>
         <li>
           <?php if ($loggedIn): ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
-            <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
+            <a <?= ($this->getRequest()->getRequestTarget() === '/bookings/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
+            <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
           <?php else: ?>
             <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
           <?php endif; ?>
@@ -211,6 +211,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           </div>
         </div>
 
+        <!--
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Follow Us</h4>
           <div class="social-links d-flex">
@@ -220,6 +221,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
             <a href="<?= $this->Url->build('/comingsoon') ?>" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
+        -->
 
       </div>
     </div>

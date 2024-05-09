@@ -14,16 +14,16 @@ $this->loadHelper('Form', [
     <h3><?= __('Edit Learning Resource') ?></h3>
     <div class="resource-details">
         <?= $this->Form->create($resource) ?>
-        <h4><?= __('Resource ID: {0}', $resource->id) ?></h4>
+        <h4><?= __('Resource ID: {0}', $resource->resource_id) ?></h4>
         <fieldset>
             <div class="mb-3">
                 <?= $this->Form->control('heading') ?>
             </div>
             <div class="mb-3">
-                <?= $this->Form->control('description', ['rows' => '3', 'type' => 'textarea']) ?>
+                <?= $this->Form->control('resource', ['label' => 'Resource link']) ?>
             </div>
             <div class="mb-3">
-                <?= $this->Form->control('resource', ['label' => 'Resource']) ?>
+                <?= $this->Form->control('description', ['rows' => '3', 'type' => 'textarea']) ?>
             </div>
         </fieldset>
         <div class="d-flex gap-3 mt-3">

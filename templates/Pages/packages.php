@@ -15,7 +15,7 @@
 
 use Cake\Routing\Router;
 
-$this->assign('title', 'Services');
+$this->assign('title', 'Packages');
 ?>
 
 <!-- ======= Packages Section ======= -->
@@ -23,11 +23,11 @@ $this->assign('title', 'Services');
     <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-            <h2>Services</h2>
-            <p>Our <span>Services</span></p>
+            <h2> </h2>
+            <p>Our <span>Packages</span></p>
         </div>
 
-        <div class="row gy-4">
+        <div class="row gy-4 mt-1">
             <?php if (empty($packages)): ?>
                 <div class="col-md-12 text-center" data-aos="fade-up">
                     <p>No Packages found.</p>

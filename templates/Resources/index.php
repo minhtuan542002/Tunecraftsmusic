@@ -12,7 +12,7 @@
     <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="m-0 font-weight-bold text-primary">Manage <em>Learning Resources</em></h2>
-            <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Resource', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-warning']) ?>
+            <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> Add Resource', ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-success']) ?>
         </div>
     </div>
     <div class="card-body">
@@ -21,7 +21,6 @@
                 <thead>
                     <tr>
                         <th>Heading</th>
-                        <th>Description</th>
                         <th>Resource</th>
                         <th>ID</th>
                         <th><?= __('Actions') ?></th>
@@ -31,13 +30,12 @@
                     <?php foreach ($resources as $resource): ?>
                         <tr>
                             <td><?= h($resource->heading) ?></td>
-                            <td><?= h($resource->description) ?></td>
-                            <td><?= h($resource->resource) ?></td>as
+                            <td><?= h($resource->resource) ?></td>
                             <td><?= h($resource->resource_id) ?></td>
                             <td class="d-flex gap-2">
-                                <?= $this->Html->link('<i class="fas fa-eye fa-fw" aria-hidden="true"></i> View', ['action' => 'view', $resource->id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary btn-sm']) ?>
-                                <?= $this->Html->link('<i class="fas fa-edit fa-fw" aria-hidden="true"></i> Edit', ['action' => 'edit', $resource->id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-success btn-sm']) ?>
-                                <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $resource->id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $resource->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                <?= $this->Html->link('<i class="fas fa-eye fa-fw" aria-hidden="true"></i> View', ['action' => 'view', $resource->resource_id], ['escape' => false, 'title' => __('View'), 'class' => 'btn btn-primary btn-sm']) ?>
+                                <?= $this->Html->link('<i class="fas fa-edit fa-fw" aria-hidden="true"></i> Edit', ['action' => 'edit', $resource->resource_id], ['escape' => false, 'title' => __('Edit'), 'class' => 'btn btn-success btn-sm']) ?>
+                                <?= $this->Form->postLink('<i class="fas fa-trash fa-fw"></i> Delete', ['action' => 'delete', $resource->resource_id], ['escape' => false, 'title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', $resource->resource_id), 'class' => 'btn btn-danger btn-sm']) ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -63,7 +61,7 @@
                 "searchPlaceholder": "Search...",
             },
             "columnDefs": [
-                { "targets": 4, "sortable": false, "searchable": false }
+                { "targets": 3, "sortable": false, "searchable": false }
             ],
             "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>' +
                    '<"table-responsive"t>' +

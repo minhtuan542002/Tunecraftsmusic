@@ -56,12 +56,10 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-        $builder->connect('/services', ['controller' => 'Pages', 'action' => 'display', 'services']);
-//        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
+        $builder->connect('/packages', ['controller' => 'Pages', 'action' => 'display', 'packages']);
         $builder->connect('/learning-resources', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
-//        $builder->connect('/contentblock', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -101,7 +99,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
         $builder->connect('/users/view/*', ['controller' => 'Users', 'action' => 'view']);
-        $builder->connect('/lessons', ['controller' => 'Lessons', 'action' => 'index']);
+        $builder->connect('/my-schedule', ['controller' => 'Lessons', 'action' => 'index']);
         $builder->connect('/resources', ['controller' => 'Resources', 'action' => 'index']);
         $builder->connect('/resources/add', ['controller' => 'Resources', 'action' => 'add']);
         $builder->connect('/resources/edit/*', ['controller' => 'Resources', 'action' => 'edit']);

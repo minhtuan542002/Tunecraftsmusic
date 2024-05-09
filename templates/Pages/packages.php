@@ -24,7 +24,7 @@ $this->assign('title', 'Packages');
 
         <div class="section-header">
             <h2> </h2>
-            <p>Our <span>Services</span></p>
+            <p>Our <span>Packages</span></p>
         </div>
 
         <div class="row gy-4 mt-1">

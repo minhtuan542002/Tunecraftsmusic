@@ -15,7 +15,7 @@
 
 use Cake\Routing\Router;
 
-$this->assign('title', 'Services');
+$this->assign('title', 'Packages');
 ?>
 
 <!-- ======= Packages Section ======= -->

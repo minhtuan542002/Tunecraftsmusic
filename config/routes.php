@@ -56,12 +56,10 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-        $builder->connect('/services', ['controller' => 'Pages', 'action' => 'display', 'services']);
-//        $builder->connect('/gallery', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
+        $builder->connect('/packages', ['controller' => 'Pages', 'action' => 'display', 'packages']);
         $builder->connect('/learning-resources', ['controller' => 'Pages', 'action' => 'display', 'learning_resources']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
         $builder->connect('/comingsoon', ['controller' => 'Pages', 'action' => 'display', 'comingsoon']);
-//        $builder->connect('/contentblock', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.

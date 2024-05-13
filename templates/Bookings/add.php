@@ -183,7 +183,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                 </table>
                             <?php else : ?>
                                 <h3> Please Log in or Sign up to continue</h3>
-                                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary']); ?>
+                                <?= $this->Html->link('Log in', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary']); ?>
                                 <?= $this->Html->link('Sign up', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-primary']);  ?>
 
                                 <br>

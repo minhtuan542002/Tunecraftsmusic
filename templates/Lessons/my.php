@@ -7,7 +7,7 @@ $this->layout = 'default';
 ?>
 <div class="lessons index content mt-3">
     <div class="d-flex gap-5 mb-3">
-        <h3><?= __('My calendar') ?> </h3>
+        <h3><?= __('My Calendar') ?> </h3>
             
     </div>
     <div id='calendar'></div>
@@ -72,3 +72,16 @@ $this->layout = 'default';
     });
 
 </script>
+<style>
+    @media (max-width: 768px) {
+
+        .fc-col-header-cell-cushion {
+            font-size: 0.8em;
+        }
+
+        .fc .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+</style>

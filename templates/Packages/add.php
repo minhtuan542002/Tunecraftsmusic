@@ -42,7 +42,7 @@ $this->loadHelper('Form', [
                 'min' => '1',
                 ]) ?>
             <?= $this->Form->control('cost_dollars', [
-                'label' => 'Cost (AUD)',
+                'label' => 'Total Cost (AUD)',
                 'required' => 'required',
                 'min' => '0',
                 ]) ?>

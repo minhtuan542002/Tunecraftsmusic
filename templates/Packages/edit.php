@@ -28,6 +28,7 @@ $this->loadHelper('Form', [
     <h3><?= __('Edit Package') ?></h3>
     <div class="package-details">
         <?= $this->Form->create($package) ?>
+        <h4><?= __('Package ID: {0}', $package->package_id) ?></h4>
         <fieldset>
             <?= $this->Form->control('package_name', [
                 'required' => 'required',
@@ -42,7 +43,7 @@ $this->loadHelper('Form', [
                 'min' => '1',
                 ]) ?>
             <?= $this->Form->control('cost_dollars', [
-                'label' => 'Cost (AUD)',
+                'label' => 'Total Cost (AUD)',
                 'required' => 'required',
                 'min' => '0',
                 ]) ?>

@@ -79,7 +79,7 @@ $this->layout = 'dashboard';
                             <thead>
                                 <tr>
                                     <th><?= __('Lesson Schedule') ?></th>
-                                    <th><?= __('Is completed') ?></th>
+                                    <th><?= __('Completed') ?></th>
                                     <th><?= __("Teacher's Note") ?></th>
                                     <th><?= __("Actions") ?></th>
                                 </tr>
@@ -88,7 +88,9 @@ $this->layout = 'dashboard';
                             <tbody>
                                 <?php foreach ($lessons as $lesson) : ?>
                                 <tr>
-                                    <td><?= h($lesson->lesson_start_time->format('d/m/Y  H:i')) ?></td>
+                                    <td data-sort = "<?= h($lesson->lesson_start_time->format('Y-m-d H:i')) ?>">
+                                        <?= h($lesson->lesson_start_time->format('H:ia l, d M Y')) ?>
+                                    </td>
                                     <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">

@@ -11,10 +11,9 @@ $this->loadHelper('Form', [
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
 <div class="mt-3">
-    <h3><?= __('Edit Testimonial') ?></h3>
+    <h3><?= __('Add Testimonial') ?></h3>
     <div class="testimonial-details">
         <?= $this->Form->create($testimonial) ?>
-        <h4><?= __('Testimonial ID: {0}', $testimonial->testimonial_id) ?></h4>
         <fieldset>
             <div class="mb-3">
                 <?= $this->Form->control('student_name') ?>
@@ -27,7 +26,7 @@ $this->loadHelper('Form', [
                     <?= $this->Form->label('rating', 'Rating', ['class' => 'col-sm-2 col-form-label']) ?>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <?= $this->Form->select('rating', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5], ['empty' => 'Choose Rating', 'class' => 'form-select']) ?>
+                            <?= $this->Form->select('rating', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5], ['empty' => 'Choose star rating out of 5', 'class' => 'form-select']) ?>
                             <div class="input-group-append"></div>
                         </div>
                     </div>

@@ -13,16 +13,15 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
     <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-            <h2>Book A Lesson</h2>
             <p>Book <span>Your Lesson</span> With Us</p>
-        </div>
+        </div> 
 
         <div class="row g-0">
             <div class="stepwizard col-md-offset-3">
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step">
                         <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                        <p>Choose your Packages</p>
+                        <p>Choose Your Packages</p>
                     </div>
                     <div class="stepwizard-step">
                         <a id= "step-2-btn" href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
@@ -30,11 +29,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                        <p>Confirm your account</p>
+                        <p>Confirm Your Account</p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                        <p>Finish your booking</p>
+                        <p>Finish Your Booking</p>
                     </div>
                 </div>
             </div>
@@ -114,9 +113,9 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">
                             <h3> Step 2</h3>
-                            <h3>Schedule your first lesson</h3>
-                            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
-                            <p>(We may contact you to change due to schedule conflicts)</p>
+                            <h3>Schedule Your First Lesson</h3>
+                            <p><b>Change to different views to move the lesson around</b> to input your prefered start date</p>
+                            <p>(We may contact you if schedule conflicts occur)</p>
                             <br>
                             <div id='calendar-wrap'>
                                 <div id='calendar'></div>
@@ -163,7 +162,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                             <h3> Step 3</h3>
                             <?php if($loggedIn): ?>
-                                <h3> Confirm your account information</h3>
+                                <h3> Confirm Your Account Information</h3>
                                 <table class="table table-borderless package-sumary">
                                     <tr>
                                         <th><?= __('First Name:    ') ?></th>
@@ -183,8 +182,8 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                                     </tr> -->
                                 </table>
                             <?php else : ?>
-                                <h3> Please log in or sign up to continue</h3>
-                                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary']); ?>
+                                <h3> Please Log in or Sign up to continue</h3>
+                                <?= $this->Html->link('Log in', ['controller' => 'Auth', 'action' => 'login'], ['class'=> 'btn btn-primary']); ?>
                                 <?= $this->Html->link('Sign up', ['controller' => 'Auth', 'action' => 'register'], ['class'=> 'btn btn-primary']);  ?>
 
                                 <br>
@@ -203,10 +202,10 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">
                             <h3> Step 4</h3>
-                            <h3> Complete your booking</h3>
+                            <h3> Complete Your Booking</h3>
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
-                                    <h4>Your chosen Packages</h4>
+                                    <h4>Your Chosen Packages</h4>
                                     <div class="table">
                                         <table class="table table-borderless package-summary">
                                             <tr>
@@ -235,11 +234,11 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <br>
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
-                                    <h4>Your selected date</h4>
+                                    <h4>Your Selected Date</h4>
                                     <div class="chosen-datetime">
 
                                     </div>
-                                    <h4>Your note to us: </h4>
+                                    <h4>Your Note to Us: </h4>
                                     <p id='your-note'></p>
                                 </div>
                                 <a href="#step-2" type="button" class="btn btn-primary btn-circle" onclick="$('div.setup-panel div a').eq(1).trigger('click');">Edit</a>
@@ -249,7 +248,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <br>
                             <?php if($loggedIn): ?>
                                 <div class="info-quad">
-                                    <h4> Contact information</h4>
+                                    <h4> Contact Information</h4>
                                     <div class="table-responsive">
                                         <table class="table table-borderless">
                                             <tr>
@@ -277,8 +276,8 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                             <br>
                             <div class="info-quad d-flex justify-content-between">
                                 <div>
-                                    <h4>How to pay:</h4>
-                                    <p>Payments will be handled in studio at your first class</p>
+                                    <h4>How to Pay:</h4>
+                                    <p>Payments will be handled in studio at your first class.</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">

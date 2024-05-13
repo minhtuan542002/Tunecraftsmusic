@@ -57,7 +57,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Views</div>
-                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/lessons') ?>">
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/my-schedule') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
                             My Schedule
                         </a>     
@@ -72,7 +72,11 @@
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/packages') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Packages
-                        </a>       
+                        </a>      
+                        <a class="nav-link" href="<?= $this->Url->build('/dashboard/resources') ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                            Resources
+                        </a> 
                         <a class="nav-link" href="<?= $this->Url->build('/dashboard/testimonials') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
                             Testimonials

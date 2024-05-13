@@ -100,8 +100,8 @@ $this->assign('title', 'Login');
                         </div>
                         <div class="form-group d-md-flex">
                             <div class="w-50">
-                                <!-- <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?>
-                                -->
+                                <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword']) ?>
+
                             </div>
                         </div>
                         <?= $this->Form->end() ?>

@@ -44,9 +44,9 @@ $this->assign('title', 'Packages');
                             </div>
                             <div class="member-info">
                                 <h4><?php echo h($package->package_name); ?></h4>
-                                <span>Lessons: <?php echo h($package->number_of_lessons); ?></span>
-                                <span>Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes </span>
-                                <span>Cost: $<?php echo h($package->cost_dollars); ?></span>
+                                <span>Total Lessons: <?php echo h($package->number_of_lessons); ?></span>
+                                <span>Lesson Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes </span>
+                                <span>Total Cost (AUD): $<?php echo h($package->cost_dollars); ?></span>
                                 <p><?php echo h($package->description); ?></p>
                             </div>
                         </div>

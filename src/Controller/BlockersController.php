@@ -74,7 +74,6 @@ class BlockersController extends AppController
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => $user->teachers[0]->teacher_id,
-                'recurring' => false,
             ],
         ]);
         $blockers = $this->paginate($query);
@@ -127,6 +126,38 @@ class BlockersController extends AppController
             if ($this->request->is('post')) {
                 $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
                 $blocker->recurring = false;
+                $blocker->teacher_id = 1;
+                if ($this->Blockers->save($blocker)) {
+                    $this->Flash->success(__('The blocker has been saved.'));
+
+                    return $this->redirect(['action' => 'edit', $blocker->blocker_id]);
+                }
+                $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+            }
+            $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
+        }
+        $this->set(compact('blocker', 'teachers'));
+    }
+
+    /**
+     * Add recurring method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function addRecur()
+    {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
+            $blocker = $this->Blockers->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
+                $blocker->recurring = true;
                 $blocker->teacher_id = 1;
                 if ($this->Blockers->save($blocker)) {
                     $this->Flash->success(__('The blocker has been saved.'));

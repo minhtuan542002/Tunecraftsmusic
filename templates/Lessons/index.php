@@ -6,11 +6,10 @@
 ?>
 <div class="lessons index content mt-3">
     <div class="d-flex gap-5 mb-3">
-        <h3><?= __('My calendar') ?> </h3>
+        <h3><?= __('My Calendar') ?> </h3>
             
     </div>
-    <div id='calendar'></div>
-    <div class = 'mt-3 d-flex justify-content-between gap-2 border border-dark rounded p-3'>
+    <div class = 'mt-3 d-flex gap-2 border border-dark rounded p-3'>
         <div class="badge text-bg-primary">
             Paid Lesson
         </div>
@@ -18,9 +17,14 @@
             Unpaid Lesson
         </div>
     </div>
-    <div class = 'mt-3'>
-    <?= $this->Html->link(__('Add new temporary blockers'), 
-        ['controller'=>'blockers', 'action' => 'add'], ['class' => 'btn btn-primary']) ?>
+    <div class = 'my-3'>
+        <?= $this->Html->link(__('Add Temporary Blockers'), 
+            ['controller'=>'blockers', 'action' => 'add'], ['class' => 'btn btn-success']) ?>
+        <?= $this->Html->link(__('Add Recurring Blockers'), 
+            ['controller'=>'blockers', 'action' => 'addRecur'], ['class' => 'btn btn-primary']) ?>
+    </div>
+    <div id='calendar-wrap'>
+        <div id='calendar'></div>
     </div>
 </div>
 <?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>

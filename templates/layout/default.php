@@ -112,17 +112,17 @@ $cakeDescription = $this->ContentBlock->text('website-title');
 
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/') ?>">Home</a></li>
         <li><a <?= ($this->getRequest()->getRequestTarget() === '/packages') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/packages') ?>">Packages</a></li>
+        
+        <?php if ($loggedIn): ?>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/bookings/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a></li>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
+        <?php else: ?>
+          <li><a <?= ($this->getRequest()->getRequestTarget() === '/booking/add') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a></li>
+        <?php endif; ?>
         <li>
-          <?php if ($loggedIn): ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/bookings/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'my']) ?>">My Bookings</a>
-            <li><a <?= ($this->getRequest()->getRequestTarget() === '/lessons/my') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'lessons', 'action'=> 'my']) ?>">My Schedule</a></li>
-          <?php else: ?>
-            <a <?= ($this->getRequest()->getRequestTarget() === '/booking') ? 'class="active"' : '' ?> href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">Bookings</a>
-          <?php endif; ?>
+          <a <?= ($this->getRequest()->getRequestTarget() === '/learning-resources') ? 'class="active"' : '' ?>
+              href="<?= $this->Url->build('/learning-resources') ?>">Learning Resources</a>
         </li>
-            <li>
-                <a <?= ($this->getRequest()->getRequestTarget() === '/learning-resources') ? 'class="active"' : '' ?>
-                    href="<?= $this->Url->build('/learning-resources') ?>">Learning Resources</a></li>
 
             <!--
             <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>

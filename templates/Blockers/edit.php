@@ -69,11 +69,11 @@ $this->loadHelper('Form', [
                 </tr>
                 <tr>
                     <th><?= h("Start Time") ?></th>
-                    <td><?= h($blocker->start_time->format("H:m")) ?></td>
+                    <td><?= h($blocker->start_time->format("H:i")) ?></td>
                 </tr>
                 <tr>
                     <th><?= h("End Time") ?></th>
-                    <td><?= h($blocker->end_time->format("H:m")) ?></td>
+                    <td><?= h($blocker->end_time->format("H:i")) ?></td>
                 </tr>
                 <tr>
                     <th><?= h("Is Recurring") ?></th>
@@ -99,8 +99,8 @@ $this->loadHelper('Form', [
             locale: 'au',
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
-            slotMinTime: '06:00:00',
-            slotMaxTime: '24:00:00',
+            slotMinTime: '08:00:00',
+            slotMaxTime: '22:00:00',
             events: [
                 <?php foreach ($lessons as $line): ?>
                     {
@@ -117,7 +117,8 @@ $this->loadHelper('Form', [
                     <?php if ($line->recurring):?>
                         {
                         title: 'Recurring: <?= $line->note ?>',
-                        daysOfWeek: [ '<?= $line->end_time->format('N') ?>' ],
+                        daysOfWeek: [ '<?= $line->end_time->format('N')=="7" ? "0" : 
+                            $line->end_time->format('N')?>' ],
                         startTime: '<?= $line->start_time->format('H:i:s') ?>',
                         endTime: '<?= $line->end_time->format('H:i:s') ?>',
                         url: '<?= $this->Url->build(['controller'=>'blockers', 

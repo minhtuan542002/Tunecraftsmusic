@@ -43,8 +43,8 @@
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         eventOverlap: false,
-        slotMinTime: '06:00:00',
-        slotMaxTime: '24:00:00',
+        slotMinTime: '08:00:00',
+        slotMaxTime: '22:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
         height: 'auto',
         slotDuration: '00:15:00',
@@ -60,14 +60,27 @@
                 },
             <?php endforeach; ?>
             <?php foreach ($blockers as $blocker): ?>
-                {
-                title: '<?= $blocker->note ?>',
-                start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
-                end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
-                url: '<?= $this->Url->build(['controller'=>'blockers', 
-                    'action'=> 'edit', $blocker->blocker_id ]) ?>',
-                color: 'gray',
-                },
+                <?php if ($blocker->recurring):?>
+                    {
+                    title: 'Recurring: <?= $blocker->note ?>',
+                    daysOfWeek: [ '<?= $blocker->end_time->format('N')=="7" ? "0" : 
+                        $blocker->end_time->format('N')?>' ],
+                    startTime: '<?= $blocker->start_time->format('H:i:s') ?>',
+                    endTime: '<?= $blocker->end_time->format('H:i:s') ?>',
+                    url: '<?= $this->Url->build(['controller'=>'blockers', 
+                        'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                    color: 'gray',
+                    },
+                <?php else: ?>
+                    {
+                    title: '<?= $blocker->note ?>',
+                    start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                    end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                    url: '<?= $this->Url->build(['controller'=>'blockers', 
+                        'action'=> 'edit', $blocker->blocker_id ]) ?>',
+                    color: 'gray',
+                    },
+                <?php endif; ?>
             <?php endforeach; ?>
         ]
         });

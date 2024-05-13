@@ -158,17 +158,17 @@ class BlockersController extends AppController
             $blocker = $this->Blockers->newEmptyEntity();
             if ($this->request->is('post')) {
                 $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
-                debug($blocker);
+                //debug($blocker);
                 $frozenTime = new FrozenTime('now');
                 $daysToAdd = ($blocker->week_day - $frozenTime->format('N') + 7) % 7;
                 $frozenTime = $frozenTime->addDays($daysToAdd);
-                $frozenTime->setTimeFromFormat('H:i:s', $blocker->start_time_time.':00');
+                $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->start_time_time .':00');
                 $blocker->start_time = $frozenTime;
-                $frozenTime->setTimeFromFormat('H:i:s', $blocker->end_time_time.':00');
+                $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->end_time_time .':00');
                 $blocker->end_time = $frozenTime;
                 $blocker->recurring = true;
                 $blocker->teacher_id = 1;
-                debug($blocker);
+                //debug($blocker);
                 if ($this->Blockers->save($blocker)) {
                     $this->Flash->success(__('The blocker has been saved.'));
 

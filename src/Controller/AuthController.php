@@ -37,6 +37,7 @@ class AuthController extends AppController
         // CakePHP loads the model with the same name as the controller by default.
         // Since we don't have an Auth model, we'll need to load "Users" model when starting the controller manually.
         $this->Users = $this->fetchTable('Users');
+        $this->Students = $this->fetchTable('Students');
     }
 
     /**

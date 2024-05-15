@@ -11,6 +11,11 @@ use Cake\I18n\FrozenTime;
  */
 class LessonsController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+    
     /**
      * Initialize method
      * Authenticates permissions access

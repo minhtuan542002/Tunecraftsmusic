@@ -11,6 +11,11 @@ use Cake\I18n\FrozenTime;
  */
 class BlockersController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+    
     public function initialize():void {
         parent::initialize();
         $this->viewBuilder()->setLayout('dashboard');

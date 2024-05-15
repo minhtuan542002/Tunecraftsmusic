@@ -466,7 +466,6 @@ tbody tr.highlight td {
                     <?php foreach ($blockers as $blocker): ?>
                         <?php if ($blocker->recurring):?>
                             {
-                            title: 'Recurring: <?= $blocker->note ?>',
                             daysOfWeek: [ '<?= $blocker->end_time->format('N')=="7" ? "0" : 
                                 $blocker->end_time->format('N')?>' ],
                             startTime: '<?= $blocker->start_time->format('H:i:s') ?>',
@@ -486,6 +485,8 @@ tbody tr.highlight td {
                         <?php endif; ?>
                     <?php endforeach; ?>
                 ],
+                eventOverlap: false,
+                slotDuration: '00:15:00',
                 eventDrop: function(arg) {
                     var startDate = arg.event.start;
                     var formattedStartDate = startDate.getFullYear() + '-' +

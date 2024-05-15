@@ -15,6 +15,11 @@ use Cake\I18n\FrozenTime;
  */
 class BookingsController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+    
     public function initialize():void {
         parent::initialize();
         
@@ -41,6 +46,7 @@ class BookingsController extends AppController
             $this->set('role_id', $user->role_id);
         }
     }
+
     /**
      * Index method
      *
@@ -233,7 +239,7 @@ class BookingsController extends AppController
             'contain' => ['Bookings'],
         ]);
         $lessons = $this->paginate($query);
-        //debug($lessons);
+        debug($lessons);
         foreach ($lessons as $line) {
             $package = $this->Packages->get($line->booking->package_id);
             $student_user = $this->Students->get($line->booking->student_id);
@@ -253,7 +259,6 @@ class BookingsController extends AppController
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
             ],
-            'recurring' => false,
         ]);
         $blockers = $this->paginate($query);
         $this->set('blockers', $blockers);
@@ -374,7 +379,6 @@ class BookingsController extends AppController
                                 'conditions'=> [
                                     'teacher_id IS NOT NULL',
                                     'teacher_id' => '1',
-                                    'recurring' => false,
                                     'start_time <' => $end_date,
                                     'end_time >' => $start_date,
                                 ],

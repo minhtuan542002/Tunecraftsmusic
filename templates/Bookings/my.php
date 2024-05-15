@@ -9,10 +9,13 @@
 <section id="my-lesson" class="my-lesson "> 
     <div class="bookings my content mt-5 pt-5">
         <div class="bookings index content my-bookings">
-            <div class="d-flex gap-5">
+            <div class="d-flex gap-5 pb-2">
                 <h3><?= __('My Bookings') ?> </h3>
                 <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> New Booking', ['action' => 'add'], 
                     ['escape' => false, 'class' => 'btn btn-success']) ?> 
+            </div>
+            <div class="bg-success text-white">
+                <?= $this->Flash->render() ?>
             </div>
             <div class="table-responsive user-table-container pt-5">
                 <table class= "table dataTable" id= 'dataTable'>

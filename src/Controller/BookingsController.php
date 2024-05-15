@@ -406,6 +406,7 @@ class BookingsController extends AppController
                 $stage=0;
                 $this->request->getSession()->delete('booking.in_progress');
                 $this->request->getSession()->delete('booking.session_id');
+                $this->Flash->success(__('The booking has been saved.'));
                 return $this->redirect(['action' => 'my']);
             }
             //$this->set(compact('booking', 'user', 'Packages', 'stage'));

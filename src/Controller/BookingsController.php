@@ -19,7 +19,7 @@ class BookingsController extends AppController
         'limit' => 10000,
         'maxLimit' => 10000,
     ];
-    
+
     public function initialize():void {
         parent::initialize();
         
@@ -238,7 +238,7 @@ class BookingsController extends AppController
             ],
             'contain' => ['Bookings'],
         ]);
-        $lessons = $this->paginate($query);
+        $lessons = $query->all();
         debug($lessons);
         foreach ($lessons as $line) {
             $package = $this->Packages->get($line->booking->package_id);

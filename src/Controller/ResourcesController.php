@@ -10,6 +10,11 @@ namespace App\Controller;
  */
 class ResourcesController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 100,
+        'maxLimit' => 100,
+    ];
+    
     /**
      * Initialize method
      * Authenticates permissions access

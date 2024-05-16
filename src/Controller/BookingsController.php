@@ -15,6 +15,11 @@ use Cake\I18n\FrozenTime;
  */
 class BookingsController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+
     public function initialize():void {
         parent::initialize();
         
@@ -41,6 +46,7 @@ class BookingsController extends AppController
             $this->set('role_id', $user->role_id);
         }
     }
+
     /**
      * Index method
      *
@@ -228,6 +234,7 @@ class BookingsController extends AppController
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
                 'Bookings.student_id IS NOT NULL',
+                'lesson_start_time >=' => (new FrozenTime('now'))->modify('+6 days'),
             ],
             'contain' => [
                 'Bookings', 
@@ -236,7 +243,7 @@ class BookingsController extends AppController
                 'Bookings.Students.Users',
             ],
         ]);
-        $lessons = $this->paginate($query);
+        $lessons = $query->all();
         //debug($lessons);
         foreach ($lessons as $line) {
             $package = $line->booking->package;
@@ -257,7 +264,6 @@ class BookingsController extends AppController
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
             ],
-            'recurring' => false,
         ]);
         $blockers = $this->paginate($query);
         $this->set('blockers', $blockers);
@@ -378,7 +384,6 @@ class BookingsController extends AppController
                                 'conditions'=> [
                                     'teacher_id IS NOT NULL',
                                     'teacher_id' => '1',
-                                    'recurring' => false,
                                     'start_time <' => $end_date,
                                     'end_time >' => $start_date,
                                 ],
@@ -410,6 +415,7 @@ class BookingsController extends AppController
                 $stage=0;
                 $this->request->getSession()->delete('booking.in_progress');
                 $this->request->getSession()->delete('booking.session_id');
+                $this->Flash->success(__('The new booking has been saved.'));
                 return $this->redirect(['action' => 'my']);
             }
             //$this->set(compact('booking', 'user', 'Packages', 'stage'));

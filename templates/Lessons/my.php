@@ -7,7 +7,7 @@ $this->layout = 'default';
 ?>
 <div class="lessons index content mt-3">
     <div class="d-flex gap-5 mb-3">
-        <h3><?= __('My calendar') ?> </h3>
+        <h3><?= __('My Calendar') ?> </h3>
             
     </div>
     <div id='calendar'></div>

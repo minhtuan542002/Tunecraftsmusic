@@ -5,8 +5,8 @@
  */
 $this->layout = 'dashboard';
 ?>
-<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 
 <div class="card shadow mt-4">
     <div class="card-header py-3">
@@ -22,7 +22,7 @@ $this->layout = 'dashboard';
                         <th>Lessons Left</th>
                         <th>Upcoming Lesson</th>
                         <th>Duration</th>
-                        <th>Paid</th>
+                        <th>Status</th>
                         <th>Booking ID</th>
                         <th><?= __('Actions') ?></th>
                     </tr>

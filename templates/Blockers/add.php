@@ -56,8 +56,8 @@ $this->loadHelper('Form', [
             locale: 'au',
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
-            slotMinTime: '06:00:00',
-            slotMaxTime: '24:00:00',
+            slotMinTime: '08:00:00',
+            slotMaxTime: '22:00:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
             height: 'auto',
             events: [
@@ -73,14 +73,26 @@ $this->loadHelper('Form', [
                     },
                 <?php endforeach; ?>
                 <?php foreach ($blockers as $line): ?>
-                    {
-                    title: '<?= $line->note ?>',
-                    start: '<?= $line->start_time->format('Y-m-d H:i:s') ?>',
-                    end: '<?= $line->end_time->format('Y-m-d H:i:s') ?>',
-                    url: '<?= $this->Url->build(['controller'=>'blockers', 
-                        'action'=> 'edit', $line->blocker_id ]) ?>',
-                    color: 'gray',
-                    },
+                    <?php if ($line->recurring):?>
+                        {
+                        title: 'Recurring: <?= $line->note ?>',
+                        daysOfWeek: [ '<?= $line->end_time->format('N') ?>' ],
+                        startTime: '<?= $line->start_time->format('H:i:s') ?>',
+                        endTime: '<?= $line->end_time->format('H:i:s') ?>',
+                        url: '<?= $this->Url->build(['controller'=>'blockers', 
+                            'action'=> 'edit', $line->blocker_id ]) ?>',
+                        color: 'gray',
+                        },
+                    <?php else: ?>
+                        {
+                        title: '<?= $line->note ?>',
+                        start: '<?= $line->start_time->format('Y-m-d H:i:s') ?>',
+                        end: '<?= $line->end_time->format('Y-m-d H:i:s') ?>',
+                        url: '<?= $this->Url->build(['controller'=>'blockers', 
+                            'action'=> 'edit', $line->blocker_id ]) ?>',
+                        color: 'gray',
+                        },
+                    <?php endif; ?>
                 <?php endforeach; ?>
             ],
             

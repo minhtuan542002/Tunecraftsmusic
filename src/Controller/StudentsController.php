@@ -10,6 +10,11 @@ namespace App\Controller;
  */
 class StudentsController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+    
     /**
      * Index method
      *

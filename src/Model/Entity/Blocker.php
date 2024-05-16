@@ -31,7 +31,9 @@ class Blocker extends Entity
     protected array $_accessible = [
         'teacher_id' => true,
         'start_time' => true,
+        'start_time_time' => true,
         'end_time' => true,
+        'end_time_time' => true,
         'note' => true,
         'recurring' => true,
         'teacher' => true,

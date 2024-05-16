@@ -7,7 +7,7 @@ $this->layout = 'default';
 ?>
 <div class="lessons index content mt-3">
     <div class="d-flex gap-5 mb-3">
-        <h3><?= __('My calendar') ?> </h3>
+        <h3><?= __('My Calendar') ?> </h3>
             
     </div>
     <div id='calendar'></div>
@@ -49,8 +49,8 @@ $this->layout = 'default';
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         eventOverlap: false,
-        slotMinTime: '06:00:00',
-        slotMaxTime: '24:00:00',
+        slotMinTime: '08:00:00',
+        slotMaxTime: '22:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
         height: 'auto',
         slotDuration: '00:15:00',

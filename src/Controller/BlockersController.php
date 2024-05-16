@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\I18n\FrozenTime;
 
 /**
  * Blockers Controller
@@ -10,6 +11,11 @@ namespace App\Controller;
  */
 class BlockersController extends AppController
 {
+    protected array $paginate = [
+        'limit' => 10000,
+        'maxLimit' => 10000,
+    ];
+    
     public function initialize():void {
         parent::initialize();
         $this->viewBuilder()->setLayout('dashboard');
@@ -74,7 +80,6 @@ class BlockersController extends AppController
             'conditions'=> [
                 'teacher_id IS NOT NULL',
                 'teacher_id' => $user->teachers[0]->teacher_id,
-                'recurring' => false,
             ],
         ]);
         $blockers = $this->paginate($query);
@@ -128,6 +133,47 @@ class BlockersController extends AppController
                 $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
                 $blocker->recurring = false;
                 $blocker->teacher_id = 1;
+                if ($this->Blockers->save($blocker)) {
+                    $this->Flash->success(__('The blocker has been saved.'));
+
+                    return $this->redirect(['action' => 'edit', $blocker->blocker_id]);
+                }
+                $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
+            }
+            $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
+        }
+        $this->set(compact('blocker', 'teachers'));
+    }
+
+    /**
+     * Add recurring method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function addRecur()
+    {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            if($user->role_id==1){
+                return $this->redirect("/");
+            }
+            $blocker = $this->Blockers->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $blocker = $this->Blockers->patchEntity($blocker, $this->request->getData());
+                //debug($blocker);
+                $frozenTime = new FrozenTime('now');
+                $daysToAdd = ($blocker->week_day - $frozenTime->format('N') + 7) % 7;
+                $frozenTime = $frozenTime->addDays($daysToAdd);
+                $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->start_time_time .':00');
+                $blocker->start_time = $frozenTime;
+                $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->end_time_time .':00');
+                $blocker->end_time = $frozenTime;
+                $blocker->recurring = true;
+                $blocker->teacher_id = 1;
+                //debug($blocker);
                 if ($this->Blockers->save($blocker)) {
                     $this->Flash->success(__('The blocker has been saved.'));
 

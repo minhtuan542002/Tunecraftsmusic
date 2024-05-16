@@ -99,8 +99,8 @@ $this->loadHelper('Form', [
             locale: 'au',
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
-            slotMinTime: '06:00:00',
-            slotMaxTime: '24:00:00',
+            slotMinTime: '08:00:00',
+            slotMaxTime: '22:00:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
             height: 'auto',
             events: [
@@ -124,13 +124,25 @@ $this->loadHelper('Form', [
                     },
                 <?php endforeach; ?>
                 <?php foreach ($blockers as $blocker): ?>
-                    {
-                    start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
-                    end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
-                    color: 'gray',
-                    overlap: false,
-                    display: 'background',
-                    },
+                    <?php if ($blocker->recurring):?>
+                        {
+                        daysOfWeek: [ '<?= $blocker->end_time->format('N')=="7" ? "0" : 
+                            $blocker->end_time->format('N')?>' ],
+                        startTime: '<?= $blocker->start_time->format('H:i:s') ?>',
+                        endTime: '<?= $blocker->end_time->format('H:i:s') ?>',
+                        color: 'gray',
+                        overlap: false,
+                        display: 'background',
+                        },
+                    <?php else: ?>
+                        {
+                        start: '<?= $blocker->start_time->format('Y-m-d H:i:s') ?>',
+                        end: '<?= $blocker->end_time->format('Y-m-d H:i:s') ?>',
+                        color: 'gray',
+                        overlap: false,
+                        display: 'background',
+                        },
+                <?php endif; ?>
                 <?php endforeach; ?>
                 <?php foreach ($block_lessons as $line): ?>
                     {

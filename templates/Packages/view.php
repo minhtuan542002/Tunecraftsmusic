@@ -50,7 +50,7 @@
                 <td><?= $package->lesson_duration_minutes === null ? '' : $this->Number->format($package->lesson_duration_minutes) ?></td>
             </tr>
             <tr>
-                <th><?= __('Cost Dollars') ?></th>
+                <th><?= __('Total Cost (AUD)') ?></th>
                 <td><?= $package->cost_dollars === null ? '' : $this->Number->format($package->cost_dollars) ?></td>
             </tr>
         </table>

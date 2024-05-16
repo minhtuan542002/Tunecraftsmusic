@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 /**
- * Packages Controller
+ * Resources Controller
  *
- * @property \App\Model\Table\PackagesTable $Packages
+ * @property \App\Model\Table\ResourcesTable $Resources
  */
-class PackagesController extends AppController
+class ResourcesController extends AppController
 {
     /**
      * Initialize method
@@ -29,7 +29,7 @@ class PackagesController extends AppController
         $this->set('loggedIn', $loggedIn);
         $this->Users = $this->fetchTable('Users');
 
-        if($this->viewBuilder()->getVar('loggedIn')){
+        if ($this->viewBuilder()->getVar('loggedIn')) {
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id);
             $this->set('role_id', $user->role_id);
@@ -48,23 +48,23 @@ class PackagesController extends AppController
      */
     public function index()
     {
-        $query = $this->Packages->find();
-        $packages = $this->paginate($query);
+        $query = $this->Resources->find();
+        $resources = $this->paginate($query);
 
-        $this->set(compact('packages'));
+        $this->set(compact('resources'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Package id.
+     * @param string|null $id Resource id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $package = $this->Packages->get($id, contain: []);
-        $this->set(compact('package'));
+        $resource = $this->Resources->get($id);
+        $this->set(compact('resource'));
     }
 
     /**
@@ -74,56 +74,56 @@ class PackagesController extends AppController
      */
     public function add()
     {
-        $package = $this->Packages->newEmptyEntity();
+        $resource = $this->Resources->newEmptyEntity();
         if ($this->request->is('post')) {
-            $package = $this->Packages->patchEntity($package, $this->request->getData());
-            if ($this->Packages->save($package)) {
-                $this->Flash->success(__('The package has been saved.'));
+            $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+            if ($this->Resources->save($resource)) {
+                $this->Flash->success(__('The resource has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            $this->Flash->error(__('The resource could not be saved. Please, try again.'));
         }
-        $this->set(compact('package'));
+        $this->set(compact('resource'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Package id.
+     * @param string|null $id Resource id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $package = $this->Packages->get($id, contain: []);
+        $resource = $this->Resources->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $package = $this->Packages->patchEntity($package, $this->request->getData());
-            if ($this->Packages->save($package)) {
-                $this->Flash->success(__('The package has been saved.'));
+            $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+            if ($this->Resources->save($resource)) {
+                $this->Flash->success(__('The resource has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            $this->Flash->error(__('The resource could not be saved. Please, try again.'));
         }
-        $this->set(compact('package'));
+        $this->set(compact('resource'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Package id.
+     * @param string|null $id Resource id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $package = $this->Packages->get($id);
-        if ($this->Packages->delete($package)) {
-            $this->Flash->success(__('The package has been deleted.'));
+        $resource = $this->Resources->get($id);
+        if ($this->Resources->delete($resource)) {
+            $this->Flash->success(__('The resource has been deleted.'));
         } else {
-            $this->Flash->error(__('The package could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

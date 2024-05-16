@@ -114,7 +114,7 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                             <h3> Step 2</h3>
                             <h3>Schedule Your First Lesson</h3>
-                            <p><b>Change to different views to move the lesson around</b> to input your prefered start date</p>
+                            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
                             <p>(We may contact you if schedule conflicts occur)</p>
                             <br>
                             <div id='calendar-wrap'>
@@ -427,6 +427,15 @@ tbody tr.highlight td {
         return new Date(string);
     }
 
+    function formatDateToAU(dateTime) {
+        var startDate = dateTime;
+        var formattedStartDate = startDate.getFullYear() + '-' +
+            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + startDate.getDate()).slice(-2) + 'T' +
+            ('0' + startDate.getHours()).slice(-2) + ':' +
+            ('0' + startDate.getMinutes()).slice(-2);
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         var mut = new MutationObserver(function(mutations, mut){
             if($("#step-2-btn").hasClass("btn-primary")) {
@@ -487,7 +496,7 @@ tbody tr.highlight td {
                 ],
                 eventOverlap: false,
                 slotDuration: '00:15:00',
-                eventDrop: function(arg) {
+                eventChange: function(arg) {
                     var startDate = arg.event.start;
                     var formattedStartDate = startDate.getFullYear() + '-' +
                         ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
@@ -520,6 +529,8 @@ tbody tr.highlight td {
             newEvent.start = firstAvailableSlot;
             //console.log(firstAvailableSlot);
             calendar.addEvent(newEvent);
+            $('#write-time-start').text(newEvent.start.toLocaleString('en-AU', {
+                hour12: true,}));
             function findFirstAvailableSlot(events, newEvent) {
                 // Sort events by start time
                 events.sort(function(a,b){
@@ -557,15 +568,7 @@ tbody tr.highlight td {
 </script>
 <script>
     $(document).ready(function () {
-        var startDate = getDateFromString(getMinDate().toISOString().split('T')[0]);
-        var formattedStartDate = startDate.getFullYear() + '-' +
-            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
-            ('0' + startDate.getDate()).slice(-2) + 'T' +
-            ('0' + startDate.getHours()).slice(-2) + ':' +
-            ('0' + startDate.getMinutes()).slice(-2);
-        //console.log('HH:', formattedStartDate); 
-        $('#lessons-0-lesson-start-time').val(formattedStartDate);
-        $('#write-time-start').text(startDate.toLocaleString('en-AU', {
+        $('#write-time-start').text($('#lessons-0-lesson-start-time').val().toLocaleString('en-AU', {
                     hour12: true,}));
 
         $('#step-1').trigger('click');

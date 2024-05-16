@@ -235,11 +235,12 @@ class BookingsController extends AppController
                 'teacher_id IS NOT NULL',
                 'teacher_id' => '1',
                 'Bookings.student_id IS NOT NULL',
+                'lesson_start_time >=' => (new FrozenTime('now'))->modify('+6 days'),
             ],
             'contain' => ['Bookings'],
         ]);
         $lessons = $query->all();
-        debug($lessons);
+        //debug($lessons);
         foreach ($lessons as $line) {
             $package = $this->Packages->get($line->booking->package_id);
             $student_user = $this->Students->get($line->booking->student_id);

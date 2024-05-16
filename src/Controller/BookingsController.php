@@ -60,7 +60,7 @@ class BookingsController extends AppController
                     'conditions'=> [
                         'Bookings.student_id IS NOT NULL',
                     ],
-                    'contain' => ['Students', 'Lessons', 'Packages'],
+                    'contain' => ['Students', 'Lessons', 'Packages', 'Students.Users'],
                 ]);
                 $bookings = $this->paginate($query);
                 //debug($bookings);
@@ -68,7 +68,6 @@ class BookingsController extends AppController
                 foreach($bookings as $booking){
                     $booking->remain_count = 0;
                     $booking->upcoming = $booking->lessons[sizeof($booking->lessons)-1];
-                    $booking->student->user = $this->Users->get($booking->student->user_id);
                     
                     foreach($booking->lessons as $lesson){
                         if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
@@ -230,14 +229,19 @@ class BookingsController extends AppController
                 'teacher_id' => '1',
                 'Bookings.student_id IS NOT NULL',
             ],
-            'contain' => ['Bookings'],
+            'contain' => [
+                'Bookings', 
+                'Bookings.Packages',
+                'Bookings.Students',
+                'Bookings.Students.Users',
+            ],
         ]);
         $lessons = $this->paginate($query);
         //debug($lessons);
         foreach ($lessons as $line) {
-            $package = $this->Packages->get($line->booking->package_id);
-            $student_user = $this->Students->get($line->booking->student_id);
-            $student = $this->Users->get($student_user->user_id);
+            $package = $line->booking->package;
+            $student_user = $line->booking->student;
+            $student = $line->booking->student->user;
             //debug($student);
             //debug($student_user);
             $line->student_full_name = $student->first_name." ".$student->last_name;

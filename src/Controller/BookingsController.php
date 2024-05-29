@@ -167,7 +167,7 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        if($user->role_id==3){
+        if($this->role_id==3){
             $this->Lessons = $this->fetchTable('Lessons');
             $booking = $this->Bookings->get($id, [
                 'contain' => ['Students', 'Packages'],
@@ -213,7 +213,7 @@ class BookingsController extends AppController
                 'booking_id' => $booking->booking_id,
             ],
         ])->all();
-        if ($booking->student_id == $user->user_id) {
+        if ($booking->student_id == $this->user_id) {
             $booking->student->user = $this->Users->get($booking->student->user_id);
             foreach($lessons as $lesson){
                 if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){

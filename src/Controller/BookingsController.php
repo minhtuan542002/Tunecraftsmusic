@@ -167,7 +167,7 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        if($user->role_id!=3){
+        if($user->role_id==3){
             $this->Lessons = $this->fetchTable('Lessons');
             $booking = $this->Bookings->get($id, [
                 'contain' => ['Students', 'Packages'],

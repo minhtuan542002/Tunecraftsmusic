@@ -38,6 +38,27 @@ class AuthController extends AppController
         // Since we don't have an Auth model, we'll need to load "Users" model when starting the controller manually.
         $this->Users = $this->fetchTable('Users');
         $this->Students = $this->fetchTable('Students');
+
+        // set local variable user_id
+        $loggedIn = false;
+        $result = $this->Authentication->getResult();
+        if ($result && $result->isValid()) {
+            $loggedIn = true;
+
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->role_id = $user->role_id;
+            $this->user_id = $user->user_id;
+        }
+        
+        $this->set('loggedIn', $loggedIn);
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+            $this->set('user_id', $user->user_id);
+        }
+
     }
 
     /**
@@ -174,20 +195,25 @@ class AuthController extends AppController
      */
     public function changePassword($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            // Used a different validation set in Model/Table file to ensure both fields are filled
-            $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'resetPassword']);
-            if ($this->Users->save($user)) {
-                $this->Flash->success('The user has been saved.');
-
-                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+        if ($this->user_id == $id) {
+            $user = $this->Users->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                // Used a different validation set in Model/Table file to ensure both fields are filled
+                $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'resetPassword']);
+                if ($this->Users->save($user)) {
+                    $this->Flash->success('The user has been saved.');
+    
+                    return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+                }
+                $this->Flash->error('The user could not be saved. Please, try again.');
             }
-            $this->Flash->error('The user could not be saved. Please, try again.');
+            $this->set(compact('user'));
         }
-        $this->set(compact('user'));
+        else {
+            return $this->redirect(['controller' => 'Auth', 'action' => 'changePassword', $this->user_id]);
+        }
     }
 
     /**

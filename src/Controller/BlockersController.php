@@ -228,6 +228,16 @@ class BlockersController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id, [
+                'contain' => ['Teachers'],
+            ]);
+            
+        }
+        if($user->role_id!=3){
+            return $this->redirect("/");
+        }
         $this->request->allowMethod(['post', 'delete']);
         $blocker = $this->Blockers->get($id);
         if ($this->Blockers->delete($blocker)) {

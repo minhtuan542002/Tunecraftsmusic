@@ -544,6 +544,17 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
+        
         $this->Lessons = $this->fetchTable('Lessons');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
@@ -560,6 +571,7 @@ class BookingsController extends AppController
         }
         $this->redirect( Router::url( $this->referer(), true ) );
     }
+
     /**
      * Toggle payment
      *

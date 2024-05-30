@@ -37,17 +37,14 @@ class BookingsController extends AppController
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {
             $loggedIn = true;
-
-            $user = $this->Authentication->getIdentity();
-            $user = $this->Users->get($user->user_id);
-            $this->role_id = $user->role_id;
-            $this->user_id = $user->user_id;
         }
 
         $this->set('loggedIn', $loggedIn);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id);
+            $this->role_id = $user->role_id;
+            $this->user_id = $user->user_id;
             $this->set('role_id', $user->role_id);
             $this->set('user_id', $user->user_id);
         }

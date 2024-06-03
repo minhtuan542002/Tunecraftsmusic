@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property int|null $lesson_duration_minutes
  * @property string|null $cost_dollars
  * @property string|null $description
+ * @property bool $is_deleted
  */
 class Package extends Entity
 {
@@ -32,5 +33,6 @@ class Package extends Entity
         'lesson_duration_minutes' => true,
         'cost_dollars' => true,
         'description' => true,
+        'is_deleted' => true,
     ];
 }

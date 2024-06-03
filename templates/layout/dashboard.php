@@ -23,6 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="google-site-verification" content="HoZf2vt1_CwFFC9M-Rf0FM-UZOBqN132lM6VnyK7GH4" />
     <title>
         Dashboard: <?= $this->fetch('title') ?>
     </title>

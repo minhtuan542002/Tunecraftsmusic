@@ -72,6 +72,11 @@ class PackagesTable extends Table
             ->scalar('description')
             ->allowEmptyString('description');
 
+        $validator
+            ->boolean('is_deleted')
+            ->requirePresence('is_deleted', 'create')
+            ->notEmptyString('is_deleted');
+
         return $validator;
     }
 }

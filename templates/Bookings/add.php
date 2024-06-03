@@ -441,7 +441,7 @@ tbody tr.highlight td {
             if($("#step-2-btn").hasClass("btn-primary")) {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                initialView: 'timeGridWeek',
                 initialDate: getMinDate().toISOString().split('T')[0],
                 headerToolbar: {
                     left: 'prev,next today',

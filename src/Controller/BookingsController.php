@@ -43,7 +43,10 @@ class BookingsController extends AppController
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id);
+            $this->role_id = $user->role_id;
+            $this->user_id = $user->user_id;
             $this->set('role_id', $user->role_id);
+            $this->set('user_id', $user->user_id);
         }
     }
 
@@ -160,24 +163,29 @@ class BookingsController extends AppController
      */
     public function view($id = null)
     {
-        $this->Lessons = $this->fetchTable('Lessons');
-        $booking = $this->Bookings->get($id, [
-            'contain' => ['Students', 'Packages'],
-        ]);
-        $lessons = $this->Lessons->find('all', [
-            'conditions'=> [
-                'booking_id' => $booking->booking_id,
-            ],
-        ])->all();
-        $booking->student->user = $this->Users->get($booking->student->user_id);
-        foreach($lessons as $lesson){
-            if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
-                $booking->remain_count++;
-                $booking->upcoming =  $lesson;
-                if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+        if($this->role_id==3){
+            $this->Lessons = $this->fetchTable('Lessons');
+            $booking = $this->Bookings->get($id, [
+                'contain' => ['Students', 'Packages'],
+            ]);
+            $lessons = $this->Lessons->find('all', [
+                'conditions'=> [
+                    'booking_id' => $booking->booking_id,
+                ],
+            ])->all();
+            $booking->student->user = $this->Users->get($booking->student->user_id);
+            foreach($lessons as $lesson){
+                if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
+                    $booking->remain_count++;
                     $booking->upcoming =  $lesson;
+                    if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+                        $booking->upcoming =  $lesson;
+                    }
                 }
             }
+        }    
+        else{
+            return $this->redirect(['action' => 'my']);
         }
 
         $this->set(compact('booking', 'lessons'));
@@ -201,15 +209,20 @@ class BookingsController extends AppController
                 'booking_id' => $booking->booking_id,
             ],
         ])->all();
-        $booking->student->user = $this->Users->get($booking->student->user_id);
-        foreach($lessons as $lesson){
-            if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
-                $booking->remain_count++;
-                $booking->upcoming =  $lesson;
-                if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+        if ($booking->student_id == $this->user_id) {
+            $booking->student->user = $this->Users->get($booking->student->user_id);
+            foreach($lessons as $lesson){
+                if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
+                    $booking->remain_count++;
                     $booking->upcoming =  $lesson;
+                    if($booking->upcoming->lesson_start_time > $lesson->lesson_start_time){
+                        $booking->upcoming =  $lesson;
+                    }
                 }
             }
+        }
+        else{
+            return $this->redirect(['action' => 'my']);
         }
 
         $this->set(compact('booking', 'lessons'));
@@ -535,6 +548,17 @@ class BookingsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->viewBuilder()->getVar('loggedIn')){
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->user_id);
+            $this->set('role_id', $user->role_id);
+        }
+
+        // Only allow role_id = 3 (admin)
+        if ($this->viewBuilder()->getVar('role_id') !== 3) {
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        }
+        
         $this->Lessons = $this->fetchTable('Lessons');
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id, [
@@ -551,6 +575,7 @@ class BookingsController extends AppController
         }
         $this->redirect( Router::url( $this->referer(), true ) );
     }
+
     /**
      * Toggle payment
      *

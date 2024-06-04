@@ -114,8 +114,10 @@ $this->Form->setTemplates(['FormTemplates'=>'Default']);
                         <div class="col-md-12">
                             <h3> Step 2</h3>
                             <h3>Schedule Your First Lesson</h3>
-                            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
-                            <p>(We may contact you if schedule conflicts occur)</p>
+                            <p><b>Change to different views and move the lesson around</b> to input your prefered start date.<br>
+                                (We may contact you if schedule conflicts occur)<br>
+                                <b>Gray areas are already booked.</b>
+                            </p>
                             <br>
                             <div id='calendar-wrap'>
                                 <div id='calendar'></div>
@@ -455,7 +457,7 @@ tbody tr.highlight td {
                 slotMinTime: '08:00:00',
                 slotMaxTime: '22:00:00',
                 aspectRatio: 2, // Adjust aspect ratio based on screen size
-                height: 'auto',
+                height: '50vh',
                 events: [
                     {
                         start: "2023-01-29T20:00:00",

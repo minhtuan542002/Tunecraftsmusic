@@ -26,13 +26,11 @@ $this->loadHelper('Form', [
                 </div>
             </div> -->
 
-            <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
-            <button id="completed" type="button" class="btn btn-outline-warning">
-                Mark as Completed
-            </button>
+            <p><b>Change to different views and move the lesson around</b> to input your prefered start date.<br>
+            <b>Move lesson to the past</b> to mark as completed</p>
             <?= $this->Form->create($lesson) ?>
             <fieldset>
-                Please notify the students of changes in case they do not check in the website in time
+                **Please notify the students of urgent changes in case they do not check in the website in time
                 <table class = "table">
                     <tr>
                         <th id="time-date-name"><?= __('Lesson Start Time and Date') ?></th>
@@ -71,7 +69,7 @@ $this->loadHelper('Form', [
                         <td><?= $this->Form->control('note', [
                             'label' => false,
                             'type' => 'textarea',
-                            'rows' => '4',
+                            'rows' => '3',
                             'class'=>'form-control',
                         ]) ?></td>
                     </tr>
@@ -105,7 +103,7 @@ $this->loadHelper('Form', [
             slotMinTime: '08:00:00',
             slotMaxTime: '22:00:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
-            height: 'auto',
+            height: '50vh',
             events: [
                 <?php foreach ($lessons as $line): ?>
                     {

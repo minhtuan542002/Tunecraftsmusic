@@ -129,7 +129,7 @@ $this->loadHelper('Form', [
             eventOverlap: false,
             slotDuration: '00:15:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
-            height: 'auto',
+            height: '55vh',
             eventDrop: function(arg) {
                 // Perform your action here
                 //console.log('Event dropped:', arg);

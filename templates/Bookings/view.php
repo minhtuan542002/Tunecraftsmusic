@@ -91,7 +91,7 @@ $this->layout = 'dashboard';
                                     <td data-sort = "<?= h($lesson->lesson_start_time->format('Y-m-d H:i')) ?>">
                                         <?= h($lesson->lesson_start_time->format('H:ia l, d M Y')) ?>
                                     </td>
-                                    <td><?= h($lesson->lesson_start_time  < date('Y-m-d H:i:s')? 'Yes':'No') ?></td>
+                                    <td><?= h($lesson->lesson_start_time->format('Y-m-d H:i')  < date('Y-m-d H:i')? 'Yes':'No') ?></td>
                                     <td><?= h($lesson->note != null? $lesson->note:"None") ?></td>
                                     <td class="actions">
                                         <div class="">

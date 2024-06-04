@@ -77,6 +77,7 @@ class LessonsController extends AppController
     public function edit($id = null)
     {
         $lessons = [];
+        $lesson = $this->Lessons->get($id);
         if($this->viewBuilder()->getVar('loggedIn')){
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->user_id, [

@@ -35,7 +35,7 @@ $this->assign('title', 'Packages');
             <?php else: ?>
                 <?php foreach ($packages as $index => $package): ?>
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <a url="<?php echo Router::url("/", true) ?>bookings/add">
+                        <a href="<?= $this->Url->build(['controller'=>'bookings', 'action'=> 'add']) ?>">
                             <div class="chef-member">
                                 <div class="member-img">
                                     <img style="height: 416px; width: 416px"

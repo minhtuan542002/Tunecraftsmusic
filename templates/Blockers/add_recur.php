@@ -9,13 +9,9 @@ $this->loadHelper('Form', [
 ]);
 ?>
 <?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
-<div class="row">
-    
-    <div id='calendar-wrap' class= 'mb-3'>
-        <div id='calendar'></div>
-    </div>      
+<div class="row">     
     <div class="column column-80">
-        <div class="blockers form content">
+        <div class="blockers form content  mb-3">
             <?= $this->Form->create($blocker) ?>
             <fieldset>
                 <legend><?= __('Add New Schedule Blocker') ?></legend>
@@ -66,6 +62,9 @@ $this->loadHelper('Form', [
                 'class' => 'btn btn-success', 'type' => 'submit']) ?>
             <?= $this->Form->end() ?>
         </div>
+            <div id='calendar-wrap'>
+        <div id='calendar'></div>
+    </div> 
     </div>
 </div>
 <script>
@@ -84,7 +83,7 @@ $this->loadHelper('Form', [
             slotMinTime: '08:00:00',
             slotMaxTime: '22:00:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
-            height: 'auto',
+            height: '50vh',
             events: [
                 <?php foreach ($lessons as $line): ?>
                     {

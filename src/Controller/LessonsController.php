@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\I18n\FrozenTime;
+use Cake\Mailer\Mailer;
 
 /**
  * Lessons Controller
@@ -58,7 +59,6 @@ class LessonsController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => $user->teachers[0]->teacher_id,
-                    'recurring' => false,
                 ],
             ]);
             $blockers = $this->paginate($query);
@@ -118,7 +118,6 @@ class LessonsController extends AppController
                 'conditions'=> [
                     'teacher_id IS NOT NULL',
                     'teacher_id' => '1',
-                    'recurring' => false,
                 ],
             ]);
             $blockers = $this->paginate($query);
@@ -213,6 +212,35 @@ class LessonsController extends AppController
                 //debug($lesson);
                 $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
                 if ($this->Lessons->save($lesson)) {
+                    // Now let's send the password reset email
+                    $mailer = new Mailer('default');
+
+                    // email basic config
+                    $mailer
+                        ->setEmailFormat('both')
+                        ->setTo($user->email)
+                        ->setSubject('Reset your account password');
+
+                    // select email template
+                    $mailer
+                        ->viewBuilder()
+                        ->setTemplate('reset_password');
+
+                    // transfer required view variables to email template
+                    $mailer
+                        ->setViewVars([
+                            'first_name' => $user->first_name,
+                            'last_name' => $user->last_name,
+                            'nonce' => $user->nonce,
+                            'email' => $user->email
+                        ]);
+
+                    //Send email
+                    if (!$mailer->deliver()) {
+                        // Just in case something goes wrong when sending emails
+                        $this->Flash->error('We have encountered an issue when sending you emails. Please try again. ');
+                        return $this->render();  // Skip the rest of the controller and render the view
+                    }
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     return $this->redirect(['action'=>'edit_admin', $id]);

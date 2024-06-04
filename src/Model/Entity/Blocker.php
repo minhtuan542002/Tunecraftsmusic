@@ -37,5 +37,6 @@ class Blocker extends Entity
         'note' => true,
         'recurring' => true,
         'teacher' => true,
+        'week_day' => true,
     ];
 }

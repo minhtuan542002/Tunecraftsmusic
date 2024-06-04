@@ -26,9 +26,6 @@ $this->loadHelper('Form', [
                 </div>
             </div> -->
 
-            <div id='calendar-wrap' class= 'mb-3'>
-                <div id='calendar'></div>
-            </div>
             <p><b>Change to different views and move the lesson around</b> to input your prefered start date</p>
             <button id="completed" type="button" class="btn btn-outline-warning">
                 Mark as Completed
@@ -86,6 +83,9 @@ $this->loadHelper('Form', [
                 <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', ['escape' => false, 'escapeTitle' => false, 'title' => __('Save'), 'class' => 'btn btn-success', 'type' => 'submit']) ?>
             </div>
             <?= $this->Form->end() ?>
+        </div>
+        <div id='calendar-wrap' class= 'mb-3'>
+            <div id='calendar'></div>
         </div>
     </div>
 </div>

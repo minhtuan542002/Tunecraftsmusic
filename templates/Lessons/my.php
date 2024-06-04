@@ -19,7 +19,7 @@ $this->layout = 'default';
             Unpaid Lesson
         </div>        
         <div class="badge text-bg-secondary">
-            Cannot be modified
+            Occupied
         </div>        
     </div>
     
@@ -52,8 +52,8 @@ $this->layout = 'default';
         slotMinTime: '08:00:00',
         slotMaxTime: '22:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
-        height: 'auto',
         slotDuration: '00:15:00',
+        height: '70vh',
         events: [
             <?php foreach ($lessons as $lesson): ?>
                 {

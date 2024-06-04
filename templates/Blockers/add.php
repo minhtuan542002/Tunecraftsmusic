@@ -9,12 +9,8 @@ $this->loadHelper('Form', [
 ]);
 ?>
 <?= $this->Html->script('/vendor/fullcalendar-6.1.11/dist/index.global.min.js') ?>
-<div class="row">
-    
-    <div id='calendar-wrap' class= 'mb-3'>
-        <div id='calendar'></div>
-    </div>      
-    <div class="column column-80">
+<div class="row">    
+    <div class="column column-80 mb-3">
         <div class="blockers form content">
             <?= $this->Form->create($blocker) ?>
             <fieldset>
@@ -42,6 +38,10 @@ $this->loadHelper('Form', [
             <?= $this->Form->end() ?>
         </div>
     </div>
+    
+    <div id='calendar-wrap'>
+        <div id='calendar'></div>
+    </div>  
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -59,7 +59,7 @@ $this->loadHelper('Form', [
             slotMinTime: '08:00:00',
             slotMaxTime: '22:00:00',
             aspectRatio: 2, // Adjust aspect ratio based on screen size
-            height: 'auto',
+            height: '55vh',
             events: [
                 <?php foreach ($lessons as $line): ?>
                     {

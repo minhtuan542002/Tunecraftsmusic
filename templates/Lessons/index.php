@@ -16,11 +16,14 @@
         <div class="badge text-bg-warning">
             Unpaid Lesson
         </div>
+        <div class="badge text-bg-secondary">
+            Blockers
+        </div> 
     </div>
     <div class = 'my-3'>
-        <?= $this->Html->link(__('Add Temporary Blockers'), 
+        <?= $this->Html->link(__('Add One-time Blockers'), 
             ['controller'=>'blockers', 'action' => 'add'], ['class' => 'btn btn-success']) ?>
-        <?= $this->Html->link(__('Add Recurring Blockers'), 
+        <?= $this->Html->link(__('Add Weekly Blockers'), 
             ['controller'=>'blockers', 'action' => 'addRecur'], ['class' => 'btn btn-primary']) ?>
     </div>
     <div id='calendar-wrap'>
@@ -46,7 +49,7 @@
         slotMinTime: '08:00:00',
         slotMaxTime: '22:00:00',
         aspectRatio: 2, // Adjust aspect ratio based on screen size
-        height: 'auto',
+        height: '65vh',
         slotDuration: '00:15:00',
         events: [
             <?php foreach ($lessons as $lesson): ?>

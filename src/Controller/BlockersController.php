@@ -140,9 +140,8 @@ class BlockersController extends AppController
                 }
                 $this->Flash->error(__('The blocker could not be saved. Please, try again.'));
             }
-            $teachers = $this->Blockers->Teachers->find('list', limit: 200)->all();
         }
-        $this->set(compact('blocker', 'teachers'));
+        $this->set(compact('blocker'));
     }
 
     /**
@@ -167,6 +166,7 @@ class BlockersController extends AppController
                 $frozenTime = new FrozenTime('now');
                 $daysToAdd = ($blocker->week_day - $frozenTime->format('N') + 7) % 7;
                 $frozenTime = $frozenTime->addDays($daysToAdd);
+                $frozenTime = $frozenTime->addDays(intval($blocker->week_day));
                 $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->start_time_time .':00');
                 $blocker->start_time = $frozenTime;
                 $frozenTime = FrozenTime::parse($frozenTime->format('Y-m-d') . ' ' . $blocker->end_time_time .':00');

@@ -39,19 +39,6 @@ $this->loadHelper('Form', [
                             'required' => "required",
                         ]);
                     ?>
-                    <div class= "form-group mb-3 row" >
-                        <label class="col-sm-2 col-form-label" for="recurring"><span>Is Recurring</span></label>
-                        <div class= "col-sm-10 d-flex flex-row justify-content-start" >
-                            <?php
-                            echo $this->Form->input('recurring', [
-                                'required' => "required",
-                                'label' => false,
-                                'div' => false,
-                                'type' => 'checkbox',
-                            ]);
-                            ?>
-                        </div>
-                    </div>
                 </fieldset>
                 
                 <?= $this->Form->button('<i class="fas fa-save fa-fw"></i> Save', 

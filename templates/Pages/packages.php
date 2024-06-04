@@ -35,21 +35,23 @@ $this->assign('title', 'Packages');
             <?php else: ?>
                 <?php foreach ($packages as $index => $package): ?>
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="chef-member">
-                            <div class="member-img">
-                                <img style="height: 416px; width: 416px"
-                                     src="<?php echo Router::url("/", true) ?>img/service-<?php echo ($index % 3) + 1 ?>.jpeg"
-                                     class="img-fluid"
-                                     alt="">
+                        <a url="<?php echo Router::url("/", true) ?>bookings/add">
+                            <div class="chef-member">
+                                <div class="member-img">
+                                    <img style="height: 416px; width: 416px"
+                                        src="<?php echo Router::url("/", true) ?>img/service-<?php echo ($index % 3) + 1 ?>.jpeg"
+                                        class="img-fluid"
+                                        alt="">
+                                </div>
+                                <div class="member-info">
+                                    <h4><?php echo h($package->package_name); ?></h4>
+                                    <span>Total Lessons: <?php echo h($package->number_of_lessons); ?></span>
+                                    <span>Lesson Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes </span>
+                                    <span>Total Cost (AUD): $<?php echo h($package->cost_dollars); ?></span>
+                                    <p><?php echo h($package->description); ?></p>
+                                </div>
                             </div>
-                            <div class="member-info">
-                                <h4><?php echo h($package->package_name); ?></h4>
-                                <span>Total Lessons: <?php echo h($package->number_of_lessons); ?></span>
-                                <span>Lesson Duration: <?php echo h($package->lesson_duration_minutes); ?> minutes </span>
-                                <span>Total Cost (AUD): $<?php echo h($package->cost_dollars); ?></span>
-                                <p><?php echo h($package->description); ?></p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

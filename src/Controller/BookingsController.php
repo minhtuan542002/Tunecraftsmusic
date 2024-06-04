@@ -283,7 +283,12 @@ class BookingsController extends AppController
 
         //Actual booking logic start--------------------------------------------------
         $this->Users = $this->fetchTable('Users');
-        $query = $this->Packages->find();
+        $query = $this->Packages->find('all', [
+            'conditions'=> [
+                'is_deleted IS NOT NULL',
+                'is_deleted' => false,
+            ],
+        ]);
         $packages = $this->paginate($query);
         //debug($packages);
         $booking = $this->Bookings->newEmptyEntity();

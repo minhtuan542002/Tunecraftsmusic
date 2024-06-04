@@ -53,9 +53,14 @@ class PackagesController extends AppController
      */
     public function index()
     {
-        $query = $this->Packages->find();
+        $query = $this->Packages->find('all', [
+            'conditions'=> [
+                'is_deleted IS NOT NULL',
+                'is_deleted' => false,
+            ],
+        ]);
         $packages = $this->paginate($query);
-
+        //debug($packages);
         $this->set(compact('packages'));
     }
 
@@ -82,6 +87,7 @@ class PackagesController extends AppController
         $package = $this->Packages->newEmptyEntity();
         if ($this->request->is('post')) {
             $package = $this->Packages->patchEntity($package, $this->request->getData());
+            $package->is_deleted = false;
             if ($this->Packages->save($package)) {
                 $this->Flash->success(__('The package has been saved.'));
 
@@ -125,7 +131,8 @@ class PackagesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $package = $this->Packages->get($id);
-        if ($this->Packages->delete($package)) {
+        $package->is_deleted = true;
+        if ($this->Packages->save($package)) {
             $this->Flash->success(__('The package has been deleted.'));
         } else {
             $this->Flash->error(__('The package could not be deleted. Please, try again.'));

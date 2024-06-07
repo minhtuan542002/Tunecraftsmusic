@@ -42,6 +42,7 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('user_id');
         $this->setPrimaryKey('user_id');
+        $this->addBehavior('CanAuthenticate');
 
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',

@@ -26,6 +26,11 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <!-- Verify google index, please change later -->
   <meta name="google-site-verification" content="MwObaC-PVfYXYr2TXSZUwEfajmu1uXSFwoJ6GD_2slI" />
   
+  <meta name="title" content="Afrooz Amini: Violin Instructor | Suzuki Method & AMEB Syllabus">
+  <meta name="description" content="Afrooz Amini, an experienced violin instructor at Tunecraftstudio, specializes in the Suzuki teaching approach and AMEB violin exam syllabus. Offering personalized attention and tailored instruction, she ensures a comprehensive learning experience for aspiring violinists. Explore Suzuki Method and AMEB Theory lessons today!">
+  <meta name="keywords" content="Afrooz Amini, violin instructor, Tunecraftstudio, Suzuki Method, AMEB syllabus, violin lessons, musical education, aspiring violinists, teacher, violin, AMEB">
+  <meta name="author" content="Afrooz Amini">
+  
   <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>

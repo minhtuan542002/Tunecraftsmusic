@@ -22,8 +22,10 @@ $cakeDescription = $this->ContentBlock->text('website-title');
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="google-site-verification" content="HoZf2vt1_CwFFC9M-Rf0FM-UZOBqN132lM6VnyK7GH4" />
 
+  <!-- Verify google index, please change later -->
+  <meta name="google-site-verification" content="MwObaC-PVfYXYr2TXSZUwEfajmu1uXSFwoJ6GD_2slI" />
+  
   <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>

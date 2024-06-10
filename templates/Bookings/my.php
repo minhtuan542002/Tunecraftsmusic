@@ -14,6 +14,9 @@
                 <?= $this->Html->link('<i class="fas fa-plus fa-fw"></i> New Booking', ['action' => 'add'], 
                     ['escape' => false, 'class' => 'btn btn-success']) ?> 
             </div>
+            <p> The studio is located at 4 Tyrone street, Camberwell VIC 3124. On your first lesson,
+                please arrive on time.
+            </P>
             <?= $this->Flash->render() ?>
             <div class="table-responsive user-table-container pt-5">
                 <table class= "table dataTable" id= 'dataTable'>

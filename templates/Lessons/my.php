@@ -6,6 +6,9 @@
 $this->layout = 'default';
 ?>
 <div class="lessons index content mt-3">
+    <p> The studio is located at 4 Tyrone street, Camberwell VIC 3124. On your first lesson,
+        please arrive on time.
+    </P>
     <div class="d-flex gap-5 mb-3">
         <h3><?= __('My Calendar') ?> </h3>
             
@@ -20,7 +23,7 @@ $this->layout = 'default';
         </div>        
         <div class="badge text-bg-secondary">
             Occupied
-        </div>        
+        </div>
     </div>
     
 </div>

@@ -18,7 +18,7 @@ Best regards,
 The Tunecrafts Music Team
 
 ---
-This email is addressed to <?= $first_name ?> <?= $last_name ?> <<?= $email ?>>
+This email is addressed to <?= $first_name ?> <?= $last_name ?>
 Please discard this email if it is not meant for you.
 
 Copyright © <?= date("Y"); ?> Tunecrafts Music

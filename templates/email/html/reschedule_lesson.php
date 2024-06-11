@@ -44,7 +44,7 @@
         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="content-block">
-                    This email is addressed to <?= $first_name ?> <?= $last_name ?> &lt;<?= $email ?>&gt;<br>
+                    This email is addressed to <?= $first_name ?> <?= $last_name ?><br>
                     Please discard this email if it is not meant for you.<br>
                     <br>
                     Copyright &copy; <?= date("Y"); ?> Tunecrafts Music

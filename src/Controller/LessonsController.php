@@ -157,8 +157,8 @@ class LessonsController extends AppController
 
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail, [
-                        'first_name' => $lesson->booking->student->first_name,
-                        'last_name' => $lesson->booking->student->last_name,
+                        'first_name' => $lesson->booking->student->user->first_name,
+                        'last_name' => $lesson->booking->student->user->last_name,
                         'email' => $recipientEmail,
                         'lesson_date' => $lesson->lesson_start_time->format('Y-m-d'),
                         'lesson_time' => $lesson->lesson_start_time->format('H:i')
@@ -232,8 +232,8 @@ class LessonsController extends AppController
 
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail, [
-                        'first_name' => $lesson->booking->student->first_name,
-                        'last_name' => $lesson->booking->student->last_name,
+                        'first_name' => $lesson->booking->student->user->first_name,
+                        'last_name' => $lesson->booking->student->user->last_name,
                         'email' => $recipientEmail,
                         'lesson_date' => $lesson->lesson_start_time->format('Y-m-d'),
                         'lesson_time' => $lesson->lesson_start_time->format('H:i')

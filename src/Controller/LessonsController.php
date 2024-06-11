@@ -152,7 +152,12 @@ class LessonsController extends AppController
                 if ($this->Lessons->save($lesson)) {
                     $this->Flash->success(__('The lesson has been saved.'));
 
-                    $this->sendRescheduleNotificationEmail($lesson->booking->student_id);
+                    // Retrieve the user associated with the student and extract the email
+                    $recipientEmail = $this->Lessons->Bookings->Students->Users
+                        ->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)
+                        ->email;
+                    // Send the email notification
+                    $this->sendRescheduleNotificationEmail($recipientEmail, 'Your lesson has been rescheduled, please check your updated schedule.');
 
                     return $this->redirect(['action'=>'edit', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
@@ -337,25 +342,7 @@ class LessonsController extends AppController
         }        
     }
 
-    private function sendRescheduleNotificationEmail($studentId) {
-        // Get the student's details including the user ID
-        $student = $this->Students->get($studentId);
-    
-        if (!$student) {
-            $this->log('Failed to retrieve student details for student ID: ' . $studentId);
-            return;
-        }
-    
-        // Get the user details associated with the student
-        $user = $this->Users->get($student->user_id);
-    
-        if (!$user) {
-            $this->log('Failed to retrieve user details for student ID: ' . $studentId);
-            return;
-        }
-    
-        $recipientEmail = $user->email;
-    
+    private function sendRescheduleNotificationEmail($recipientEmail) {
         // Prepare the email
         $email = new \Cake\Mailer\Mailer('default');
         $email
@@ -369,14 +356,9 @@ class LessonsController extends AppController
     
         // Send the email
         try {
-            $result = $email->deliver();
-            if ($result) {
-                $this->log('Email sent successfully to ' . $recipientEmail);
-            } else {
-                $this->log('Failed to send email to ' . $recipientEmail);
-            }
+            $email->deliver();
         } catch (\Exception $e) {
-            $this->log('Error sending email: ' . $e->getMessage());
+            // Handle any exceptions here if needed
         }
     }
 }

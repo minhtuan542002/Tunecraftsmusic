@@ -266,9 +266,11 @@ class LessonsController extends AppController
                     $this->sendRescheduleNotificationEmail($reschedule_notification->booking->student->user->email, [
                         'first_name' => $reschedule_notification->booking->student->user->first_name,
                         'last_name' => $reschedule_notification->booking->student->user->last_name,
-                        'lesson_date' => $reschedule_notification->lesson_start_time->format('Y-m-d'),
-                        'lesson_time' => $reschedule_notification->lesson_start_time->format('H:i')
+                        'lesson_date' => $reschedule_notification->lesson_start_time->format('l d M Y'),
+                        'lesson_time' => $reschedule_notification->lesson_start_time->format('H:ia'),
                     ]);
+
+                    $this->Flash->success(__('Lesson rescheduled email sent to: ' . $reschedule_notification->booking->student->user->email));
 
                     return $this->redirect(['action'=>'edit_admin', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);

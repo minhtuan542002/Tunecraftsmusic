@@ -153,7 +153,7 @@ class LessonsController extends AppController
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     // Retrieve the student email
-                    $reschedule_notification = $this->Lessons->find($lesson->lesson_id, [
+                    $reschedule_notification = $this->Lessons->get($lesson->lesson_id, [
                         'conditions'=> [
                             'teacher_id IS NOT NULL',
                             'teacher_id' => $user->teachers[0]->teacher_id,
@@ -243,7 +243,7 @@ class LessonsController extends AppController
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     // Retrieve the student email
-                    $reschedule_notification = $this->Lessons->find($lesson->lesson_id, [
+                    $reschedule_notification = $this->Lessons->get($lesson->lesson_id, [
                         'conditions'=> [
                             'teacher_id IS NOT NULL',
                             'teacher_id' => $user->teachers[0]->teacher_id,

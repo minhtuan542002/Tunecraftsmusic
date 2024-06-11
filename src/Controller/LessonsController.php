@@ -222,7 +222,12 @@ class LessonsController extends AppController
                 if ($this->Lessons->save($lesson)) {
                     $this->Flash->success(__('The lesson has been saved.'));
 
-                    $this->sendRescheduleNotificationEmail($lesson->booking->student_id);
+                    // Retrieve the user associated with the student and extract the email
+                    $recipientEmail = $this->Lessons->Bookings->Students->Users
+                        ->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)
+                        ->email;
+                    // Send the email notification
+                    $this->sendRescheduleNotificationEmail($recipientEmail);
 
                     return $this->redirect(['action'=>'edit_admin', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);

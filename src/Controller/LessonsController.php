@@ -157,7 +157,7 @@ class LessonsController extends AppController
                         ->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)
                         ->email;
                     // Send the email notification
-                    $this->sendRescheduleNotificationEmail($recipientEmail, 'Your lesson has been rescheduled, please check your updated schedule.');
+                    $this->sendRescheduleNotificationEmail($recipientEmail);
 
                     return $this->redirect(['action'=>'edit', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);

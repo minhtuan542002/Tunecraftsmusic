@@ -223,9 +223,8 @@ class LessonsController extends AppController
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     // Retrieve the user associated with the student and extract the email
-                    $recipientEmail = $this->Lessons->Bookings->Students->Users
-                        ->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)
-                        ->email;
+                    $recipientEmail = $this->Users->get($this->Students->get($lesson->booking->student_id)->user_id)->email;
+                    
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail);
 

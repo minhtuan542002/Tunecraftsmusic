@@ -524,11 +524,12 @@ tbody tr.highlight td {
             };
             if($('#lessons-0-lesson-start-time').val()){
                 newEvent.start = $('#lessons-0-lesson-start-time').val();
-                newEvent.start = getEndTime(getDateFromString($('#lessons-0-lesson-start-time').val())).toISOString();
+                newEvent.end = getEndTime(getDateFromString($('#lessons-0-lesson-start-time').val())).toISOString();
             }
             var calendarEvents = calendar.getEvents(); // Get all events currently on the calendar
             var firstAvailableSlot = findFirstAvailableSlot(calendarEvents, newEvent);
             newEvent.start = firstAvailableSlot;
+            newEvent.end = getEndTime(firstAvailableSlot);
             //console.log(firstAvailableSlot);
             calendar.addEvent(newEvent);
             $('#write-time-start').text(newEvent.start.toLocaleString('en-AU', {
@@ -545,6 +546,7 @@ tbody tr.highlight td {
                 var endSlot = getDateFromString(newEvent.end);
                 for(i =0; i<events.length; i++) {
                     event = events[i]
+                    if (event.title != "First lesson"){
                     if (event.start <= endSlot && event.end >= firstSlotStart) {
                         firstSlotStart = event.end;
                         endSlot = getEndTime(firstSlotStart);
@@ -552,7 +554,7 @@ tbody tr.highlight td {
                         // console.log("EEEE"+event.end);
                         // console.log("LL"+firstSlotStart);
                         break;
-                    }
+                    }}
                 };
 
                 return firstSlotStart;

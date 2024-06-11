@@ -195,14 +195,19 @@ class LessonsController extends AppController
                     'teacher_id' => $user->teachers[0]->teacher_id,
                     'Bookings.student_id IS NOT NULL',
                 ],
-                'contain' => ['Bookings'],
+                'contain' => [
+                    'Bookings', 
+                    'Bookings.Packages', 
+                    'Bookings.Students',
+                    'Bookings.Students.Users'
+                ],
             ]);
             $lessons = $this->paginate($query);
             //debug($lessons);
             foreach ($lessons as $line) {
-                $package = $this->Packages->get($line->booking->package_id);
-                $student_user = $this->Students->get($line->booking->student_id);
-                $student = $this->Users->get($student_user->user_id);
+                $package = $line->booking->package;
+                $student_user = $line->booking->student;
+                $student = $student_user->user;
                 //debug($student);
                 //debug($student_user);
                 $line->student_full_name = $student->first_name." ".$student->last_name;

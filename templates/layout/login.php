@@ -11,10 +11,13 @@ use Cake\Core\Configure;
 use Cake\Routing\Router;
 
 $appLocale = Configure::read('App.defaultLocale');
+$cakeDescription = $this->ContentBlock->text('website-title');
 ?>
+
 <!DOCTYPE html>
 <html lang="<?= $appLocale ?>">
 <head>
+    <title><?= $cakeDescription ?>: Login </title>
     <title>Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

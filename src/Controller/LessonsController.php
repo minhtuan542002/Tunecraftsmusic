@@ -152,6 +152,8 @@ class LessonsController extends AppController
                 if ($this->Lessons->save($lesson)) {
                     $this->Flash->success(__('The lesson has been saved.'));
 
+                    $this->sendRescheduleNotificationEmail($lesson->booking->student_id);
+
                     return $this->redirect(['action'=>'edit', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
                 }
@@ -213,36 +215,9 @@ class LessonsController extends AppController
                 //debug($lesson);
                 $lesson = $this->Lessons->patchEntity($lesson, $this->request->getData());
                 if ($this->Lessons->save($lesson)) {
-                    // Now let's send the password reset email
-                    $mailer = new Mailer('default');
-
-                    // email basic config
-                    $mailer
-                        ->setEmailFormat('both')
-                        ->setTo($user->email)
-                        ->setSubject('Reset your account password');
-
-                    // select email template
-                    $mailer
-                        ->viewBuilder()
-                        ->setTemplate('reset_password');
-
-                    // transfer required view variables to email template
-                    $mailer
-                        ->setViewVars([
-                            'first_name' => $user->first_name,
-                            'last_name' => $user->last_name,
-                            'nonce' => $user->nonce,
-                            'email' => $user->email
-                        ]);
-
-                    //Send email
-                    if (!$mailer->deliver()) {
-                        // Just in case something goes wrong when sending emails
-                        $this->Flash->error('We have encountered an issue when sending you emails. Please try again. ');
-                        return $this->render();  // Skip the rest of the controller and render the view
-                    }
                     $this->Flash->success(__('The lesson has been saved.'));
+
+                    $this->sendRescheduleNotificationEmail($lesson->booking->student_id);
 
                     return $this->redirect(['action'=>'edit_admin', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
@@ -360,5 +335,35 @@ class LessonsController extends AppController
             }
             $this->set(compact('lessons'));
         }        
+    }
+
+    private function sendRescheduleNotificationEmail($studentId, $lesson) {
+        $student = $this->Students->get($studentId, ['contain' => 'Users']);
+        $user = $student->user;
+    
+        $newLessonDateTime = $lesson->lesson_start_time->i18nFormat('yyyy-MM-dd HH:mm:ss');
+        $teacherFullName = $lesson->teacher->user->first_name . ' ' . $lesson->teacher->user->last_name;
+    
+        $mailer = new Mailer('default');
+        $mailer
+            ->setTo($user->email)
+            ->setSubject('Lesson Rescheduled')
+            ->setEmailFormat('both')
+            ->setTemplate('reschedule_notification')
+            ->setViewVars([
+                'studentName' => $user->first_name,
+                'newLessonDateTime' => $newLessonDateTime,
+                'lessonDuration' => $lesson->duration,
+                'teacherName' => $teacherFullName,
+                'bookingId' => $lesson->booking->id,
+                'bookingPackage' => $lesson->booking->package_name,
+                'bookingPaymentStatus' => $lesson->booking->is_paid,
+            ]);
+    
+        // Send email
+        if (!$mailer->deliver()) {
+            // Handle email delivery failure
+            $this->log('Failed to send reschedule notification email to ' . $user->email);
+        }
     }
 }

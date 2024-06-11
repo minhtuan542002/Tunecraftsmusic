@@ -337,33 +337,46 @@ class LessonsController extends AppController
         }        
     }
 
-    private function sendRescheduleNotificationEmail($studentId, $lesson) {
-        $student = $this->Students->get($studentId, ['contain' => 'Users']);
-        $user = $student->user;
+    private function sendRescheduleNotificationEmail($studentId) {
+        // Get the student's details including the user ID
+        $student = $this->Students->get($studentId);
     
-        $newLessonDateTime = $lesson->lesson_start_time->i18nFormat('yyyy-MM-dd HH:mm:ss');
-        $teacherFullName = $lesson->teacher->user->first_name . ' ' . $lesson->teacher->user->last_name;
+        if (!$student) {
+            $this->log('Failed to retrieve student details for student ID: ' . $studentId);
+            return;
+        }
     
-        $mailer = new Mailer('default');
-        $mailer
-            ->setTo($user->email)
-            ->setSubject('Lesson Rescheduled')
+        // Get the user details associated with the student
+        $user = $this->Users->get($student->user_id);
+    
+        if (!$user) {
+            $this->log('Failed to retrieve user details for student ID: ' . $studentId);
+            return;
+        }
+    
+        $recipientEmail = $user->email;
+    
+        // Prepare the email
+        $email = new \Cake\Mailer\Mailer('default');
+        $email
+            ->setTo($recipientEmail)
+            ->setSubject('Rescheduled Lesson')
             ->setEmailFormat('both')
-            ->setTemplate('reschedule_notification')
+            ->setTemplate('default')
             ->setViewVars([
-                'studentName' => $user->first_name,
-                'newLessonDateTime' => $newLessonDateTime,
-                'lessonDuration' => $lesson->duration,
-                'teacherName' => $teacherFullName,
-                'bookingId' => $lesson->booking->id,
-                'bookingPackage' => $lesson->booking->package_name,
-                'bookingPaymentStatus' => $lesson->booking->is_paid,
+                'content' => 'Your lesson has been rescheduled, please check your updated schedule.'
             ]);
     
-        // Send email
-        if (!$mailer->deliver()) {
-            // Handle email delivery failure
-            $this->log('Failed to send reschedule notification email to ' . $user->email);
+        // Send the email
+        try {
+            $result = $email->deliver();
+            if ($result) {
+                $this->log('Email sent successfully to ' . $recipientEmail);
+            } else {
+                $this->log('Failed to send email to ' . $recipientEmail);
+            }
+        } catch (\Exception $e) {
+            $this->log('Error sending email: ' . $e->getMessage());
         }
     }
 }

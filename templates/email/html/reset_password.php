@@ -57,7 +57,7 @@
                     Please discard this email if it not meant for you
                     <br>
                     <br>
-                    Copyright &copy; <?= date("Y"); ?> Monash FIT Industry Experience
+                    Copyright &copy; <?= date("Y"); ?> Tunecrafts Music
                 </td>
             </tr>
         </table>

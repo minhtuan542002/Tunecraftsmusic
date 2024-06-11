@@ -24,4 +24,4 @@ To reset your account password, use the button below to access the reset passwor
 This email is addressed to <?= $first_name ?>  <?= $last_name ?> <<?= $email ?>>
 Please discard this email if it not meant for you
 
-Copyright (c) <?= date("Y"); ?> Monash FIT Industry Experience
+Copyright (c) <?= date("Y"); ?> Tunecrafts Music

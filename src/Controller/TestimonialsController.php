@@ -54,7 +54,7 @@ class TestimonialsController extends AppController
     public function index()
     {
         $query = $this->Testimonials->find();
-        $testimonials = $this->paginate($query);
+        $testimonials = $query->all();
 
         $this->set(compact('testimonials'));
     }

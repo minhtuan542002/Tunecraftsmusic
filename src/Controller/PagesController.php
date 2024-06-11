@@ -106,16 +106,16 @@ class PagesController extends AppController
         // Load Packages
         $this->Packages = $this->fetchTable('Packages');
         $packages_query = $this->Packages->find();
-        $packages = $this->paginate($packages_query);
+        $packages = $packages_query->all();
 //        dd($packages);
         // Load Testimonials
         $this->testimonials = $this->fetchTable('Testimonials');
         $testimonials_query = $this->testimonials->find();
-        $testimonials = $this->paginate($testimonials_query);
+        $testimonials = $testimonials_query->all();
         // Load Learning Resources
         $this->resources = $this->fetchTable('Resources');
         $resources_query = $this->resources->find();
-        $resources = $this->paginate($resources_query);
+        $resources = $resources_query->all();
 
         $this->set(compact('page', 'subpage', 'packages', 'testimonials', 'resources'));
 

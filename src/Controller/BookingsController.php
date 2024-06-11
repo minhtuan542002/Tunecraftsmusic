@@ -71,7 +71,7 @@ class BookingsController extends AppController
                     ],
                     'contain' => ['Students', 'Lessons', 'Packages', 'Students.Users'],
                 ]);
-                $bookings = $this->paginate($query);
+                $bookings = $query->all();
                 //debug($bookings);
                 
                 foreach($bookings as $booking){
@@ -124,7 +124,7 @@ class BookingsController extends AppController
                     ],
                     'contain' => ['Packages', 'Lessons'],
                 ]);
-                $bookings = $this->paginate($query);
+                $bookings = $query->all();
                 
                 //debug($bookings);
                 foreach($bookings as $booking){
@@ -166,14 +166,13 @@ class BookingsController extends AppController
         if($this->role_id==3){
             $this->Lessons = $this->fetchTable('Lessons');
             $booking = $this->Bookings->get($id, [
-                'contain' => ['Students', 'Packages'],
+                'contain' => ['Students', 'Packages', 'Students.Users'],
             ]);
             $lessons = $this->Lessons->find('all', [
                 'conditions'=> [
                     'booking_id' => $booking->booking_id,
                 ],
             ])->all();
-            $booking->student->user = $this->Users->get($booking->student->user_id);
             foreach($lessons as $lesson){
                 if($lesson->lesson_start_time >= date('Y-m-d H:i:s')){
                     $booking->remain_count++;
@@ -278,7 +277,7 @@ class BookingsController extends AppController
                 'teacher_id' => '1',
             ],
         ]);
-        $blockers = $this->paginate($query);
+        $blockers = $query->all();
         $this->set('blockers', $blockers);
 
         //Actual booking logic start--------------------------------------------------
@@ -289,7 +288,7 @@ class BookingsController extends AppController
                 'is_deleted' => false,
             ],
         ]);
-        $packages = $this->paginate($query);
+        $packages = $query->all();
         //debug($packages);
         $booking = $this->Bookings->newEmptyEntity();
         $user=null;
@@ -382,13 +381,12 @@ class BookingsController extends AppController
                                     'Bookings.student_id IS NOT NULL',
                                     'lesson_start_time <=' => $end_date,
                                 ],
-                                'contain' => ['Bookings'],
+                                'contain' => ['Bookings', 'Bookings.Packages'],
                             ]);
-                            $block_lesson = $this->paginate($query);
+                            $block_lesson = $query->all();
                             $is_blocked = false;
                             foreach($block_lesson as $line) {
-                                $package_line = $this->Packages->get(
-                                    $line->booking->package_id);
+                                $package_line = $line->booking->package;
                                 $line_end = $line->lesson_start_time;
                                 $line_end->modify("+". 
                                     $package_line->lesson_duration_minutes ." minutes");
@@ -406,7 +404,7 @@ class BookingsController extends AppController
                                     'end_time >' => $start_date,
                                 ],
                             ]);
-                            $block_blockers = $this->paginate($query);
+                            $block_blockers = $query->all();
                             if(sizeof($block_blockers) != 0){
                                 $is_blocked = true;
                             }

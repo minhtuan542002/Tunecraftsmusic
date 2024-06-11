@@ -64,7 +64,7 @@ class BlockersController extends AppController
                     'Bookings.Students.Users'
                 ],
             ]);
-            $lessons = $this->paginate($query);
+            $lessons = $query->all();
             //debug($lessons);
             foreach ($lessons as $line) {
                 $package = $line->booking->package;
@@ -87,7 +87,7 @@ class BlockersController extends AppController
                 'teacher_id' => $user->teachers[0]->teacher_id,
             ],
         ]);
-        $blockers = $this->paginate($query);
+        $blockers = $query->all();
         $this->set('blockers', $blockers);
     }
 

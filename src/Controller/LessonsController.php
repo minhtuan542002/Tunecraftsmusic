@@ -104,11 +104,11 @@ class LessonsController extends AppController
                     'Bookings.student_id <>' => $user->students[0]->student_id,
                     'lesson_start_time <=' => FrozenTime::now()->modify('+7 days'),
                 ],
-                'contain' => ['Bookings'],
+                'contain' => ['Bookings'. 'Bookings.Packages'],
             ]);
             $block_lessons = $this->paginate($query);
             foreach ($block_lessons as $line) {
-                $package = $this->Packages->get($line->booking->package_id);
+                $package = $line->booking->package;
                 $line->duration = $package->lesson_duration_minutes;
                 $end_datetime = $line->lesson_start_time;
                 $line->lesson_end_time = $end_datetime->modify(
@@ -120,14 +120,20 @@ class LessonsController extends AppController
                     'teacher_id IS NOT NULL',
                     'teacher_id' => '1',
                 ],
+                'contain' => [
+                    'Bookings', 
+                    'Bookings.Packages', 
+                    'Bookings.Students',
+                    'Bookings.Students.Users'
+                ],
             ]);
             $blockers = $this->paginate($query);
             $this->set('blockers', $blockers);
             
             foreach ($lessons as $line) {
-                $package = $this->Packages->get($line->booking->package_id);
-                $student_user = $this->Students->get($line->booking->student_id);
-                $student = $this->Users->get($student_user->user_id);
+                $package = $line->booking->package;
+                $student_user = $line->booking->student;
+                $student = $student_user->user;
                 //debug($student);
                 //debug($student_user);
                 $line->student_full_name = $student->first_name." ".$student->last_name;
@@ -297,14 +303,19 @@ class LessonsController extends AppController
                     'teacher_id' => $user->teachers[0]->teacher_id,
                     'Bookings.student_id IS NOT NULL',
                 ],
-                'contain' => ['Bookings'],
+                'contain' => [
+                    'Bookings', 
+                    'Bookings.Packages', 
+                    'Bookings.Students',
+                    'Bookings.Students.Users'
+                ],
             ]);
             $lessons = $this->paginate($query);
             //debug($blockers);
             foreach ($lessons as $lesson) {
-                $package = $this->Packages->get($lesson->booking->package_id);
-                $student_user = $this->Students->get($lesson->booking->student_id);
-                $student = $this->Users->get($student_user->user_id);
+                $package = $lesson->booking->package;
+                $student_user = $lesson->booking->student;
+                $student = $student_user->user;
                 //debug($student);
                 //debug($student_user);
                 $lesson->student_name = $student->first_name;
@@ -351,14 +362,19 @@ class LessonsController extends AppController
                     'Bookings.student_id IS NOT NULL',
                     'Bookings.student_id' => $user->students[0]->student_id,
                 ],
-                'contain' => ['Bookings'],
+                'contain' => [
+                    'Bookings', 
+                    'Bookings.Packages', 
+                    'Bookings.Students',
+                    'Bookings.Students.Users'
+                ],
             ]);
             $lessons = $this->paginate($query);
             //debug($blockers);
             foreach ($lessons as $lesson) {
-                $package = $this->Packages->get($lesson->booking->package_id);
-                $student_user = $this->Students->get($lesson->booking->student_id);
-                $student = $this->Users->get($student_user->user_id);
+                $package = $lesson->booking->package;
+                $student_user = $lesson->booking->student;
+                $student = $student_user->user;
                 //debug($student);
                 //debug($student_user);
                 $lesson->student_name = $student->first_name;

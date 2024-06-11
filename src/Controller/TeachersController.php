@@ -54,7 +54,7 @@ class TeachersController extends AppController
     {
         $query = $this->Teachers->find()
             ->contain(['Users']);
-        $teachers = $this->paginate($query);
+        $teachers = $query->all();
 
         $this->set(compact('teachers'));
     }

@@ -59,7 +59,7 @@ class PackagesController extends AppController
                 'is_deleted' => false,
             ],
         ]);
-        $packages = $this->paginate($query);
+        $packages = $query->all();
         //debug($packages);
         $this->set(compact('packages'));
     }

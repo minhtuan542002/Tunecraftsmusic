@@ -54,7 +54,7 @@ class ResourcesController extends AppController
     public function index()
     {
         $query = $this->Resources->find();
-        $resources = $this->paginate($query);
+        $resources = $query->all();
 
         $this->set(compact('resources'));
     }

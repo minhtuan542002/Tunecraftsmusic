@@ -55,7 +55,7 @@ class UsersController extends AppController
     {        
         $query = $this->Users->find()
             ->contain(['Roles']);
-        $users = $this->paginate($query);
+        $users = $query->all();
 
         $this->set(compact('users'));
     }

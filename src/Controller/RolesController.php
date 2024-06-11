@@ -48,7 +48,7 @@ class RolesController extends AppController
     public function index()
     {
         $query = $this->Roles->find();
-        $roles = $this->paginate($query);
+        $roles = $query->all();
 
         $this->set(compact('roles'));
     }

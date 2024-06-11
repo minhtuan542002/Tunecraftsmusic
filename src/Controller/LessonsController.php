@@ -152,10 +152,9 @@ class LessonsController extends AppController
                 if ($this->Lessons->save($lesson)) {
                     $this->Flash->success(__('The lesson has been saved.'));
 
-                    // Retrieve the user associated with the student and extract the email
-                    $recipientEmail = $this->Lessons->Bookings->Students->Users
-                        ->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)
-                        ->email;
+                    // Retrieve the student email
+                    $recipientEmail = $this->Users->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)->email;
+
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail);
 
@@ -222,9 +221,9 @@ class LessonsController extends AppController
                 if ($this->Lessons->save($lesson)) {
                     $this->Flash->success(__('The lesson has been saved.'));
 
-                    // Retrieve the user associated with the student and extract the email
-                    $recipientEmail = $this->Users->get($this->Students->get($lesson->booking->student_id)->user_id)->email;
-                    
+                    // Retrieve the student email
+                    $recipientEmail = $this->Users->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)->email;
+
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail);
 
@@ -348,21 +347,30 @@ class LessonsController extends AppController
 
     private function sendRescheduleNotificationEmail($recipientEmail) {
         // Prepare the email
-        $email = new \Cake\Mailer\Mailer('default');
+        $email = new Mailer('default');
         $email
-            ->setTo($recipientEmail)
-            ->setSubject('Rescheduled Lesson')
             ->setEmailFormat('both')
-            ->setTemplate('default')
+            ->setTo($recipientEmail)
+            ->setSubject('Rescheduled Lesson');
+    
+        // Select email template
+        $email
+            ->viewBuilder()
+            ->setTemplate('default');
+    
+        // Transfer required view variables to email template
+        $email
             ->setViewVars([
                 'content' => 'Your lesson has been rescheduled, please check your updated schedule.'
             ]);
     
-        // Send the email
-        try {
-            $email->deliver();
-        } catch (\Exception $e) {
-            // Handle any exceptions here if needed
+        // Send email
+        if (!$email->deliver()) {
+            // Handle any errors in email delivery
+            $this->Flash->error('We encountered an issue when sending the reschedule notification email. Please try again.');
+            return false;
         }
+        return true;
     }
+    
 }

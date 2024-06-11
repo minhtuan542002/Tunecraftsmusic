@@ -20,7 +20,7 @@
                         <td>
                             <h3>Reset your account password</h3>
                             <p>Hi <?= h($first_name) ?>, </p>
-                            <p>Thank you for your request to reset the password of your account on <b>Cake CMS/Auth Sample</b>. </p>
+                            <p>Thank you for your request to reset the password of your account on <b>Tunecrafts Music</b>. </p>
                             <p></p>
                             <p>To reset your account password, use the button below to access the reset password page: </p>
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">

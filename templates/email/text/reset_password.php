@@ -14,7 +14,7 @@ Reset your account password
 
 Hi <?= h($first_name) ?>,
 
-Thank you for your request to reset the password of your account on Cake CMS/Auth Sample.
+Thank you for your request to reset the password of your account on Tunecrafts Music.
 
 To reset your account password, use the button below to access the reset password page:
 <?= $this->Url->build(['controller' => 'Auth', 'action' => 'resetPassword', $nonce], ['fullBase' => true]) ?>
@@ -24,4 +24,4 @@ To reset your account password, use the button below to access the reset passwor
 This email is addressed to <?= $first_name ?>  <?= $last_name ?> <<?= $email ?>>
 Please discard this email if it not meant for you
 
-Copyright (c) <?= date("Y"); ?> Monash FIT Industry Experience
+Copyright (c) <?= date("Y"); ?> Tunecrafts Music

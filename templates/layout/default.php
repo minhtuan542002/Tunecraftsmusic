@@ -34,7 +34,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
   <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
-    </title>
+  </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

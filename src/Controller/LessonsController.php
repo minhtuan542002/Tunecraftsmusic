@@ -223,7 +223,7 @@ class LessonsController extends AppController
 
                     // Retrieve the student email
                     $recipientEmail = $this->Users->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)->email;
-                    $this->Flash->$recipientEmail;
+                    $this->Flash->success(__($recipientEmail));
 
                     // Send the email notification
                     $this->sendRescheduleNotificationEmail($recipientEmail);

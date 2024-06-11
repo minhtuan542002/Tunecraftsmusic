@@ -153,10 +153,16 @@ class LessonsController extends AppController
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     // Retrieve the student email
-                    $recipientEmail = $this->Users->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)->email;
+                    $recipientEmail = $lesson->booking->student->user->email;
 
                     // Send the email notification
-                    $this->sendRescheduleNotificationEmail($recipientEmail);
+                    $this->sendRescheduleNotificationEmail($recipientEmail, [
+                        'first_name' => $lesson->booking->student->first_name,
+                        'last_name' => $lesson->booking->student->last_name,
+                        'email' => $recipientEmail,
+                        'lesson_date' => $lesson->lesson_start_time->format('Y-m-d'),
+                        'lesson_time' => $lesson->lesson_start_time->format('H:i')
+                    ]);
 
                     return $this->redirect(['action'=>'edit', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
@@ -222,11 +228,16 @@ class LessonsController extends AppController
                     $this->Flash->success(__('The lesson has been saved.'));
 
                     // Retrieve the student email
-                    $recipientEmail = $this->Users->get($this->Lessons->Bookings->get($lesson->booking_id)->student_id)->email;
-                    $this->Flash->success(__($recipientEmail));
+                    $recipientEmail = $lesson->booking->student->user->email;
 
                     // Send the email notification
-                    $this->sendRescheduleNotificationEmail($recipientEmail);
+                    $this->sendRescheduleNotificationEmail($recipientEmail, [
+                        'first_name' => $lesson->booking->student->first_name,
+                        'last_name' => $lesson->booking->student->last_name,
+                        'email' => $recipientEmail,
+                        'lesson_date' => $lesson->lesson_start_time->format('Y-m-d'),
+                        'lesson_time' => $lesson->lesson_start_time->format('H:i')
+                    ]);
 
                     return $this->redirect(['action'=>'edit_admin', $id]);
                     //return $this->redirect(['controller' => 'bookings', 'action' => 'view', $lesson->booking_id]);
@@ -346,25 +357,29 @@ class LessonsController extends AppController
         }        
     }
 
-    private function sendRescheduleNotificationEmail($recipientEmail) {
+    private function sendRescheduleNotificationEmail($recipientEmail, $lessonDetails) {
         // Prepare the email
         $email = new Mailer('default');
         $email
             ->setEmailFormat('both')
             ->setTo($recipientEmail)
-            ->setSubject('Rescheduled Lesson');
-    
+            ->setSubject('Lesson Rescheduled');
+        
         // Select email template
         $email
             ->viewBuilder()
-            ->setTemplate('default');
-    
+            ->setTemplate('reschedule_notification');
+        
         // Transfer required view variables to email template
         $email
             ->setViewVars([
-                'content' => 'Your lesson has been rescheduled, please check your updated schedule.'
+                'first_name' => $lessonDetails['first_name'],
+                'last_name' => $lessonDetails['last_name'],
+                'email' => $lessonDetails['email'],
+                'lesson_date' => $lessonDetails['lesson_date'],
+                'lesson_time' => $lessonDetails['lesson_time']
             ]);
-    
+        
         // Send email
         if (!$email->deliver()) {
             // Handle any errors in email delivery
@@ -373,5 +388,6 @@ class LessonsController extends AppController
         }
         return true;
     }
+    
     
 }

@@ -288,7 +288,7 @@ class BookingsController extends AppController
                 'is_deleted' => false,
             ],
         ]);
-        $packages = $query->all();
+        $packages = $this->paginate($query);
         //debug($packages);
         $booking = $this->Bookings->newEmptyEntity();
         $user=null;

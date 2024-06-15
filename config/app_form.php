@@ -11,9 +11,9 @@ return [
      * https://api.cakephp.org/3.6/class-Cake.View.Helper.FormHelper.html#%24_defaultConfig so that they look
      * more like what the "Modular Default HTML" template (https://github.com/modularcode/modular-Default-html) uses.
      */
-    'inputContainer' => '<div class="form-group mb-3 row {{class}}">{{content}}</div>',
+    'inputContainer' => '<div class="form-group mb-3 row {{inputContainerClass}}">{{content}}</div>',
     'label' => '<label class="col-sm-2 col-form-label" {{attrs}}><span>{{text}}</span></label>',
-    'input' => '<div class="col-sm-10">
+    'input' => '<div class="col-sm-10 {{inputClass}}">
         <input type="{{type}}" name="{{name}}" class="form-control underlined" {{attrs}}/>
         </div>',
     'textarea' => '<div class="col-sm-10">

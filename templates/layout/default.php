@@ -131,7 +131,16 @@ $cakeDescription = $this->ContentBlock->text('website-title');
           <a <?= ($this->getRequest()->getRequestTarget() === '/learning-resources') ? 'class="active"' : '' ?>
               href="<?= $this->Url->build('/learning-resources') ?>">Learning Resources</a>
         </li>
-
+        <?php if ($loggedIn): ?>
+          <li class="dropdown"><a href="#"><span>My Account</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul>
+                
+                <li><a href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'changePassword']) ?>">Change Password</a></li>
+                <li><a href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Log Out</a></li>
+              </ul>
+            </li>
+        <!-- <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Logout</a> -->
+        <?php endif; ?>
             <!--
             <li><a <?= ($this->getRequest()->getRequestTarget() === '/gallery') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/gallery') ?>">Gallery</a></li>
             <li><a <?= ($this->getRequest()->getRequestTarget() === '/contact') ? 'class="active"' : '' ?> href="<?= $this->Url->build('/contact') ?>">Contact Us</a></li>
@@ -165,7 +174,7 @@ $cakeDescription = $this->ContentBlock->text('website-title');
       </nav><!-- .navbar -->
 
       <?php if ($loggedIn): ?>
-      <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'logout']) ?>">Logout</a>
+        <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'booking', 'action'=>'add']) ?>">New Booking</a>
       <?php else: ?>
         <a class="btn-book-a-table" href="<?= $this->Url->build(['controller'=>'auth', 'action'=>'login']) ?>">Login</a>
       <?php endif; ?>

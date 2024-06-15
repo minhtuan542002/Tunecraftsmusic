@@ -190,27 +190,22 @@ class AuthController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function changePassword($id = null)
+    public function changePassword()
     {
-        if ($this->user_id == $id) {
-            $user = $this->Users->get($id, [
-                'contain' => [],
-            ]);
-            if ($this->request->is(['patch', 'post', 'put'])) {
-                // Used a different validation set in Model/Table file to ensure both fields are filled
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-                if ($this->Users->save($user)) {
-                    $this->Flash->success('The user has been saved.');
-    
-                    return $this->redirect(['controller' => 'Users', 'action' => 'index']);
-                }
-                $this->Flash->error('The user could not be saved. Please, try again.');
+        $user = $this->Users->get($this->user_id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            // Used a different validation set in Model/Table file to ensure both fields are filled
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success('The user has been saved.');
+
+                return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
-            $this->set(compact('user'));
+            $this->Flash->error('The user could not be saved. Please, try again.');
         }
-        else {
-            return $this->redirect(['controller' => 'Auth', 'action' => 'changePassword', $this->user_id]);
-        }
+        $this->set(compact('user'));
     }
 
     /**

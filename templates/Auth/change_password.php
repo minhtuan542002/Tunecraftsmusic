@@ -5,24 +5,27 @@
  */
 
 $this->assign('title', 'Change User Password - Users');
-
+$this->loadHelper('Form', [
+  'templates' => 'app_form',
+]);
 ?>
 
-<div class="container login-div section-bg">
+<div class="container login-div section-bg my-3">
     <div class="users form content">
 
         <?= $this->Form->create($user) ?>
 
         <fieldset>
 
-            <legend>Change Password for <u><?= h($user->first_name) ?> <?= h($user->last_name) ?></u></legend>
-
+            <legend class ="my-3">
+              Change Password for <?= h($user->first_name) ?> <?= h($user->last_name) ?>
+            </legend>
             <div class="row">
                 <?php
                 echo $this->Form->control('password', [
                     'label' => 'New Password',
                     'value' => '',  // Ensure password is not sending back to the client side
-                    'templateVars' => ['container_class' => 'column']
+                    'templateVars' => ['inputClass'=> 'show_hide_password']
                 ]);
                 // Validate password by repeating it
                 echo $this->Form->control('password_confirm', [
@@ -42,14 +45,7 @@ $this->assign('title', 'Change User Password - Users');
     </div>
 </div>
 <style>
-@media screen and (min-width: 1280px) {
-  .login-div {
-    width: 25%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .login-div {
-    width: 100%;
-  }
+.container.login-div {
+  min-height: 55vh;
 }
 </style>
